@@ -1,5 +1,8 @@
 import com.google.protobuf.InvalidProtocolBufferException;
-import top.fengye.rpc.grpc.GrpcStub;
+import io.vertx.core.Vertx;
+import top.fengye.rpc.grpc.Grpc;
+import top.fengye.rpc.grpc.VertxRaftGrpcClient;
+import top.fengye.rpc.grpc.VertxRaftGrpcServer;
 
 /**
  * @author: FengYe
@@ -7,12 +10,19 @@ import top.fengye.rpc.grpc.GrpcStub;
  * @description: Test
  */
 public class Test {
-    public static void main(String[] args) throws InvalidProtocolBufferException {
-        GrpcStub.HelloRequest test = GrpcStub.HelloRequest.newBuilder().setName("test").build();
+    public static void main(String[] args) throws InvalidProtocolBufferException, InterruptedException {
 
-        byte[] byteArray = test.toByteArray();
-        GrpcStub.HelloRequest helloRequest = GrpcStub.HelloRequest.parseFrom(byteArray);
+        Vertx vertx = Vertx.vertx();
 
-        System.out.println(helloRequest.toString());
+        TestServerVerticle testServerVerticle = new TestServerVerticle();
+        vertx.deployVerticle(testServerVerticle);
+
+        Thread.sleep(3000L);
+
+
+        TestClientVerticle testClientVerticle = new TestClientVerticle();
+        vertx.deployVerticle(testClientVerticle);
+
+        while (true);
     }
 }

@@ -1,17 +1,27 @@
 syntax = "proto3";
 
-option java_outer_classname = "GrpcStub";
-option swift_prefix = "";
+
 package top.fengye.rpc.grpc;
 
 service Raft {
-  rpc appendEntries (HelloRequest) returns (HelloResponse);
+  rpc appendEntries (AppendEntriesRequest) returns (AppendEntriesResponse);
+
+  rpc applyVote (ApplyVoteRequest) returns (ApplyVoteResponse);
 }
 
-message HelloRequest {
-  string name = 1;
+message AppendEntriesRequest {
+  string id = 1;
 }
 
-message HelloResponse {
-  string message = 1;
+message AppendEntriesResponse {
+  string id = 1;
 }
+
+message ApplyVoteRequest{
+  string id = 1;
+}
+
+message ApplyVoteResponse {
+  string id = 1;
+}
+
