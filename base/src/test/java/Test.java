@@ -1,5 +1,7 @@
 import com.google.protobuf.InvalidProtocolBufferException;
 import io.vertx.core.Vertx;
+import top.fengye.biz.Biz;
+import top.fengye.rpc.grpc.BizParam;
 import top.fengye.rpc.grpc.Grpc;
 import top.fengye.rpc.grpc.VertxRaftGrpcClient;
 import top.fengye.rpc.grpc.VertxRaftGrpcServer;
@@ -24,5 +26,8 @@ public class Test {
         vertx.deployVerticle(testClientVerticle);
 
         while (true);
+
+
+        Grpc.ApplyVoteRequest
     }
 }

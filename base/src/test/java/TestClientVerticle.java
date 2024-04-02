@@ -19,9 +19,9 @@ public class TestClientVerticle extends AbstractVerticle {
         GrpcClient grpcClient = GrpcClient.client(vertx);
         SocketAddress server = SocketAddress.inetSocketAddress(1234, "localhost");
         VertxRaftGrpcClient client = new VertxRaftGrpcClient(grpcClient, server);
-        client.appendEntries(Grpc.AppendEntriesRequest.newBuilder().setId("request").build())
+        client.appendEntries(Grpc.AppendEntriesRequest.newBuilder().setNodeId("request").build())
                 .onSuccess(response->{
-                    System.out.println(response.getId());
+                    System.out.println(response.getNodeId());
                 });
     }
 }

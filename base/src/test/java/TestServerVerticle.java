@@ -26,8 +26,8 @@ public class TestServerVerticle extends AbstractVerticle {
         VertxRaftGrpcServer.RaftApi stub = new VertxRaftGrpcServer.RaftApi() {
             @Override
             public void appendEntries(Grpc.AppendEntriesRequest request, Promise<Grpc.AppendEntriesResponse> response) {
-                System.out.println(request.getId());
-                response.complete(Grpc.AppendEntriesResponse.newBuilder().setId("response").build());
+                System.out.println(request.getNodeId());
+                response.complete(Grpc.AppendEntriesResponse.newBuilder().setNodeId("response").build());
             }
         };
 

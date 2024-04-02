@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+
+package top.fengye.rpc.grpc;
+
+
+message Command {
+  CommandType type = 1;
+  string key = 2;
+  string value = 3;
+}
+
+enum CommandType {
+  GET = 0;
+  PUT = 1;
+}

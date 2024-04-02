@@ -19,16 +19,31 @@ public final class Grpc {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string id = 1;</code>
-     * @return The id.
+     * <code>string nodeId = 1;</code>
+     * @return The nodeId.
      */
-    java.lang.String getId();
+    java.lang.String getNodeId();
     /**
-     * <code>string id = 1;</code>
-     * @return The bytes for id.
+     * <code>string nodeId = 1;</code>
+     * @return The bytes for nodeId.
      */
     com.google.protobuf.ByteString
-        getIdBytes();
+        getNodeIdBytes();
+
+    /**
+     * <code>.top.fengye.rpc.grpc.Command command = 2;</code>
+     * @return Whether the command field is set.
+     */
+    boolean hasCommand();
+    /**
+     * <code>.top.fengye.rpc.grpc.Command command = 2;</code>
+     * @return The command.
+     */
+    top.fengye.rpc.grpc.BizParam.Command getCommand();
+    /**
+     * <code>.top.fengye.rpc.grpc.Command command = 2;</code>
+     */
+    top.fengye.rpc.grpc.BizParam.CommandOrBuilder getCommandOrBuilder();
   }
   /**
    * Protobuf type {@code top.fengye.rpc.grpc.AppendEntriesRequest}
@@ -43,7 +58,7 @@ public final class Grpc {
       super(builder);
     }
     private AppendEntriesRequest() {
-      id_ = "";
+      nodeId_ = "";
     }
 
     @java.lang.Override
@@ -71,43 +86,69 @@ public final class Grpc {
               top.fengye.rpc.grpc.Grpc.AppendEntriesRequest.class, top.fengye.rpc.grpc.Grpc.AppendEntriesRequest.Builder.class);
     }
 
-    public static final int ID_FIELD_NUMBER = 1;
+    public static final int NODEID_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
-    private volatile java.lang.Object id_ = "";
+    private volatile java.lang.Object nodeId_ = "";
     /**
-     * <code>string id = 1;</code>
-     * @return The id.
+     * <code>string nodeId = 1;</code>
+     * @return The nodeId.
      */
     @java.lang.Override
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
+    public java.lang.String getNodeId() {
+      java.lang.Object ref = nodeId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        id_ = s;
+        nodeId_ = s;
         return s;
       }
     }
     /**
-     * <code>string id = 1;</code>
-     * @return The bytes for id.
+     * <code>string nodeId = 1;</code>
+     * @return The bytes for nodeId.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
+        getNodeIdBytes() {
+      java.lang.Object ref = nodeId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        id_ = b;
+        nodeId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
+    }
+
+    public static final int COMMAND_FIELD_NUMBER = 2;
+    private top.fengye.rpc.grpc.BizParam.Command command_;
+    /**
+     * <code>.top.fengye.rpc.grpc.Command command = 2;</code>
+     * @return Whether the command field is set.
+     */
+    @java.lang.Override
+    public boolean hasCommand() {
+      return command_ != null;
+    }
+    /**
+     * <code>.top.fengye.rpc.grpc.Command command = 2;</code>
+     * @return The command.
+     */
+    @java.lang.Override
+    public top.fengye.rpc.grpc.BizParam.Command getCommand() {
+      return command_ == null ? top.fengye.rpc.grpc.BizParam.Command.getDefaultInstance() : command_;
+    }
+    /**
+     * <code>.top.fengye.rpc.grpc.Command command = 2;</code>
+     */
+    @java.lang.Override
+    public top.fengye.rpc.grpc.BizParam.CommandOrBuilder getCommandOrBuilder() {
+      return command_ == null ? top.fengye.rpc.grpc.BizParam.Command.getDefaultInstance() : command_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -124,8 +165,11 @@ public final class Grpc {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(id_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, nodeId_);
+      }
+      if (command_ != null) {
+        output.writeMessage(2, getCommand());
       }
       getUnknownFields().writeTo(output);
     }
@@ -136,8 +180,12 @@ public final class Grpc {
       if (size != -1) return size;
 
       size = 0;
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(id_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, nodeId_);
+      }
+      if (command_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getCommand());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -154,8 +202,13 @@ public final class Grpc {
       }
       top.fengye.rpc.grpc.Grpc.AppendEntriesRequest other = (top.fengye.rpc.grpc.Grpc.AppendEntriesRequest) obj;
 
-      if (!getId()
-          .equals(other.getId())) return false;
+      if (!getNodeId()
+          .equals(other.getNodeId())) return false;
+      if (hasCommand() != other.hasCommand()) return false;
+      if (hasCommand()) {
+        if (!getCommand()
+            .equals(other.getCommand())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -167,8 +220,12 @@ public final class Grpc {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + NODEID_FIELD_NUMBER;
+      hash = (53 * hash) + getNodeId().hashCode();
+      if (hasCommand()) {
+        hash = (37 * hash) + COMMAND_FIELD_NUMBER;
+        hash = (53 * hash) + getCommand().hashCode();
+      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -298,7 +355,12 @@ public final class Grpc {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        id_ = "";
+        nodeId_ = "";
+        command_ = null;
+        if (commandBuilder_ != null) {
+          commandBuilder_.dispose();
+          commandBuilder_ = null;
+        }
         return this;
       }
 
@@ -333,7 +395,12 @@ public final class Grpc {
       private void buildPartial0(top.fengye.rpc.grpc.Grpc.AppendEntriesRequest result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.id_ = id_;
+          result.nodeId_ = nodeId_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.command_ = commandBuilder_ == null
+              ? command_
+              : commandBuilder_.build();
         }
       }
 
@@ -381,10 +448,13 @@ public final class Grpc {
 
       public Builder mergeFrom(top.fengye.rpc.grpc.Grpc.AppendEntriesRequest other) {
         if (other == top.fengye.rpc.grpc.Grpc.AppendEntriesRequest.getDefaultInstance()) return this;
-        if (!other.getId().isEmpty()) {
-          id_ = other.id_;
+        if (!other.getNodeId().isEmpty()) {
+          nodeId_ = other.nodeId_;
           bitField0_ |= 0x00000001;
           onChanged();
+        }
+        if (other.hasCommand()) {
+          mergeCommand(other.getCommand());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -413,10 +483,17 @@ public final class Grpc {
                 done = true;
                 break;
               case 10: {
-                id_ = input.readStringRequireUtf8();
+                nodeId_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
+              case 18: {
+                input.readMessage(
+                    getCommandFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -434,76 +511,195 @@ public final class Grpc {
       }
       private int bitField0_;
 
-      private java.lang.Object id_ = "";
+      private java.lang.Object nodeId_ = "";
       /**
-       * <code>string id = 1;</code>
-       * @return The id.
+       * <code>string nodeId = 1;</code>
+       * @return The nodeId.
        */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
+      public java.lang.String getNodeId() {
+        java.lang.Object ref = nodeId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          id_ = s;
+          nodeId_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string id = 1;</code>
-       * @return The bytes for id.
+       * <code>string nodeId = 1;</code>
+       * @return The bytes for nodeId.
        */
       public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
+          getNodeIdBytes() {
+        java.lang.Object ref = nodeId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          id_ = b;
+          nodeId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string id = 1;</code>
-       * @param value The id to set.
+       * <code>string nodeId = 1;</code>
+       * @param value The nodeId to set.
        * @return This builder for chaining.
        */
-      public Builder setId(
+      public Builder setNodeId(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
-        id_ = value;
+        nodeId_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
       /**
-       * <code>string id = 1;</code>
+       * <code>string nodeId = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearId() {
-        id_ = getDefaultInstance().getId();
+      public Builder clearNodeId() {
+        nodeId_ = getDefaultInstance().getNodeId();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
-       * <code>string id = 1;</code>
-       * @param value The bytes for id to set.
+       * <code>string nodeId = 1;</code>
+       * @param value The bytes for nodeId to set.
        * @return This builder for chaining.
        */
-      public Builder setIdBytes(
+      public Builder setNodeIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
-        id_ = value;
+        nodeId_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
+      }
+
+      private top.fengye.rpc.grpc.BizParam.Command command_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          top.fengye.rpc.grpc.BizParam.Command, top.fengye.rpc.grpc.BizParam.Command.Builder, top.fengye.rpc.grpc.BizParam.CommandOrBuilder> commandBuilder_;
+      /**
+       * <code>.top.fengye.rpc.grpc.Command command = 2;</code>
+       * @return Whether the command field is set.
+       */
+      public boolean hasCommand() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>.top.fengye.rpc.grpc.Command command = 2;</code>
+       * @return The command.
+       */
+      public top.fengye.rpc.grpc.BizParam.Command getCommand() {
+        if (commandBuilder_ == null) {
+          return command_ == null ? top.fengye.rpc.grpc.BizParam.Command.getDefaultInstance() : command_;
+        } else {
+          return commandBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.top.fengye.rpc.grpc.Command command = 2;</code>
+       */
+      public Builder setCommand(top.fengye.rpc.grpc.BizParam.Command value) {
+        if (commandBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          command_ = value;
+        } else {
+          commandBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.top.fengye.rpc.grpc.Command command = 2;</code>
+       */
+      public Builder setCommand(
+          top.fengye.rpc.grpc.BizParam.Command.Builder builderForValue) {
+        if (commandBuilder_ == null) {
+          command_ = builderForValue.build();
+        } else {
+          commandBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.top.fengye.rpc.grpc.Command command = 2;</code>
+       */
+      public Builder mergeCommand(top.fengye.rpc.grpc.BizParam.Command value) {
+        if (commandBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0) &&
+            command_ != null &&
+            command_ != top.fengye.rpc.grpc.BizParam.Command.getDefaultInstance()) {
+            getCommandBuilder().mergeFrom(value);
+          } else {
+            command_ = value;
+          }
+        } else {
+          commandBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.top.fengye.rpc.grpc.Command command = 2;</code>
+       */
+      public Builder clearCommand() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        command_ = null;
+        if (commandBuilder_ != null) {
+          commandBuilder_.dispose();
+          commandBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.top.fengye.rpc.grpc.Command command = 2;</code>
+       */
+      public top.fengye.rpc.grpc.BizParam.Command.Builder getCommandBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getCommandFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.top.fengye.rpc.grpc.Command command = 2;</code>
+       */
+      public top.fengye.rpc.grpc.BizParam.CommandOrBuilder getCommandOrBuilder() {
+        if (commandBuilder_ != null) {
+          return commandBuilder_.getMessageOrBuilder();
+        } else {
+          return command_ == null ?
+              top.fengye.rpc.grpc.BizParam.Command.getDefaultInstance() : command_;
+        }
+      }
+      /**
+       * <code>.top.fengye.rpc.grpc.Command command = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          top.fengye.rpc.grpc.BizParam.Command, top.fengye.rpc.grpc.BizParam.Command.Builder, top.fengye.rpc.grpc.BizParam.CommandOrBuilder> 
+          getCommandFieldBuilder() {
+        if (commandBuilder_ == null) {
+          commandBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              top.fengye.rpc.grpc.BizParam.Command, top.fengye.rpc.grpc.BizParam.Command.Builder, top.fengye.rpc.grpc.BizParam.CommandOrBuilder>(
+                  getCommand(),
+                  getParentForChildren(),
+                  isClean());
+          command_ = null;
+        }
+        return commandBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -574,16 +770,16 @@ public final class Grpc {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string id = 1;</code>
-     * @return The id.
+     * <code>string nodeId = 1;</code>
+     * @return The nodeId.
      */
-    java.lang.String getId();
+    java.lang.String getNodeId();
     /**
-     * <code>string id = 1;</code>
-     * @return The bytes for id.
+     * <code>string nodeId = 1;</code>
+     * @return The bytes for nodeId.
      */
     com.google.protobuf.ByteString
-        getIdBytes();
+        getNodeIdBytes();
   }
   /**
    * Protobuf type {@code top.fengye.rpc.grpc.AppendEntriesResponse}
@@ -598,7 +794,7 @@ public final class Grpc {
       super(builder);
     }
     private AppendEntriesResponse() {
-      id_ = "";
+      nodeId_ = "";
     }
 
     @java.lang.Override
@@ -626,39 +822,39 @@ public final class Grpc {
               top.fengye.rpc.grpc.Grpc.AppendEntriesResponse.class, top.fengye.rpc.grpc.Grpc.AppendEntriesResponse.Builder.class);
     }
 
-    public static final int ID_FIELD_NUMBER = 1;
+    public static final int NODEID_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
-    private volatile java.lang.Object id_ = "";
+    private volatile java.lang.Object nodeId_ = "";
     /**
-     * <code>string id = 1;</code>
-     * @return The id.
+     * <code>string nodeId = 1;</code>
+     * @return The nodeId.
      */
     @java.lang.Override
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
+    public java.lang.String getNodeId() {
+      java.lang.Object ref = nodeId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        id_ = s;
+        nodeId_ = s;
         return s;
       }
     }
     /**
-     * <code>string id = 1;</code>
-     * @return The bytes for id.
+     * <code>string nodeId = 1;</code>
+     * @return The bytes for nodeId.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
+        getNodeIdBytes() {
+      java.lang.Object ref = nodeId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        id_ = b;
+        nodeId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -679,8 +875,8 @@ public final class Grpc {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(id_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, nodeId_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -691,8 +887,8 @@ public final class Grpc {
       if (size != -1) return size;
 
       size = 0;
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(id_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, nodeId_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -709,8 +905,8 @@ public final class Grpc {
       }
       top.fengye.rpc.grpc.Grpc.AppendEntriesResponse other = (top.fengye.rpc.grpc.Grpc.AppendEntriesResponse) obj;
 
-      if (!getId()
-          .equals(other.getId())) return false;
+      if (!getNodeId()
+          .equals(other.getNodeId())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -722,8 +918,8 @@ public final class Grpc {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + NODEID_FIELD_NUMBER;
+      hash = (53 * hash) + getNodeId().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -853,7 +1049,7 @@ public final class Grpc {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        id_ = "";
+        nodeId_ = "";
         return this;
       }
 
@@ -888,7 +1084,7 @@ public final class Grpc {
       private void buildPartial0(top.fengye.rpc.grpc.Grpc.AppendEntriesResponse result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.id_ = id_;
+          result.nodeId_ = nodeId_;
         }
       }
 
@@ -936,8 +1132,8 @@ public final class Grpc {
 
       public Builder mergeFrom(top.fengye.rpc.grpc.Grpc.AppendEntriesResponse other) {
         if (other == top.fengye.rpc.grpc.Grpc.AppendEntriesResponse.getDefaultInstance()) return this;
-        if (!other.getId().isEmpty()) {
-          id_ = other.id_;
+        if (!other.getNodeId().isEmpty()) {
+          nodeId_ = other.nodeId_;
           bitField0_ |= 0x00000001;
           onChanged();
         }
@@ -968,7 +1164,7 @@ public final class Grpc {
                 done = true;
                 break;
               case 10: {
-                id_ = input.readStringRequireUtf8();
+                nodeId_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
@@ -989,73 +1185,73 @@ public final class Grpc {
       }
       private int bitField0_;
 
-      private java.lang.Object id_ = "";
+      private java.lang.Object nodeId_ = "";
       /**
-       * <code>string id = 1;</code>
-       * @return The id.
+       * <code>string nodeId = 1;</code>
+       * @return The nodeId.
        */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
+      public java.lang.String getNodeId() {
+        java.lang.Object ref = nodeId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          id_ = s;
+          nodeId_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string id = 1;</code>
-       * @return The bytes for id.
+       * <code>string nodeId = 1;</code>
+       * @return The bytes for nodeId.
        */
       public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
+          getNodeIdBytes() {
+        java.lang.Object ref = nodeId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          id_ = b;
+          nodeId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string id = 1;</code>
-       * @param value The id to set.
+       * <code>string nodeId = 1;</code>
+       * @param value The nodeId to set.
        * @return This builder for chaining.
        */
-      public Builder setId(
+      public Builder setNodeId(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
-        id_ = value;
+        nodeId_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
       /**
-       * <code>string id = 1;</code>
+       * <code>string nodeId = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearId() {
-        id_ = getDefaultInstance().getId();
+      public Builder clearNodeId() {
+        nodeId_ = getDefaultInstance().getNodeId();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
-       * <code>string id = 1;</code>
-       * @param value The bytes for id to set.
+       * <code>string nodeId = 1;</code>
+       * @param value The bytes for nodeId to set.
        * @return This builder for chaining.
        */
-      public Builder setIdBytes(
+      public Builder setNodeIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
-        id_ = value;
+        nodeId_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
@@ -1129,16 +1325,22 @@ public final class Grpc {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string id = 1;</code>
-     * @return The id.
+     * <code>string nodeId = 1;</code>
+     * @return The nodeId.
      */
-    java.lang.String getId();
+    java.lang.String getNodeId();
     /**
-     * <code>string id = 1;</code>
-     * @return The bytes for id.
+     * <code>string nodeId = 1;</code>
+     * @return The bytes for nodeId.
      */
     com.google.protobuf.ByteString
-        getIdBytes();
+        getNodeIdBytes();
+
+    /**
+     * <code>int64 term = 2;</code>
+     * @return The term.
+     */
+    long getTerm();
   }
   /**
    * Protobuf type {@code top.fengye.rpc.grpc.ApplyVoteRequest}
@@ -1153,7 +1355,7 @@ public final class Grpc {
       super(builder);
     }
     private ApplyVoteRequest() {
-      id_ = "";
+      nodeId_ = "";
     }
 
     @java.lang.Override
@@ -1181,43 +1383,54 @@ public final class Grpc {
               top.fengye.rpc.grpc.Grpc.ApplyVoteRequest.class, top.fengye.rpc.grpc.Grpc.ApplyVoteRequest.Builder.class);
     }
 
-    public static final int ID_FIELD_NUMBER = 1;
+    public static final int NODEID_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
-    private volatile java.lang.Object id_ = "";
+    private volatile java.lang.Object nodeId_ = "";
     /**
-     * <code>string id = 1;</code>
-     * @return The id.
+     * <code>string nodeId = 1;</code>
+     * @return The nodeId.
      */
     @java.lang.Override
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
+    public java.lang.String getNodeId() {
+      java.lang.Object ref = nodeId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        id_ = s;
+        nodeId_ = s;
         return s;
       }
     }
     /**
-     * <code>string id = 1;</code>
-     * @return The bytes for id.
+     * <code>string nodeId = 1;</code>
+     * @return The bytes for nodeId.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
+        getNodeIdBytes() {
+      java.lang.Object ref = nodeId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        id_ = b;
+        nodeId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
+    }
+
+    public static final int TERM_FIELD_NUMBER = 2;
+    private long term_ = 0L;
+    /**
+     * <code>int64 term = 2;</code>
+     * @return The term.
+     */
+    @java.lang.Override
+    public long getTerm() {
+      return term_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1234,8 +1447,11 @@ public final class Grpc {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(id_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, nodeId_);
+      }
+      if (term_ != 0L) {
+        output.writeInt64(2, term_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1246,8 +1462,12 @@ public final class Grpc {
       if (size != -1) return size;
 
       size = 0;
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(id_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, nodeId_);
+      }
+      if (term_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, term_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -1264,8 +1484,10 @@ public final class Grpc {
       }
       top.fengye.rpc.grpc.Grpc.ApplyVoteRequest other = (top.fengye.rpc.grpc.Grpc.ApplyVoteRequest) obj;
 
-      if (!getId()
-          .equals(other.getId())) return false;
+      if (!getNodeId()
+          .equals(other.getNodeId())) return false;
+      if (getTerm()
+          != other.getTerm()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -1277,8 +1499,11 @@ public final class Grpc {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + NODEID_FIELD_NUMBER;
+      hash = (53 * hash) + getNodeId().hashCode();
+      hash = (37 * hash) + TERM_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getTerm());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1408,7 +1633,8 @@ public final class Grpc {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        id_ = "";
+        nodeId_ = "";
+        term_ = 0L;
         return this;
       }
 
@@ -1443,7 +1669,10 @@ public final class Grpc {
       private void buildPartial0(top.fengye.rpc.grpc.Grpc.ApplyVoteRequest result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.id_ = id_;
+          result.nodeId_ = nodeId_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.term_ = term_;
         }
       }
 
@@ -1491,10 +1720,13 @@ public final class Grpc {
 
       public Builder mergeFrom(top.fengye.rpc.grpc.Grpc.ApplyVoteRequest other) {
         if (other == top.fengye.rpc.grpc.Grpc.ApplyVoteRequest.getDefaultInstance()) return this;
-        if (!other.getId().isEmpty()) {
-          id_ = other.id_;
+        if (!other.getNodeId().isEmpty()) {
+          nodeId_ = other.nodeId_;
           bitField0_ |= 0x00000001;
           onChanged();
+        }
+        if (other.getTerm() != 0L) {
+          setTerm(other.getTerm());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -1523,10 +1755,15 @@ public final class Grpc {
                 done = true;
                 break;
               case 10: {
-                id_ = input.readStringRequireUtf8();
+                nodeId_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
+              case 16: {
+                term_ = input.readInt64();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1544,74 +1781,106 @@ public final class Grpc {
       }
       private int bitField0_;
 
-      private java.lang.Object id_ = "";
+      private java.lang.Object nodeId_ = "";
       /**
-       * <code>string id = 1;</code>
-       * @return The id.
+       * <code>string nodeId = 1;</code>
+       * @return The nodeId.
        */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
+      public java.lang.String getNodeId() {
+        java.lang.Object ref = nodeId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          id_ = s;
+          nodeId_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string id = 1;</code>
-       * @return The bytes for id.
+       * <code>string nodeId = 1;</code>
+       * @return The bytes for nodeId.
        */
       public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
+          getNodeIdBytes() {
+        java.lang.Object ref = nodeId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          id_ = b;
+          nodeId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string id = 1;</code>
-       * @param value The id to set.
+       * <code>string nodeId = 1;</code>
+       * @param value The nodeId to set.
        * @return This builder for chaining.
        */
-      public Builder setId(
+      public Builder setNodeId(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
-        id_ = value;
+        nodeId_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
       /**
-       * <code>string id = 1;</code>
+       * <code>string nodeId = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearId() {
-        id_ = getDefaultInstance().getId();
+      public Builder clearNodeId() {
+        nodeId_ = getDefaultInstance().getNodeId();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
-       * <code>string id = 1;</code>
-       * @param value The bytes for id to set.
+       * <code>string nodeId = 1;</code>
+       * @param value The bytes for nodeId to set.
        * @return This builder for chaining.
        */
-      public Builder setIdBytes(
+      public Builder setNodeIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
-        id_ = value;
+        nodeId_ = value;
         bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private long term_ ;
+      /**
+       * <code>int64 term = 2;</code>
+       * @return The term.
+       */
+      @java.lang.Override
+      public long getTerm() {
+        return term_;
+      }
+      /**
+       * <code>int64 term = 2;</code>
+       * @param value The term to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTerm(long value) {
+        
+        term_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 term = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTerm() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        term_ = 0L;
         onChanged();
         return this;
       }
@@ -1684,16 +1953,28 @@ public final class Grpc {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string id = 1;</code>
-     * @return The id.
+     * <code>string nodeId = 1;</code>
+     * @return The nodeId.
      */
-    java.lang.String getId();
+    java.lang.String getNodeId();
     /**
-     * <code>string id = 1;</code>
-     * @return The bytes for id.
+     * <code>string nodeId = 1;</code>
+     * @return The bytes for nodeId.
      */
     com.google.protobuf.ByteString
-        getIdBytes();
+        getNodeIdBytes();
+
+    /**
+     * <code>int64 term = 2;</code>
+     * @return The term.
+     */
+    long getTerm();
+
+    /**
+     * <code>bool agreed = 3;</code>
+     * @return The agreed.
+     */
+    boolean getAgreed();
   }
   /**
    * Protobuf type {@code top.fengye.rpc.grpc.ApplyVoteResponse}
@@ -1708,7 +1989,7 @@ public final class Grpc {
       super(builder);
     }
     private ApplyVoteResponse() {
-      id_ = "";
+      nodeId_ = "";
     }
 
     @java.lang.Override
@@ -1736,43 +2017,65 @@ public final class Grpc {
               top.fengye.rpc.grpc.Grpc.ApplyVoteResponse.class, top.fengye.rpc.grpc.Grpc.ApplyVoteResponse.Builder.class);
     }
 
-    public static final int ID_FIELD_NUMBER = 1;
+    public static final int NODEID_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
-    private volatile java.lang.Object id_ = "";
+    private volatile java.lang.Object nodeId_ = "";
     /**
-     * <code>string id = 1;</code>
-     * @return The id.
+     * <code>string nodeId = 1;</code>
+     * @return The nodeId.
      */
     @java.lang.Override
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
+    public java.lang.String getNodeId() {
+      java.lang.Object ref = nodeId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        id_ = s;
+        nodeId_ = s;
         return s;
       }
     }
     /**
-     * <code>string id = 1;</code>
-     * @return The bytes for id.
+     * <code>string nodeId = 1;</code>
+     * @return The bytes for nodeId.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
+        getNodeIdBytes() {
+      java.lang.Object ref = nodeId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        id_ = b;
+        nodeId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
+    }
+
+    public static final int TERM_FIELD_NUMBER = 2;
+    private long term_ = 0L;
+    /**
+     * <code>int64 term = 2;</code>
+     * @return The term.
+     */
+    @java.lang.Override
+    public long getTerm() {
+      return term_;
+    }
+
+    public static final int AGREED_FIELD_NUMBER = 3;
+    private boolean agreed_ = false;
+    /**
+     * <code>bool agreed = 3;</code>
+     * @return The agreed.
+     */
+    @java.lang.Override
+    public boolean getAgreed() {
+      return agreed_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1789,8 +2092,14 @@ public final class Grpc {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(id_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, nodeId_);
+      }
+      if (term_ != 0L) {
+        output.writeInt64(2, term_);
+      }
+      if (agreed_ != false) {
+        output.writeBool(3, agreed_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1801,8 +2110,16 @@ public final class Grpc {
       if (size != -1) return size;
 
       size = 0;
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(id_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, nodeId_);
+      }
+      if (term_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, term_);
+      }
+      if (agreed_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, agreed_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -1819,8 +2136,12 @@ public final class Grpc {
       }
       top.fengye.rpc.grpc.Grpc.ApplyVoteResponse other = (top.fengye.rpc.grpc.Grpc.ApplyVoteResponse) obj;
 
-      if (!getId()
-          .equals(other.getId())) return false;
+      if (!getNodeId()
+          .equals(other.getNodeId())) return false;
+      if (getTerm()
+          != other.getTerm()) return false;
+      if (getAgreed()
+          != other.getAgreed()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -1832,8 +2153,14 @@ public final class Grpc {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + NODEID_FIELD_NUMBER;
+      hash = (53 * hash) + getNodeId().hashCode();
+      hash = (37 * hash) + TERM_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getTerm());
+      hash = (37 * hash) + AGREED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getAgreed());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1963,7 +2290,9 @@ public final class Grpc {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        id_ = "";
+        nodeId_ = "";
+        term_ = 0L;
+        agreed_ = false;
         return this;
       }
 
@@ -1998,7 +2327,13 @@ public final class Grpc {
       private void buildPartial0(top.fengye.rpc.grpc.Grpc.ApplyVoteResponse result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.id_ = id_;
+          result.nodeId_ = nodeId_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.term_ = term_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.agreed_ = agreed_;
         }
       }
 
@@ -2046,10 +2381,16 @@ public final class Grpc {
 
       public Builder mergeFrom(top.fengye.rpc.grpc.Grpc.ApplyVoteResponse other) {
         if (other == top.fengye.rpc.grpc.Grpc.ApplyVoteResponse.getDefaultInstance()) return this;
-        if (!other.getId().isEmpty()) {
-          id_ = other.id_;
+        if (!other.getNodeId().isEmpty()) {
+          nodeId_ = other.nodeId_;
           bitField0_ |= 0x00000001;
           onChanged();
+        }
+        if (other.getTerm() != 0L) {
+          setTerm(other.getTerm());
+        }
+        if (other.getAgreed() != false) {
+          setAgreed(other.getAgreed());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -2078,10 +2419,20 @@ public final class Grpc {
                 done = true;
                 break;
               case 10: {
-                id_ = input.readStringRequireUtf8();
+                nodeId_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
+              case 16: {
+                term_ = input.readInt64();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
+              case 24: {
+                agreed_ = input.readBool();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 24
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -2099,74 +2450,138 @@ public final class Grpc {
       }
       private int bitField0_;
 
-      private java.lang.Object id_ = "";
+      private java.lang.Object nodeId_ = "";
       /**
-       * <code>string id = 1;</code>
-       * @return The id.
+       * <code>string nodeId = 1;</code>
+       * @return The nodeId.
        */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
+      public java.lang.String getNodeId() {
+        java.lang.Object ref = nodeId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          id_ = s;
+          nodeId_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string id = 1;</code>
-       * @return The bytes for id.
+       * <code>string nodeId = 1;</code>
+       * @return The bytes for nodeId.
        */
       public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
+          getNodeIdBytes() {
+        java.lang.Object ref = nodeId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          id_ = b;
+          nodeId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string id = 1;</code>
-       * @param value The id to set.
+       * <code>string nodeId = 1;</code>
+       * @param value The nodeId to set.
        * @return This builder for chaining.
        */
-      public Builder setId(
+      public Builder setNodeId(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
-        id_ = value;
+        nodeId_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
       /**
-       * <code>string id = 1;</code>
+       * <code>string nodeId = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearId() {
-        id_ = getDefaultInstance().getId();
+      public Builder clearNodeId() {
+        nodeId_ = getDefaultInstance().getNodeId();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
-       * <code>string id = 1;</code>
-       * @param value The bytes for id to set.
+       * <code>string nodeId = 1;</code>
+       * @param value The bytes for nodeId to set.
        * @return This builder for chaining.
        */
-      public Builder setIdBytes(
+      public Builder setNodeIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
-        id_ = value;
+        nodeId_ = value;
         bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private long term_ ;
+      /**
+       * <code>int64 term = 2;</code>
+       * @return The term.
+       */
+      @java.lang.Override
+      public long getTerm() {
+        return term_;
+      }
+      /**
+       * <code>int64 term = 2;</code>
+       * @param value The term to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTerm(long value) {
+        
+        term_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 term = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTerm() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        term_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private boolean agreed_ ;
+      /**
+       * <code>bool agreed = 3;</code>
+       * @return The agreed.
+       */
+      @java.lang.Override
+      public boolean getAgreed() {
+        return agreed_;
+      }
+      /**
+       * <code>bool agreed = 3;</code>
+       * @param value The agreed to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAgreed(boolean value) {
+        
+        agreed_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool agreed = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAgreed() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        agreed_ = false;
         onChanged();
         return this;
       }
@@ -2263,45 +2678,50 @@ public final class Grpc {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\ngrpc.proto\022\023top.fengye.rpc.grpc\"\"\n\024App" +
-      "endEntriesRequest\022\n\n\002id\030\001 \001(\t\"#\n\025AppendE" +
-      "ntriesResponse\022\n\n\002id\030\001 \001(\t\"\036\n\020ApplyVoteR" +
-      "equest\022\n\n\002id\030\001 \001(\t\"\037\n\021ApplyVoteResponse\022" +
-      "\n\n\002id\030\001 \001(\t2\312\001\n\004Raft\022f\n\rappendEntries\022)." +
-      "top.fengye.rpc.grpc.AppendEntriesRequest" +
-      "\032*.top.fengye.rpc.grpc.AppendEntriesResp" +
-      "onse\022Z\n\tapplyVote\022%.top.fengye.rpc.grpc." +
-      "ApplyVoteRequest\032&.top.fengye.rpc.grpc.A" +
-      "pplyVoteResponseb\006proto3"
+      "\n\ngrpc.proto\022\023top.fengye.rpc.grpc\032\016bizPa" +
+      "ram.proto\"U\n\024AppendEntriesRequest\022\016\n\006nod" +
+      "eId\030\001 \001(\t\022-\n\007command\030\002 \001(\0132\034.top.fengye." +
+      "rpc.grpc.Command\"\'\n\025AppendEntriesRespons" +
+      "e\022\016\n\006nodeId\030\001 \001(\t\"0\n\020ApplyVoteRequest\022\016\n" +
+      "\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\"A\n\021ApplyVote" +
+      "Response\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\022\016" +
+      "\n\006agreed\030\003 \001(\0102\312\001\n\004Raft\022f\n\rappendEntries" +
+      "\022).top.fengye.rpc.grpc.AppendEntriesRequ" +
+      "est\032*.top.fengye.rpc.grpc.AppendEntriesR" +
+      "esponse\022Z\n\tapplyVote\022%.top.fengye.rpc.gr" +
+      "pc.ApplyVoteRequest\032&.top.fengye.rpc.grp" +
+      "c.ApplyVoteResponseb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          top.fengye.rpc.grpc.BizParam.getDescriptor(),
         });
     internal_static_top_fengye_rpc_grpc_AppendEntriesRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_top_fengye_rpc_grpc_AppendEntriesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_fengye_rpc_grpc_AppendEntriesRequest_descriptor,
-        new java.lang.String[] { "Id", });
+        new java.lang.String[] { "NodeId", "Command", });
     internal_static_top_fengye_rpc_grpc_AppendEntriesResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_top_fengye_rpc_grpc_AppendEntriesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_fengye_rpc_grpc_AppendEntriesResponse_descriptor,
-        new java.lang.String[] { "Id", });
+        new java.lang.String[] { "NodeId", });
     internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_descriptor,
-        new java.lang.String[] { "Id", });
+        new java.lang.String[] { "NodeId", "Term", });
     internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_descriptor,
-        new java.lang.String[] { "Id", });
+        new java.lang.String[] { "NodeId", "Term", "Agreed", });
+    top.fengye.rpc.grpc.BizParam.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
