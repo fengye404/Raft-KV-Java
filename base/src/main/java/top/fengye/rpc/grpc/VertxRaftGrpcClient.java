@@ -17,8 +17,8 @@ public class VertxRaftGrpcClient {
     this.socketAddress = socketAddress;
   }
 
-  public Future<top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> appendEntries(top.fengye.rpc.grpc.Grpc.AppendEntriesRequest request) {
-    return client.request(socketAddress, RaftGrpc.getAppendEntriesMethod()).compose(req -> {
+  public Future<top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse> queryElectionStatus(top.fengye.rpc.grpc.Grpc.Empty request) {
+    return client.request(socketAddress, RaftGrpc.getQueryElectionStatusMethod()).compose(req -> {
       req.end(request);
       return req.response().compose(resp -> resp.last());
     });
@@ -26,6 +26,13 @@ public class VertxRaftGrpcClient {
 
   public Future<top.fengye.rpc.grpc.Grpc.ApplyVoteResponse> applyVote(top.fengye.rpc.grpc.Grpc.ApplyVoteRequest request) {
     return client.request(socketAddress, RaftGrpc.getApplyVoteMethod()).compose(req -> {
+      req.end(request);
+      return req.response().compose(resp -> resp.last());
+    });
+  }
+
+  public Future<top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> appendEntries(top.fengye.rpc.grpc.Grpc.AppendEntriesRequest request) {
+    return client.request(socketAddress, RaftGrpc.getAppendEntriesMethod()).compose(req -> {
       req.end(request);
       return req.response().compose(resp -> resp.last());
     });

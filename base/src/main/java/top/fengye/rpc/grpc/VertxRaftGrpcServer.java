@@ -15,11 +15,11 @@ import java.util.List;
 
 public class VertxRaftGrpcServer  {
   public interface RaftApi {
-    default Future<top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> appendEntries(top.fengye.rpc.grpc.Grpc.AppendEntriesRequest request) {
+    default Future<top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse> queryElectionStatus(top.fengye.rpc.grpc.Grpc.Empty request) {
       throw new UnsupportedOperationException("Not implemented");
     }
-    default void appendEntries(top.fengye.rpc.grpc.Grpc.AppendEntriesRequest request, Promise<top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> response) {
-      appendEntries(request)
+    default void queryElectionStatus(top.fengye.rpc.grpc.Grpc.Empty request, Promise<top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse> response) {
+      queryElectionStatus(request)
         .onSuccess(msg -> response.complete(msg))
         .onFailure(error -> response.fail(error));
     }
@@ -31,13 +31,21 @@ public class VertxRaftGrpcServer  {
         .onSuccess(msg -> response.complete(msg))
         .onFailure(error -> response.fail(error));
     }
+    default Future<top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> appendEntries(top.fengye.rpc.grpc.Grpc.AppendEntriesRequest request) {
+      throw new UnsupportedOperationException("Not implemented");
+    }
+    default void appendEntries(top.fengye.rpc.grpc.Grpc.AppendEntriesRequest request, Promise<top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> response) {
+      appendEntries(request)
+        .onSuccess(msg -> response.complete(msg))
+        .onFailure(error -> response.fail(error));
+    }
 
-    default RaftApi bind_appendEntries(GrpcServer server) {
-      server.callHandler(RaftGrpc.getAppendEntriesMethod(), request -> {
-        Promise<top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> promise = Promise.promise();
+    default RaftApi bind_queryElectionStatus(GrpcServer server) {
+      server.callHandler(RaftGrpc.getQueryElectionStatusMethod(), request -> {
+        Promise<top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse> promise = Promise.promise();
         request.handler(req -> {
           try {
-            appendEntries(req, promise);
+            queryElectionStatus(req, promise);
           } catch (RuntimeException err) {
             promise.tryFail(err);
           }
@@ -64,10 +72,27 @@ public class VertxRaftGrpcServer  {
       });
       return this;
     }
+    default RaftApi bind_appendEntries(GrpcServer server) {
+      server.callHandler(RaftGrpc.getAppendEntriesMethod(), request -> {
+        Promise<top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> promise = Promise.promise();
+        request.handler(req -> {
+          try {
+            appendEntries(req, promise);
+          } catch (RuntimeException err) {
+            promise.tryFail(err);
+          }
+        });
+        promise.future()
+          .onFailure(err -> request.response().status(GrpcStatus.INTERNAL).end())
+          .onSuccess(resp -> request.response().end(resp));
+      });
+      return this;
+    }
 
     default RaftApi bindAll(GrpcServer server) {
-      bind_appendEntries(server);
+      bind_queryElectionStatus(server);
       bind_applyVote(server);
+      bind_appendEntries(server);
       return this;
     }
   }

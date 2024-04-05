@@ -4,18 +4,30 @@ package top.fengye.rpc.grpc;
 import "bizParam.proto";
 
 service Raft {
-  rpc appendEntries (AppendEntriesRequest) returns (AppendEntriesResponse);
-
+  rpc queryElectionStatus (Empty) returns (queryElectionStatusResponse);
   rpc applyVote (ApplyVoteRequest) returns (ApplyVoteResponse);
+  rpc appendEntries (AppendEntriesRequest) returns (AppendEntriesResponse);
+}
+
+message Empty{
+
+}
+
+message queryElectionStatusResponse{
+  string nodeId = 1;
+  string role = 2;
 }
 
 message AppendEntriesRequest {
   string nodeId = 1;
-  Command command = 2;
+  int64 term = 2;
+  Command command = 3;
 }
 
 message AppendEntriesResponse {
   string nodeId = 1;
+  int64 term = 2;
+  bool success = 3;
 }
 
 message ApplyVoteRequest{

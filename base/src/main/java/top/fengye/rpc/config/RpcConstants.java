@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Accessors(chain = true)
 public class RpcConstants {
-    public static final int raftPort = 4302;
+//    public static final int raftPort = 4302;
 
     public static final String headerKeyNodeId = "nodeId";
 

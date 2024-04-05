@@ -1,7 +1,8 @@
 package top.fengye.rpc;
 
+import io.vertx.core.Future;
 import io.vertx.core.Promise;
-import io.vertx.core.Vertx;
+import top.fengye.raft.RaftNode;
 import top.fengye.rpc.grpc.Grpc;
 
 /**
@@ -11,18 +12,13 @@ import top.fengye.rpc.grpc.Grpc;
  */
 public interface RpcProxy {
     /**
-     * 装载 vertx 实例
-     * @param vertx
+     * 装载 vertx 和 rpc handler
+     *
+     * @param node
      */
-    void mountVertxInstance(Vertx vertx);
+    void mountHandler(RaftNode node);
 
-    /**
-     * 启动 handler 监听处理
-     * @param port
-     */
-    void startHandler(int port);
+    Future<Grpc.ApplyVoteResponse> applyVote(RpcAddress rpcAddress, Grpc.ApplyVoteRequest request);
 
-    Promise<Grpc.ApplyVoteResponse> applyVote(Grpc.ApplyVoteRequest request);
-
-    Promise<Grpc.AppendEntriesResponse> appendEntries(Grpc.AppendEntriesRequest request);
+    Future<Grpc.AppendEntriesResponse> appendEntries(RpcAddress rpcAddress, Grpc.AppendEntriesRequest request);
 }

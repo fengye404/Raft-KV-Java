@@ -4,24 +4,57 @@ import io.vertx.core.Future;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.grpc.client.GrpcClient;
 import io.vertx.grpc.client.GrpcClientRequest;
+import lombok.extern.slf4j.Slf4j;
 import top.fengye.rpc.grpc.Grpc;
 import top.fengye.rpc.grpc.RaftGrpc;
 import top.fengye.rpc.grpc.VertxRaftGrpcClient;
+
+import java.awt.*;
 
 /**
  * @author: FengYe
  * @date: 2024/4/1 23:34
  * @description: TestClientVerticle
  */
+@Slf4j
 public class TestClientVerticle extends AbstractVerticle {
+
+    private GrpcClient grpcClient;
+
+    private SocketAddress socketAddress;
+
+    private VertxRaftGrpcClient vertxRaftGrpcClient;
+
     @Override
-    public void start() throws Exception {
-        GrpcClient grpcClient = GrpcClient.client(vertx);
-        SocketAddress server = SocketAddress.inetSocketAddress(1234, "localhost");
-        VertxRaftGrpcClient client = new VertxRaftGrpcClient(grpcClient, server);
-        client.appendEntries(Grpc.AppendEntriesRequest.newBuilder().setNodeId("request").build())
-                .onSuccess(response->{
-                    System.out.println(response.getNodeId());
-                });
+    public void start(){
+        try {
+            vertx.setPeriodic(1000,id->{
+                log.info("=================================");
+                grpcClient = GrpcClient.client(vertx);
+                socketAddress = SocketAddress.inetSocketAddress(8080, "localhost");
+                vertxRaftGrpcClient = new VertxRaftGrpcClient(grpcClient, socketAddress);
+                vertxRaftGrpcClient.queryElectionStatus(Grpc.Empty.newBuilder().build())
+                        .onSuccess(res->{
+                            log.info("{},{}",res.getNodeId(),res.getRole());
+                        });
+                grpcClient = GrpcClient.client(vertx);
+                socketAddress = SocketAddress.inetSocketAddress(8081, "localhost");
+                vertxRaftGrpcClient = new VertxRaftGrpcClient(grpcClient, socketAddress);
+                vertxRaftGrpcClient.queryElectionStatus(Grpc.Empty.newBuilder().build())
+                        .onSuccess(res->{
+                            log.info("{},{}",res.getNodeId(),res.getRole());
+                        });
+                grpcClient = GrpcClient.client(vertx);
+                socketAddress = SocketAddress.inetSocketAddress(8082, "localhost");
+                vertxRaftGrpcClient = new VertxRaftGrpcClient(grpcClient, socketAddress);
+                vertxRaftGrpcClient.queryElectionStatus(Grpc.Empty.newBuilder().build())
+                        .onSuccess(res->{
+                            log.info("{},{}",res.getNodeId(),res.getRole());
+                        });
+                log.info("=================================");
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -15,35 +15,35 @@ public final class RaftGrpc {
   public static final String SERVICE_NAME = "top.fengye.rpc.grpc.Raft";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<top.fengye.rpc.grpc.Grpc.AppendEntriesRequest,
-      top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> getAppendEntriesMethod;
+  private static volatile io.grpc.MethodDescriptor<top.fengye.rpc.grpc.Grpc.Empty,
+      top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse> getQueryElectionStatusMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "appendEntries",
-      requestType = top.fengye.rpc.grpc.Grpc.AppendEntriesRequest.class,
-      responseType = top.fengye.rpc.grpc.Grpc.AppendEntriesResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "queryElectionStatus",
+      requestType = top.fengye.rpc.grpc.Grpc.Empty.class,
+      responseType = top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<top.fengye.rpc.grpc.Grpc.AppendEntriesRequest,
-      top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> getAppendEntriesMethod() {
-    io.grpc.MethodDescriptor<top.fengye.rpc.grpc.Grpc.AppendEntriesRequest, top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> getAppendEntriesMethod;
-    if ((getAppendEntriesMethod = RaftGrpc.getAppendEntriesMethod) == null) {
+  public static io.grpc.MethodDescriptor<top.fengye.rpc.grpc.Grpc.Empty,
+      top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse> getQueryElectionStatusMethod() {
+    io.grpc.MethodDescriptor<top.fengye.rpc.grpc.Grpc.Empty, top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse> getQueryElectionStatusMethod;
+    if ((getQueryElectionStatusMethod = RaftGrpc.getQueryElectionStatusMethod) == null) {
       synchronized (RaftGrpc.class) {
-        if ((getAppendEntriesMethod = RaftGrpc.getAppendEntriesMethod) == null) {
-          RaftGrpc.getAppendEntriesMethod = getAppendEntriesMethod =
-              io.grpc.MethodDescriptor.<top.fengye.rpc.grpc.Grpc.AppendEntriesRequest, top.fengye.rpc.grpc.Grpc.AppendEntriesResponse>newBuilder()
+        if ((getQueryElectionStatusMethod = RaftGrpc.getQueryElectionStatusMethod) == null) {
+          RaftGrpc.getQueryElectionStatusMethod = getQueryElectionStatusMethod =
+              io.grpc.MethodDescriptor.<top.fengye.rpc.grpc.Grpc.Empty, top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "appendEntries"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "queryElectionStatus"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  top.fengye.rpc.grpc.Grpc.AppendEntriesRequest.getDefaultInstance()))
+                  top.fengye.rpc.grpc.Grpc.Empty.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  top.fengye.rpc.grpc.Grpc.AppendEntriesResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new RaftMethodDescriptorSupplier("appendEntries"))
+                  top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new RaftMethodDescriptorSupplier("queryElectionStatus"))
               .build();
         }
       }
     }
-    return getAppendEntriesMethod;
+    return getQueryElectionStatusMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<top.fengye.rpc.grpc.Grpc.ApplyVoteRequest,
@@ -75,6 +75,37 @@ public final class RaftGrpc {
       }
     }
     return getApplyVoteMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<top.fengye.rpc.grpc.Grpc.AppendEntriesRequest,
+      top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> getAppendEntriesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "appendEntries",
+      requestType = top.fengye.rpc.grpc.Grpc.AppendEntriesRequest.class,
+      responseType = top.fengye.rpc.grpc.Grpc.AppendEntriesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<top.fengye.rpc.grpc.Grpc.AppendEntriesRequest,
+      top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> getAppendEntriesMethod() {
+    io.grpc.MethodDescriptor<top.fengye.rpc.grpc.Grpc.AppendEntriesRequest, top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> getAppendEntriesMethod;
+    if ((getAppendEntriesMethod = RaftGrpc.getAppendEntriesMethod) == null) {
+      synchronized (RaftGrpc.class) {
+        if ((getAppendEntriesMethod = RaftGrpc.getAppendEntriesMethod) == null) {
+          RaftGrpc.getAppendEntriesMethod = getAppendEntriesMethod =
+              io.grpc.MethodDescriptor.<top.fengye.rpc.grpc.Grpc.AppendEntriesRequest, top.fengye.rpc.grpc.Grpc.AppendEntriesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "appendEntries"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  top.fengye.rpc.grpc.Grpc.AppendEntriesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  top.fengye.rpc.grpc.Grpc.AppendEntriesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new RaftMethodDescriptorSupplier("appendEntries"))
+              .build();
+        }
+      }
+    }
+    return getAppendEntriesMethod;
   }
 
   /**
@@ -127,9 +158,9 @@ public final class RaftGrpc {
 
     /**
      */
-    public void appendEntries(top.fengye.rpc.grpc.Grpc.AppendEntriesRequest request,
-        io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAppendEntriesMethod(), responseObserver);
+    public void queryElectionStatus(top.fengye.rpc.grpc.Grpc.Empty request,
+        io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getQueryElectionStatusMethod(), responseObserver);
     }
 
     /**
@@ -139,15 +170,22 @@ public final class RaftGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getApplyVoteMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void appendEntries(top.fengye.rpc.grpc.Grpc.AppendEntriesRequest request,
+        io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAppendEntriesMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            getAppendEntriesMethod(),
+            getQueryElectionStatusMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                top.fengye.rpc.grpc.Grpc.AppendEntriesRequest,
-                top.fengye.rpc.grpc.Grpc.AppendEntriesResponse>(
-                  this, METHODID_APPEND_ENTRIES)))
+                top.fengye.rpc.grpc.Grpc.Empty,
+                top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse>(
+                  this, METHODID_QUERY_ELECTION_STATUS)))
           .addMethod(
             getApplyVoteMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -155,6 +193,13 @@ public final class RaftGrpc {
                 top.fengye.rpc.grpc.Grpc.ApplyVoteRequest,
                 top.fengye.rpc.grpc.Grpc.ApplyVoteResponse>(
                   this, METHODID_APPLY_VOTE)))
+          .addMethod(
+            getAppendEntriesMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                top.fengye.rpc.grpc.Grpc.AppendEntriesRequest,
+                top.fengye.rpc.grpc.Grpc.AppendEntriesResponse>(
+                  this, METHODID_APPEND_ENTRIES)))
           .build();
     }
   }
@@ -175,10 +220,10 @@ public final class RaftGrpc {
 
     /**
      */
-    public void appendEntries(top.fengye.rpc.grpc.Grpc.AppendEntriesRequest request,
-        io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> responseObserver) {
+    public void queryElectionStatus(top.fengye.rpc.grpc.Grpc.Empty request,
+        io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getAppendEntriesMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getQueryElectionStatusMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -187,6 +232,14 @@ public final class RaftGrpc {
         io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.ApplyVoteResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getApplyVoteMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void appendEntries(top.fengye.rpc.grpc.Grpc.AppendEntriesRequest request,
+        io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getAppendEntriesMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -206,9 +259,9 @@ public final class RaftGrpc {
 
     /**
      */
-    public top.fengye.rpc.grpc.Grpc.AppendEntriesResponse appendEntries(top.fengye.rpc.grpc.Grpc.AppendEntriesRequest request) {
+    public top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse queryElectionStatus(top.fengye.rpc.grpc.Grpc.Empty request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getAppendEntriesMethod(), getCallOptions(), request);
+          getChannel(), getQueryElectionStatusMethod(), getCallOptions(), request);
     }
 
     /**
@@ -216,6 +269,13 @@ public final class RaftGrpc {
     public top.fengye.rpc.grpc.Grpc.ApplyVoteResponse applyVote(top.fengye.rpc.grpc.Grpc.ApplyVoteRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getApplyVoteMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public top.fengye.rpc.grpc.Grpc.AppendEntriesResponse appendEntries(top.fengye.rpc.grpc.Grpc.AppendEntriesRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getAppendEntriesMethod(), getCallOptions(), request);
     }
   }
 
@@ -235,10 +295,10 @@ public final class RaftGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> appendEntries(
-        top.fengye.rpc.grpc.Grpc.AppendEntriesRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse> queryElectionStatus(
+        top.fengye.rpc.grpc.Grpc.Empty request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getAppendEntriesMethod(), getCallOptions()), request);
+          getChannel().newCall(getQueryElectionStatusMethod(), getCallOptions()), request);
     }
 
     /**
@@ -248,10 +308,19 @@ public final class RaftGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getApplyVoteMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<top.fengye.rpc.grpc.Grpc.AppendEntriesResponse> appendEntries(
+        top.fengye.rpc.grpc.Grpc.AppendEntriesRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getAppendEntriesMethod(), getCallOptions()), request);
+    }
   }
 
-  private static final int METHODID_APPEND_ENTRIES = 0;
+  private static final int METHODID_QUERY_ELECTION_STATUS = 0;
   private static final int METHODID_APPLY_VOTE = 1;
+  private static final int METHODID_APPEND_ENTRIES = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -270,13 +339,17 @@ public final class RaftGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_APPEND_ENTRIES:
-          serviceImpl.appendEntries((top.fengye.rpc.grpc.Grpc.AppendEntriesRequest) request,
-              (io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.AppendEntriesResponse>) responseObserver);
+        case METHODID_QUERY_ELECTION_STATUS:
+          serviceImpl.queryElectionStatus((top.fengye.rpc.grpc.Grpc.Empty) request,
+              (io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse>) responseObserver);
           break;
         case METHODID_APPLY_VOTE:
           serviceImpl.applyVote((top.fengye.rpc.grpc.Grpc.ApplyVoteRequest) request,
               (io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.ApplyVoteResponse>) responseObserver);
+          break;
+        case METHODID_APPEND_ENTRIES:
+          serviceImpl.appendEntries((top.fengye.rpc.grpc.Grpc.AppendEntriesRequest) request,
+              (io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.AppendEntriesResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -339,8 +412,9 @@ public final class RaftGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new RaftFileDescriptorSupplier())
-              .addMethod(getAppendEntriesMethod())
+              .addMethod(getQueryElectionStatusMethod())
               .addMethod(getApplyVoteMethod())
+              .addMethod(getAppendEntriesMethod())
               .build();
         }
       }
