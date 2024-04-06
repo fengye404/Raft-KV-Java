@@ -5,6 +5,7 @@ import "bizParam.proto";
 
 service Raft {
   rpc queryElectionStatus (Empty) returns (queryElectionStatusResponse);
+  rpc shutDown(Empty) returns (shutDownResponse);
   rpc applyVote (ApplyVoteRequest) returns (ApplyVoteResponse);
   rpc appendEntries (AppendEntriesRequest) returns (AppendEntriesResponse);
 }
@@ -15,7 +16,12 @@ message Empty{
 
 message queryElectionStatusResponse{
   string nodeId = 1;
-  string role = 2;
+  string message = 2;
+}
+
+message shutDownResponse{
+  string nodeId = 1;
+  string message = 2;
 }
 
 message AppendEntriesRequest {

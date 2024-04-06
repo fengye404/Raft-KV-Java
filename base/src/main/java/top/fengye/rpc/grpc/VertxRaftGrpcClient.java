@@ -24,6 +24,13 @@ public class VertxRaftGrpcClient {
     });
   }
 
+  public Future<top.fengye.rpc.grpc.Grpc.shutDownResponse> shutDown(top.fengye.rpc.grpc.Grpc.Empty request) {
+    return client.request(socketAddress, RaftGrpc.getShutDownMethod()).compose(req -> {
+      req.end(request);
+      return req.response().compose(resp -> resp.last());
+    });
+  }
+
   public Future<top.fengye.rpc.grpc.Grpc.ApplyVoteResponse> applyVote(top.fengye.rpc.grpc.Grpc.ApplyVoteRequest request) {
     return client.request(socketAddress, RaftGrpc.getApplyVoteMethod()).compose(req -> {
       req.end(request);

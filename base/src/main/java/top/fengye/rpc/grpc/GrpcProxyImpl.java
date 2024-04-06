@@ -102,9 +102,23 @@ public class GrpcProxyImpl implements RpcProxy {
                 response.complete(
                         Grpc.queryElectionStatusResponse.newBuilder()
                                 .setNodeId(raftNode.getNodeId())
-                                .setRole(raftNode.getRole().name() + ":" + raftNode.getCurrentTerm())
+                                .setMessage(raftNode.getRole().name() + ":" + raftNode.getCurrentTerm())
                                 .build()
                 );
+            }
+
+            @Override
+            public void shutDown(Grpc.Empty empty, Promise<Grpc.shutDownResponse> response) {
+                log.info("!shutDown!");
+                vertx.close().onSuccess(res -> {
+                    response.complete(
+                            Grpc.shutDownResponse.newBuilder()
+                                    .setNodeId(raftNode.getNodeId())
+                                    .setMessage("shutDown success")
+                                    .build()
+                    );
+                });
+
             }
 
         };

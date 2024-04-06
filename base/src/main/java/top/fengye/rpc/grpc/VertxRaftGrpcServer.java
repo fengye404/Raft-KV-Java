@@ -23,6 +23,14 @@ public class VertxRaftGrpcServer  {
         .onSuccess(msg -> response.complete(msg))
         .onFailure(error -> response.fail(error));
     }
+    default Future<top.fengye.rpc.grpc.Grpc.shutDownResponse> shutDown(top.fengye.rpc.grpc.Grpc.Empty request) {
+      throw new UnsupportedOperationException("Not implemented");
+    }
+    default void shutDown(top.fengye.rpc.grpc.Grpc.Empty request, Promise<top.fengye.rpc.grpc.Grpc.shutDownResponse> response) {
+      shutDown(request)
+        .onSuccess(msg -> response.complete(msg))
+        .onFailure(error -> response.fail(error));
+    }
     default Future<top.fengye.rpc.grpc.Grpc.ApplyVoteResponse> applyVote(top.fengye.rpc.grpc.Grpc.ApplyVoteRequest request) {
       throw new UnsupportedOperationException("Not implemented");
     }
@@ -46,6 +54,22 @@ public class VertxRaftGrpcServer  {
         request.handler(req -> {
           try {
             queryElectionStatus(req, promise);
+          } catch (RuntimeException err) {
+            promise.tryFail(err);
+          }
+        });
+        promise.future()
+          .onFailure(err -> request.response().status(GrpcStatus.INTERNAL).end())
+          .onSuccess(resp -> request.response().end(resp));
+      });
+      return this;
+    }
+    default RaftApi bind_shutDown(GrpcServer server) {
+      server.callHandler(RaftGrpc.getShutDownMethod(), request -> {
+        Promise<top.fengye.rpc.grpc.Grpc.shutDownResponse> promise = Promise.promise();
+        request.handler(req -> {
+          try {
+            shutDown(req, promise);
           } catch (RuntimeException err) {
             promise.tryFail(err);
           }
@@ -91,6 +115,7 @@ public class VertxRaftGrpcServer  {
 
     default RaftApi bindAll(GrpcServer server) {
       bind_queryElectionStatus(server);
+      bind_shutDown(server);
       bind_applyVote(server);
       bind_appendEntries(server);
       return this;

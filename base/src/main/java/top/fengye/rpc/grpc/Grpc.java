@@ -431,16 +431,16 @@ public final class Grpc {
         getNodeIdBytes();
 
     /**
-     * <code>string role = 2;</code>
-     * @return The role.
+     * <code>string message = 2;</code>
+     * @return The message.
      */
-    java.lang.String getRole();
+    java.lang.String getMessage();
     /**
-     * <code>string role = 2;</code>
-     * @return The bytes for role.
+     * <code>string message = 2;</code>
+     * @return The bytes for message.
      */
     com.google.protobuf.ByteString
-        getRoleBytes();
+        getMessageBytes();
   }
   /**
    * Protobuf type {@code top.fengye.rpc.grpc.queryElectionStatusResponse}
@@ -456,7 +456,7 @@ public final class Grpc {
     }
     private queryElectionStatusResponse() {
       nodeId_ = "";
-      role_ = "";
+      message_ = "";
     }
 
     @java.lang.Override
@@ -523,39 +523,39 @@ public final class Grpc {
       }
     }
 
-    public static final int ROLE_FIELD_NUMBER = 2;
+    public static final int MESSAGE_FIELD_NUMBER = 2;
     @SuppressWarnings("serial")
-    private volatile java.lang.Object role_ = "";
+    private volatile java.lang.Object message_ = "";
     /**
-     * <code>string role = 2;</code>
-     * @return The role.
+     * <code>string message = 2;</code>
+     * @return The message.
      */
     @java.lang.Override
-    public java.lang.String getRole() {
-      java.lang.Object ref = role_;
+    public java.lang.String getMessage() {
+      java.lang.Object ref = message_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        role_ = s;
+        message_ = s;
         return s;
       }
     }
     /**
-     * <code>string role = 2;</code>
-     * @return The bytes for role.
+     * <code>string message = 2;</code>
+     * @return The bytes for message.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getRoleBytes() {
-      java.lang.Object ref = role_;
+        getMessageBytes() {
+      java.lang.Object ref = message_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        role_ = b;
+        message_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -579,8 +579,8 @@ public final class Grpc {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, nodeId_);
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(role_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, role_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -594,8 +594,8 @@ public final class Grpc {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, nodeId_);
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(role_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, role_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -614,8 +614,8 @@ public final class Grpc {
 
       if (!getNodeId()
           .equals(other.getNodeId())) return false;
-      if (!getRole()
-          .equals(other.getRole())) return false;
+      if (!getMessage()
+          .equals(other.getMessage())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -629,8 +629,8 @@ public final class Grpc {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + NODEID_FIELD_NUMBER;
       hash = (53 * hash) + getNodeId().hashCode();
-      hash = (37 * hash) + ROLE_FIELD_NUMBER;
-      hash = (53 * hash) + getRole().hashCode();
+      hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+      hash = (53 * hash) + getMessage().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -761,7 +761,7 @@ public final class Grpc {
         super.clear();
         bitField0_ = 0;
         nodeId_ = "";
-        role_ = "";
+        message_ = "";
         return this;
       }
 
@@ -799,7 +799,7 @@ public final class Grpc {
           result.nodeId_ = nodeId_;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.role_ = role_;
+          result.message_ = message_;
         }
       }
 
@@ -852,8 +852,8 @@ public final class Grpc {
           bitField0_ |= 0x00000001;
           onChanged();
         }
-        if (!other.getRole().isEmpty()) {
-          role_ = other.role_;
+        if (!other.getMessage().isEmpty()) {
+          message_ = other.message_;
           bitField0_ |= 0x00000002;
           onChanged();
         }
@@ -889,7 +889,7 @@ public final class Grpc {
                 break;
               } // case 10
               case 18: {
-                role_ = input.readStringRequireUtf8();
+                message_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
@@ -982,73 +982,73 @@ public final class Grpc {
         return this;
       }
 
-      private java.lang.Object role_ = "";
+      private java.lang.Object message_ = "";
       /**
-       * <code>string role = 2;</code>
-       * @return The role.
+       * <code>string message = 2;</code>
+       * @return The message.
        */
-      public java.lang.String getRole() {
-        java.lang.Object ref = role_;
+      public java.lang.String getMessage() {
+        java.lang.Object ref = message_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          role_ = s;
+          message_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string role = 2;</code>
-       * @return The bytes for role.
+       * <code>string message = 2;</code>
+       * @return The bytes for message.
        */
       public com.google.protobuf.ByteString
-          getRoleBytes() {
-        java.lang.Object ref = role_;
+          getMessageBytes() {
+        java.lang.Object ref = message_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          role_ = b;
+          message_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string role = 2;</code>
-       * @param value The role to set.
+       * <code>string message = 2;</code>
+       * @param value The message to set.
        * @return This builder for chaining.
        */
-      public Builder setRole(
+      public Builder setMessage(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
-        role_ = value;
+        message_ = value;
         bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
       /**
-       * <code>string role = 2;</code>
+       * <code>string message = 2;</code>
        * @return This builder for chaining.
        */
-      public Builder clearRole() {
-        role_ = getDefaultInstance().getRole();
+      public Builder clearMessage() {
+        message_ = getDefaultInstance().getMessage();
         bitField0_ = (bitField0_ & ~0x00000002);
         onChanged();
         return this;
       }
       /**
-       * <code>string role = 2;</code>
-       * @param value The bytes for role to set.
+       * <code>string message = 2;</code>
+       * @param value The bytes for message to set.
        * @return This builder for chaining.
        */
-      public Builder setRoleBytes(
+      public Builder setMessageBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
-        role_ = value;
+        message_ = value;
         bitField0_ |= 0x00000002;
         onChanged();
         return this;
@@ -1112,6 +1112,709 @@ public final class Grpc {
 
     @java.lang.Override
     public top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface shutDownResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:top.fengye.rpc.grpc.shutDownResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string nodeId = 1;</code>
+     * @return The nodeId.
+     */
+    java.lang.String getNodeId();
+    /**
+     * <code>string nodeId = 1;</code>
+     * @return The bytes for nodeId.
+     */
+    com.google.protobuf.ByteString
+        getNodeIdBytes();
+
+    /**
+     * <code>string message = 2;</code>
+     * @return The message.
+     */
+    java.lang.String getMessage();
+    /**
+     * <code>string message = 2;</code>
+     * @return The bytes for message.
+     */
+    com.google.protobuf.ByteString
+        getMessageBytes();
+  }
+  /**
+   * Protobuf type {@code top.fengye.rpc.grpc.shutDownResponse}
+   */
+  public static final class shutDownResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:top.fengye.rpc.grpc.shutDownResponse)
+      shutDownResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use shutDownResponse.newBuilder() to construct.
+    private shutDownResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private shutDownResponse() {
+      nodeId_ = "";
+      message_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new shutDownResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_shutDownResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_shutDownResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              top.fengye.rpc.grpc.Grpc.shutDownResponse.class, top.fengye.rpc.grpc.Grpc.shutDownResponse.Builder.class);
+    }
+
+    public static final int NODEID_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object nodeId_ = "";
+    /**
+     * <code>string nodeId = 1;</code>
+     * @return The nodeId.
+     */
+    @java.lang.Override
+    public java.lang.String getNodeId() {
+      java.lang.Object ref = nodeId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        nodeId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string nodeId = 1;</code>
+     * @return The bytes for nodeId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNodeIdBytes() {
+      java.lang.Object ref = nodeId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        nodeId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MESSAGE_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object message_ = "";
+    /**
+     * <code>string message = 2;</code>
+     * @return The message.
+     */
+    @java.lang.Override
+    public java.lang.String getMessage() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        message_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string message = 2;</code>
+     * @return The bytes for message.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMessageBytes() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        message_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, nodeId_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, nodeId_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof top.fengye.rpc.grpc.Grpc.shutDownResponse)) {
+        return super.equals(obj);
+      }
+      top.fengye.rpc.grpc.Grpc.shutDownResponse other = (top.fengye.rpc.grpc.Grpc.shutDownResponse) obj;
+
+      if (!getNodeId()
+          .equals(other.getNodeId())) return false;
+      if (!getMessage()
+          .equals(other.getMessage())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + NODEID_FIELD_NUMBER;
+      hash = (53 * hash) + getNodeId().hashCode();
+      hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+      hash = (53 * hash) + getMessage().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static top.fengye.rpc.grpc.Grpc.shutDownResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static top.fengye.rpc.grpc.Grpc.shutDownResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static top.fengye.rpc.grpc.Grpc.shutDownResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static top.fengye.rpc.grpc.Grpc.shutDownResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static top.fengye.rpc.grpc.Grpc.shutDownResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static top.fengye.rpc.grpc.Grpc.shutDownResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static top.fengye.rpc.grpc.Grpc.shutDownResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static top.fengye.rpc.grpc.Grpc.shutDownResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static top.fengye.rpc.grpc.Grpc.shutDownResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static top.fengye.rpc.grpc.Grpc.shutDownResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static top.fengye.rpc.grpc.Grpc.shutDownResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static top.fengye.rpc.grpc.Grpc.shutDownResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(top.fengye.rpc.grpc.Grpc.shutDownResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code top.fengye.rpc.grpc.shutDownResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:top.fengye.rpc.grpc.shutDownResponse)
+        top.fengye.rpc.grpc.Grpc.shutDownResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_shutDownResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_shutDownResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                top.fengye.rpc.grpc.Grpc.shutDownResponse.class, top.fengye.rpc.grpc.Grpc.shutDownResponse.Builder.class);
+      }
+
+      // Construct using top.fengye.rpc.grpc.Grpc.shutDownResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        nodeId_ = "";
+        message_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_shutDownResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public top.fengye.rpc.grpc.Grpc.shutDownResponse getDefaultInstanceForType() {
+        return top.fengye.rpc.grpc.Grpc.shutDownResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public top.fengye.rpc.grpc.Grpc.shutDownResponse build() {
+        top.fengye.rpc.grpc.Grpc.shutDownResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public top.fengye.rpc.grpc.Grpc.shutDownResponse buildPartial() {
+        top.fengye.rpc.grpc.Grpc.shutDownResponse result = new top.fengye.rpc.grpc.Grpc.shutDownResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(top.fengye.rpc.grpc.Grpc.shutDownResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.nodeId_ = nodeId_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.message_ = message_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof top.fengye.rpc.grpc.Grpc.shutDownResponse) {
+          return mergeFrom((top.fengye.rpc.grpc.Grpc.shutDownResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(top.fengye.rpc.grpc.Grpc.shutDownResponse other) {
+        if (other == top.fengye.rpc.grpc.Grpc.shutDownResponse.getDefaultInstance()) return this;
+        if (!other.getNodeId().isEmpty()) {
+          nodeId_ = other.nodeId_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (!other.getMessage().isEmpty()) {
+          message_ = other.message_;
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                nodeId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                message_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object nodeId_ = "";
+      /**
+       * <code>string nodeId = 1;</code>
+       * @return The nodeId.
+       */
+      public java.lang.String getNodeId() {
+        java.lang.Object ref = nodeId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          nodeId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string nodeId = 1;</code>
+       * @return The bytes for nodeId.
+       */
+      public com.google.protobuf.ByteString
+          getNodeIdBytes() {
+        java.lang.Object ref = nodeId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          nodeId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string nodeId = 1;</code>
+       * @param value The nodeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNodeId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        nodeId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string nodeId = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNodeId() {
+        nodeId_ = getDefaultInstance().getNodeId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string nodeId = 1;</code>
+       * @param value The bytes for nodeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNodeIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        nodeId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object message_ = "";
+      /**
+       * <code>string message = 2;</code>
+       * @return The message.
+       */
+      public java.lang.String getMessage() {
+        java.lang.Object ref = message_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          message_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string message = 2;</code>
+       * @return The bytes for message.
+       */
+      public com.google.protobuf.ByteString
+          getMessageBytes() {
+        java.lang.Object ref = message_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          message_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string message = 2;</code>
+       * @param value The message to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMessage(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        message_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string message = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMessage() {
+        message_ = getDefaultInstance().getMessage();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string message = 2;</code>
+       * @param value The bytes for message to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMessageBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        message_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:top.fengye.rpc.grpc.shutDownResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:top.fengye.rpc.grpc.shutDownResponse)
+    private static final top.fengye.rpc.grpc.Grpc.shutDownResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new top.fengye.rpc.grpc.Grpc.shutDownResponse();
+    }
+
+    public static top.fengye.rpc.grpc.Grpc.shutDownResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<shutDownResponse>
+        PARSER = new com.google.protobuf.AbstractParser<shutDownResponse>() {
+      @java.lang.Override
+      public shutDownResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<shutDownResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<shutDownResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public top.fengye.rpc.grpc.Grpc.shutDownResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3982,6 +4685,11 @@ public final class Grpc {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_top_fengye_rpc_grpc_queryElectionStatusResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_top_fengye_rpc_grpc_shutDownResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_top_fengye_rpc_grpc_shutDownResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_top_fengye_rpc_grpc_AppendEntriesRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -4011,24 +4719,27 @@ public final class Grpc {
   static {
     java.lang.String[] descriptorData = {
       "\n\ngrpc.proto\022\023top.fengye.rpc.grpc\032\016bizPa" +
-      "ram.proto\"\007\n\005Empty\";\n\033queryElectionStatu" +
-      "sResponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004role\030\002 \001(\t\"" +
-      "c\n\024AppendEntriesRequest\022\016\n\006nodeId\030\001 \001(\t\022" +
-      "\014\n\004term\030\002 \001(\003\022-\n\007command\030\003 \001(\0132\034.top.fen" +
-      "gye.rpc.grpc.Command\"F\n\025AppendEntriesRes" +
-      "ponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\022\017\n\007s" +
-      "uccess\030\003 \001(\010\"0\n\020ApplyVoteRequest\022\016\n\006node" +
-      "Id\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\"A\n\021ApplyVoteRespo" +
-      "nse\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\022\016\n\006agr" +
-      "eed\030\003 \001(\0102\257\002\n\004Raft\022c\n\023queryElectionStatu" +
-      "s\022\032.top.fengye.rpc.grpc.Empty\0320.top.feng" +
-      "ye.rpc.grpc.queryElectionStatusResponse\022" +
-      "Z\n\tapplyVote\022%.top.fengye.rpc.grpc.Apply" +
-      "VoteRequest\032&.top.fengye.rpc.grpc.ApplyV" +
-      "oteResponse\022f\n\rappendEntries\022).top.fengy" +
-      "e.rpc.grpc.AppendEntriesRequest\032*.top.fe" +
-      "ngye.rpc.grpc.AppendEntriesResponseb\006pro" +
-      "to3"
+      "ram.proto\"\007\n\005Empty\">\n\033queryElectionStatu" +
+      "sResponse\022\016\n\006nodeId\030\001 \001(\t\022\017\n\007message\030\002 \001" +
+      "(\t\"3\n\020shutDownResponse\022\016\n\006nodeId\030\001 \001(\t\022\017" +
+      "\n\007message\030\002 \001(\t\"c\n\024AppendEntriesRequest\022" +
+      "\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\022-\n\007command" +
+      "\030\003 \001(\0132\034.top.fengye.rpc.grpc.Command\"F\n\025" +
+      "AppendEntriesResponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n" +
+      "\004term\030\002 \001(\003\022\017\n\007success\030\003 \001(\010\"0\n\020ApplyVot" +
+      "eRequest\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\"A" +
+      "\n\021ApplyVoteResponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004t" +
+      "erm\030\002 \001(\003\022\016\n\006agreed\030\003 \001(\0102\376\002\n\004Raft\022c\n\023qu" +
+      "eryElectionStatus\022\032.top.fengye.rpc.grpc." +
+      "Empty\0320.top.fengye.rpc.grpc.queryElectio" +
+      "nStatusResponse\022M\n\010shutDown\022\032.top.fengye" +
+      ".rpc.grpc.Empty\032%.top.fengye.rpc.grpc.sh" +
+      "utDownResponse\022Z\n\tapplyVote\022%.top.fengye" +
+      ".rpc.grpc.ApplyVoteRequest\032&.top.fengye." +
+      "rpc.grpc.ApplyVoteResponse\022f\n\rappendEntr" +
+      "ies\022).top.fengye.rpc.grpc.AppendEntriesR" +
+      "equest\032*.top.fengye.rpc.grpc.AppendEntri" +
+      "esResponseb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -4046,27 +4757,33 @@ public final class Grpc {
     internal_static_top_fengye_rpc_grpc_queryElectionStatusResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_fengye_rpc_grpc_queryElectionStatusResponse_descriptor,
-        new java.lang.String[] { "NodeId", "Role", });
-    internal_static_top_fengye_rpc_grpc_AppendEntriesRequest_descriptor =
+        new java.lang.String[] { "NodeId", "Message", });
+    internal_static_top_fengye_rpc_grpc_shutDownResponse_descriptor =
       getDescriptor().getMessageTypes().get(2);
+    internal_static_top_fengye_rpc_grpc_shutDownResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_top_fengye_rpc_grpc_shutDownResponse_descriptor,
+        new java.lang.String[] { "NodeId", "Message", });
+    internal_static_top_fengye_rpc_grpc_AppendEntriesRequest_descriptor =
+      getDescriptor().getMessageTypes().get(3);
     internal_static_top_fengye_rpc_grpc_AppendEntriesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_fengye_rpc_grpc_AppendEntriesRequest_descriptor,
         new java.lang.String[] { "NodeId", "Term", "Command", });
     internal_static_top_fengye_rpc_grpc_AppendEntriesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_top_fengye_rpc_grpc_AppendEntriesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_fengye_rpc_grpc_AppendEntriesResponse_descriptor,
         new java.lang.String[] { "NodeId", "Term", "Success", });
     internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_descriptor,
         new java.lang.String[] { "NodeId", "Term", });
     internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_descriptor,

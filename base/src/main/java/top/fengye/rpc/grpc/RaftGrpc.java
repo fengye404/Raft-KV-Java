@@ -46,6 +46,37 @@ public final class RaftGrpc {
     return getQueryElectionStatusMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<top.fengye.rpc.grpc.Grpc.Empty,
+      top.fengye.rpc.grpc.Grpc.shutDownResponse> getShutDownMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "shutDown",
+      requestType = top.fengye.rpc.grpc.Grpc.Empty.class,
+      responseType = top.fengye.rpc.grpc.Grpc.shutDownResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<top.fengye.rpc.grpc.Grpc.Empty,
+      top.fengye.rpc.grpc.Grpc.shutDownResponse> getShutDownMethod() {
+    io.grpc.MethodDescriptor<top.fengye.rpc.grpc.Grpc.Empty, top.fengye.rpc.grpc.Grpc.shutDownResponse> getShutDownMethod;
+    if ((getShutDownMethod = RaftGrpc.getShutDownMethod) == null) {
+      synchronized (RaftGrpc.class) {
+        if ((getShutDownMethod = RaftGrpc.getShutDownMethod) == null) {
+          RaftGrpc.getShutDownMethod = getShutDownMethod =
+              io.grpc.MethodDescriptor.<top.fengye.rpc.grpc.Grpc.Empty, top.fengye.rpc.grpc.Grpc.shutDownResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "shutDown"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  top.fengye.rpc.grpc.Grpc.Empty.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  top.fengye.rpc.grpc.Grpc.shutDownResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new RaftMethodDescriptorSupplier("shutDown"))
+              .build();
+        }
+      }
+    }
+    return getShutDownMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<top.fengye.rpc.grpc.Grpc.ApplyVoteRequest,
       top.fengye.rpc.grpc.Grpc.ApplyVoteResponse> getApplyVoteMethod;
 
@@ -165,6 +196,13 @@ public final class RaftGrpc {
 
     /**
      */
+    public void shutDown(top.fengye.rpc.grpc.Grpc.Empty request,
+        io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.shutDownResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getShutDownMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void applyVote(top.fengye.rpc.grpc.Grpc.ApplyVoteRequest request,
         io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.ApplyVoteResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getApplyVoteMethod(), responseObserver);
@@ -186,6 +224,13 @@ public final class RaftGrpc {
                 top.fengye.rpc.grpc.Grpc.Empty,
                 top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse>(
                   this, METHODID_QUERY_ELECTION_STATUS)))
+          .addMethod(
+            getShutDownMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                top.fengye.rpc.grpc.Grpc.Empty,
+                top.fengye.rpc.grpc.Grpc.shutDownResponse>(
+                  this, METHODID_SHUT_DOWN)))
           .addMethod(
             getApplyVoteMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -228,6 +273,14 @@ public final class RaftGrpc {
 
     /**
      */
+    public void shutDown(top.fengye.rpc.grpc.Grpc.Empty request,
+        io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.shutDownResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getShutDownMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void applyVote(top.fengye.rpc.grpc.Grpc.ApplyVoteRequest request,
         io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.ApplyVoteResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -262,6 +315,13 @@ public final class RaftGrpc {
     public top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse queryElectionStatus(top.fengye.rpc.grpc.Grpc.Empty request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getQueryElectionStatusMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public top.fengye.rpc.grpc.Grpc.shutDownResponse shutDown(top.fengye.rpc.grpc.Grpc.Empty request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getShutDownMethod(), getCallOptions(), request);
     }
 
     /**
@@ -303,6 +363,14 @@ public final class RaftGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<top.fengye.rpc.grpc.Grpc.shutDownResponse> shutDown(
+        top.fengye.rpc.grpc.Grpc.Empty request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getShutDownMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<top.fengye.rpc.grpc.Grpc.ApplyVoteResponse> applyVote(
         top.fengye.rpc.grpc.Grpc.ApplyVoteRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
@@ -319,8 +387,9 @@ public final class RaftGrpc {
   }
 
   private static final int METHODID_QUERY_ELECTION_STATUS = 0;
-  private static final int METHODID_APPLY_VOTE = 1;
-  private static final int METHODID_APPEND_ENTRIES = 2;
+  private static final int METHODID_SHUT_DOWN = 1;
+  private static final int METHODID_APPLY_VOTE = 2;
+  private static final int METHODID_APPEND_ENTRIES = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -342,6 +411,10 @@ public final class RaftGrpc {
         case METHODID_QUERY_ELECTION_STATUS:
           serviceImpl.queryElectionStatus((top.fengye.rpc.grpc.Grpc.Empty) request,
               (io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse>) responseObserver);
+          break;
+        case METHODID_SHUT_DOWN:
+          serviceImpl.shutDown((top.fengye.rpc.grpc.Grpc.Empty) request,
+              (io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.shutDownResponse>) responseObserver);
           break;
         case METHODID_APPLY_VOTE:
           serviceImpl.applyVote((top.fengye.rpc.grpc.Grpc.ApplyVoteRequest) request,
@@ -413,6 +486,7 @@ public final class RaftGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new RaftFileDescriptorSupplier())
               .addMethod(getQueryElectionStatusMethod())
+              .addMethod(getShutDownMethod())
               .addMethod(getApplyVoteMethod())
               .addMethod(getAppendEntriesMethod())
               .build();
