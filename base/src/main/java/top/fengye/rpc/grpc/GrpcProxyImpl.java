@@ -1,5 +1,6 @@
 package top.fengye.rpc.grpc;
 
+import io.netty.util.internal.StringUtil;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
@@ -86,7 +87,7 @@ public class GrpcProxyImpl implements RpcProxy {
                                     .build()
                     );
                 } else {
-                    raftNode.becomeFollow(request.getTerm());
+                    raftNode.becomeFollow(request.getTerm(), request.getNodeId());
                     response.complete(
                             Grpc.AppendEntriesResponse.newBuilder()
                                     .setNodeId(raftNode.getNodeId())
@@ -118,9 +119,37 @@ public class GrpcProxyImpl implements RpcProxy {
                                     .build()
                     );
                 });
-
             }
 
+            @Override
+            public void handleRequest(Grpc.CommandRequest request, Promise<Grpc.CommandResponse> response) {
+                // client 会随机给一个 raftNode 发送请求
+                // 当 raftNode 收到请求时，如果发现自己不是 Leader，则会让 client 重定向到 Leader
+                if (RoleEnum.Leader != raftNode.getRole()) {
+                    String leaderId = raftNode.getLeaderId();
+                    // 如果当前节点存储了 Leader 信息，则直接返回
+                    // 这里不用担心 Leader 信息落后等问题，因为心跳会及时纠正，即便 client 被重定向到一个错误的 Leader，
+                    // 由于过半提交规则的限制，client 的请求也不会被处理，此时 client 会收到一个错误的返回
+                    if (StringUtil.isNullOrEmpty(leaderId)) {
+                        response.complete(
+                                Grpc.CommandResponse.newBuilder()
+                                        .setRedirect(true)
+                                        .setRedirectPort(raftNode.getPeers().get(leaderId).getRpcAddress().getPort())
+                                        .build()
+                        );
+                    } else {
+                        // 如果当前节点没有存储 Leader 信息，则返回 false 让 client 重新随机发起请求
+                        response.complete(
+                                Grpc.CommandResponse.newBuilder()
+                                        .setSuccess(false)
+                                        .build()
+                        );
+                    }
+                } else {
+                    // 如果当前节点是 Leader，则开始处理请求
+
+                }
+            }
         };
         stub.bindAll(grpcServer);
     }

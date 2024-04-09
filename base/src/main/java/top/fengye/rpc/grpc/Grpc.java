@@ -1820,6 +1820,1335 @@ public final class Grpc {
 
   }
 
+  public interface ApplyVoteRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:top.fengye.rpc.grpc.ApplyVoteRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string nodeId = 1;</code>
+     * @return The nodeId.
+     */
+    java.lang.String getNodeId();
+    /**
+     * <code>string nodeId = 1;</code>
+     * @return The bytes for nodeId.
+     */
+    com.google.protobuf.ByteString
+        getNodeIdBytes();
+
+    /**
+     * <code>int64 term = 2;</code>
+     * @return The term.
+     */
+    long getTerm();
+  }
+  /**
+   * Protobuf type {@code top.fengye.rpc.grpc.ApplyVoteRequest}
+   */
+  public static final class ApplyVoteRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:top.fengye.rpc.grpc.ApplyVoteRequest)
+      ApplyVoteRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ApplyVoteRequest.newBuilder() to construct.
+    private ApplyVoteRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ApplyVoteRequest() {
+      nodeId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ApplyVoteRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              top.fengye.rpc.grpc.Grpc.ApplyVoteRequest.class, top.fengye.rpc.grpc.Grpc.ApplyVoteRequest.Builder.class);
+    }
+
+    public static final int NODEID_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object nodeId_ = "";
+    /**
+     * <code>string nodeId = 1;</code>
+     * @return The nodeId.
+     */
+    @java.lang.Override
+    public java.lang.String getNodeId() {
+      java.lang.Object ref = nodeId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        nodeId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string nodeId = 1;</code>
+     * @return The bytes for nodeId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNodeIdBytes() {
+      java.lang.Object ref = nodeId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        nodeId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TERM_FIELD_NUMBER = 2;
+    private long term_ = 0L;
+    /**
+     * <code>int64 term = 2;</code>
+     * @return The term.
+     */
+    @java.lang.Override
+    public long getTerm() {
+      return term_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, nodeId_);
+      }
+      if (term_ != 0L) {
+        output.writeInt64(2, term_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, nodeId_);
+      }
+      if (term_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, term_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof top.fengye.rpc.grpc.Grpc.ApplyVoteRequest)) {
+        return super.equals(obj);
+      }
+      top.fengye.rpc.grpc.Grpc.ApplyVoteRequest other = (top.fengye.rpc.grpc.Grpc.ApplyVoteRequest) obj;
+
+      if (!getNodeId()
+          .equals(other.getNodeId())) return false;
+      if (getTerm()
+          != other.getTerm()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + NODEID_FIELD_NUMBER;
+      hash = (53 * hash) + getNodeId().hashCode();
+      hash = (37 * hash) + TERM_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getTerm());
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(top.fengye.rpc.grpc.Grpc.ApplyVoteRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code top.fengye.rpc.grpc.ApplyVoteRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:top.fengye.rpc.grpc.ApplyVoteRequest)
+        top.fengye.rpc.grpc.Grpc.ApplyVoteRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                top.fengye.rpc.grpc.Grpc.ApplyVoteRequest.class, top.fengye.rpc.grpc.Grpc.ApplyVoteRequest.Builder.class);
+      }
+
+      // Construct using top.fengye.rpc.grpc.Grpc.ApplyVoteRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        nodeId_ = "";
+        term_ = 0L;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public top.fengye.rpc.grpc.Grpc.ApplyVoteRequest getDefaultInstanceForType() {
+        return top.fengye.rpc.grpc.Grpc.ApplyVoteRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public top.fengye.rpc.grpc.Grpc.ApplyVoteRequest build() {
+        top.fengye.rpc.grpc.Grpc.ApplyVoteRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public top.fengye.rpc.grpc.Grpc.ApplyVoteRequest buildPartial() {
+        top.fengye.rpc.grpc.Grpc.ApplyVoteRequest result = new top.fengye.rpc.grpc.Grpc.ApplyVoteRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(top.fengye.rpc.grpc.Grpc.ApplyVoteRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.nodeId_ = nodeId_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.term_ = term_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof top.fengye.rpc.grpc.Grpc.ApplyVoteRequest) {
+          return mergeFrom((top.fengye.rpc.grpc.Grpc.ApplyVoteRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(top.fengye.rpc.grpc.Grpc.ApplyVoteRequest other) {
+        if (other == top.fengye.rpc.grpc.Grpc.ApplyVoteRequest.getDefaultInstance()) return this;
+        if (!other.getNodeId().isEmpty()) {
+          nodeId_ = other.nodeId_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (other.getTerm() != 0L) {
+          setTerm(other.getTerm());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                nodeId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 16: {
+                term_ = input.readInt64();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object nodeId_ = "";
+      /**
+       * <code>string nodeId = 1;</code>
+       * @return The nodeId.
+       */
+      public java.lang.String getNodeId() {
+        java.lang.Object ref = nodeId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          nodeId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string nodeId = 1;</code>
+       * @return The bytes for nodeId.
+       */
+      public com.google.protobuf.ByteString
+          getNodeIdBytes() {
+        java.lang.Object ref = nodeId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          nodeId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string nodeId = 1;</code>
+       * @param value The nodeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNodeId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        nodeId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string nodeId = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNodeId() {
+        nodeId_ = getDefaultInstance().getNodeId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string nodeId = 1;</code>
+       * @param value The bytes for nodeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNodeIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        nodeId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private long term_ ;
+      /**
+       * <code>int64 term = 2;</code>
+       * @return The term.
+       */
+      @java.lang.Override
+      public long getTerm() {
+        return term_;
+      }
+      /**
+       * <code>int64 term = 2;</code>
+       * @param value The term to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTerm(long value) {
+        
+        term_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 term = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTerm() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        term_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:top.fengye.rpc.grpc.ApplyVoteRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:top.fengye.rpc.grpc.ApplyVoteRequest)
+    private static final top.fengye.rpc.grpc.Grpc.ApplyVoteRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new top.fengye.rpc.grpc.Grpc.ApplyVoteRequest();
+    }
+
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ApplyVoteRequest>
+        PARSER = new com.google.protobuf.AbstractParser<ApplyVoteRequest>() {
+      @java.lang.Override
+      public ApplyVoteRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<ApplyVoteRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ApplyVoteRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public top.fengye.rpc.grpc.Grpc.ApplyVoteRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ApplyVoteResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:top.fengye.rpc.grpc.ApplyVoteResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string nodeId = 1;</code>
+     * @return The nodeId.
+     */
+    java.lang.String getNodeId();
+    /**
+     * <code>string nodeId = 1;</code>
+     * @return The bytes for nodeId.
+     */
+    com.google.protobuf.ByteString
+        getNodeIdBytes();
+
+    /**
+     * <code>int64 term = 2;</code>
+     * @return The term.
+     */
+    long getTerm();
+
+    /**
+     * <code>bool agreed = 3;</code>
+     * @return The agreed.
+     */
+    boolean getAgreed();
+  }
+  /**
+   * Protobuf type {@code top.fengye.rpc.grpc.ApplyVoteResponse}
+   */
+  public static final class ApplyVoteResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:top.fengye.rpc.grpc.ApplyVoteResponse)
+      ApplyVoteResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ApplyVoteResponse.newBuilder() to construct.
+    private ApplyVoteResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ApplyVoteResponse() {
+      nodeId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ApplyVoteResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              top.fengye.rpc.grpc.Grpc.ApplyVoteResponse.class, top.fengye.rpc.grpc.Grpc.ApplyVoteResponse.Builder.class);
+    }
+
+    public static final int NODEID_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object nodeId_ = "";
+    /**
+     * <code>string nodeId = 1;</code>
+     * @return The nodeId.
+     */
+    @java.lang.Override
+    public java.lang.String getNodeId() {
+      java.lang.Object ref = nodeId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        nodeId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string nodeId = 1;</code>
+     * @return The bytes for nodeId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNodeIdBytes() {
+      java.lang.Object ref = nodeId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        nodeId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TERM_FIELD_NUMBER = 2;
+    private long term_ = 0L;
+    /**
+     * <code>int64 term = 2;</code>
+     * @return The term.
+     */
+    @java.lang.Override
+    public long getTerm() {
+      return term_;
+    }
+
+    public static final int AGREED_FIELD_NUMBER = 3;
+    private boolean agreed_ = false;
+    /**
+     * <code>bool agreed = 3;</code>
+     * @return The agreed.
+     */
+    @java.lang.Override
+    public boolean getAgreed() {
+      return agreed_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, nodeId_);
+      }
+      if (term_ != 0L) {
+        output.writeInt64(2, term_);
+      }
+      if (agreed_ != false) {
+        output.writeBool(3, agreed_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, nodeId_);
+      }
+      if (term_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, term_);
+      }
+      if (agreed_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, agreed_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof top.fengye.rpc.grpc.Grpc.ApplyVoteResponse)) {
+        return super.equals(obj);
+      }
+      top.fengye.rpc.grpc.Grpc.ApplyVoteResponse other = (top.fengye.rpc.grpc.Grpc.ApplyVoteResponse) obj;
+
+      if (!getNodeId()
+          .equals(other.getNodeId())) return false;
+      if (getTerm()
+          != other.getTerm()) return false;
+      if (getAgreed()
+          != other.getAgreed()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + NODEID_FIELD_NUMBER;
+      hash = (53 * hash) + getNodeId().hashCode();
+      hash = (37 * hash) + TERM_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getTerm());
+      hash = (37 * hash) + AGREED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getAgreed());
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(top.fengye.rpc.grpc.Grpc.ApplyVoteResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code top.fengye.rpc.grpc.ApplyVoteResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:top.fengye.rpc.grpc.ApplyVoteResponse)
+        top.fengye.rpc.grpc.Grpc.ApplyVoteResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                top.fengye.rpc.grpc.Grpc.ApplyVoteResponse.class, top.fengye.rpc.grpc.Grpc.ApplyVoteResponse.Builder.class);
+      }
+
+      // Construct using top.fengye.rpc.grpc.Grpc.ApplyVoteResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        nodeId_ = "";
+        term_ = 0L;
+        agreed_ = false;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public top.fengye.rpc.grpc.Grpc.ApplyVoteResponse getDefaultInstanceForType() {
+        return top.fengye.rpc.grpc.Grpc.ApplyVoteResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public top.fengye.rpc.grpc.Grpc.ApplyVoteResponse build() {
+        top.fengye.rpc.grpc.Grpc.ApplyVoteResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public top.fengye.rpc.grpc.Grpc.ApplyVoteResponse buildPartial() {
+        top.fengye.rpc.grpc.Grpc.ApplyVoteResponse result = new top.fengye.rpc.grpc.Grpc.ApplyVoteResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(top.fengye.rpc.grpc.Grpc.ApplyVoteResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.nodeId_ = nodeId_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.term_ = term_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.agreed_ = agreed_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof top.fengye.rpc.grpc.Grpc.ApplyVoteResponse) {
+          return mergeFrom((top.fengye.rpc.grpc.Grpc.ApplyVoteResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(top.fengye.rpc.grpc.Grpc.ApplyVoteResponse other) {
+        if (other == top.fengye.rpc.grpc.Grpc.ApplyVoteResponse.getDefaultInstance()) return this;
+        if (!other.getNodeId().isEmpty()) {
+          nodeId_ = other.nodeId_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (other.getTerm() != 0L) {
+          setTerm(other.getTerm());
+        }
+        if (other.getAgreed() != false) {
+          setAgreed(other.getAgreed());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                nodeId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 16: {
+                term_ = input.readInt64();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
+              case 24: {
+                agreed_ = input.readBool();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 24
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object nodeId_ = "";
+      /**
+       * <code>string nodeId = 1;</code>
+       * @return The nodeId.
+       */
+      public java.lang.String getNodeId() {
+        java.lang.Object ref = nodeId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          nodeId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string nodeId = 1;</code>
+       * @return The bytes for nodeId.
+       */
+      public com.google.protobuf.ByteString
+          getNodeIdBytes() {
+        java.lang.Object ref = nodeId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          nodeId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string nodeId = 1;</code>
+       * @param value The nodeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNodeId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        nodeId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string nodeId = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNodeId() {
+        nodeId_ = getDefaultInstance().getNodeId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string nodeId = 1;</code>
+       * @param value The bytes for nodeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNodeIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        nodeId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private long term_ ;
+      /**
+       * <code>int64 term = 2;</code>
+       * @return The term.
+       */
+      @java.lang.Override
+      public long getTerm() {
+        return term_;
+      }
+      /**
+       * <code>int64 term = 2;</code>
+       * @param value The term to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTerm(long value) {
+        
+        term_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 term = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTerm() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        term_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private boolean agreed_ ;
+      /**
+       * <code>bool agreed = 3;</code>
+       * @return The agreed.
+       */
+      @java.lang.Override
+      public boolean getAgreed() {
+        return agreed_;
+      }
+      /**
+       * <code>bool agreed = 3;</code>
+       * @param value The agreed to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAgreed(boolean value) {
+        
+        agreed_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool agreed = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAgreed() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        agreed_ = false;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:top.fengye.rpc.grpc.ApplyVoteResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:top.fengye.rpc.grpc.ApplyVoteResponse)
+    private static final top.fengye.rpc.grpc.Grpc.ApplyVoteResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new top.fengye.rpc.grpc.Grpc.ApplyVoteResponse();
+    }
+
+    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ApplyVoteResponse>
+        PARSER = new com.google.protobuf.AbstractParser<ApplyVoteResponse>() {
+      @java.lang.Override
+      public ApplyVoteResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<ApplyVoteResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ApplyVoteResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public top.fengye.rpc.grpc.Grpc.ApplyVoteResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface AppendEntriesRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:top.fengye.rpc.grpc.AppendEntriesRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -3345,49 +4674,45 @@ public final class Grpc {
 
   }
 
-  public interface ApplyVoteRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:top.fengye.rpc.grpc.ApplyVoteRequest)
+  public interface CommandRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:top.fengye.rpc.grpc.CommandRequest)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string nodeId = 1;</code>
-     * @return The nodeId.
+     * <code>.top.fengye.rpc.grpc.Command command = 1;</code>
+     * @return Whether the command field is set.
      */
-    java.lang.String getNodeId();
+    boolean hasCommand();
     /**
-     * <code>string nodeId = 1;</code>
-     * @return The bytes for nodeId.
+     * <code>.top.fengye.rpc.grpc.Command command = 1;</code>
+     * @return The command.
      */
-    com.google.protobuf.ByteString
-        getNodeIdBytes();
-
+    top.fengye.rpc.grpc.BizParam.Command getCommand();
     /**
-     * <code>int64 term = 2;</code>
-     * @return The term.
+     * <code>.top.fengye.rpc.grpc.Command command = 1;</code>
      */
-    long getTerm();
+    top.fengye.rpc.grpc.BizParam.CommandOrBuilder getCommandOrBuilder();
   }
   /**
-   * Protobuf type {@code top.fengye.rpc.grpc.ApplyVoteRequest}
+   * Protobuf type {@code top.fengye.rpc.grpc.CommandRequest}
    */
-  public static final class ApplyVoteRequest extends
+  public static final class CommandRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:top.fengye.rpc.grpc.ApplyVoteRequest)
-      ApplyVoteRequestOrBuilder {
+      // @@protoc_insertion_point(message_implements:top.fengye.rpc.grpc.CommandRequest)
+      CommandRequestOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use ApplyVoteRequest.newBuilder() to construct.
-    private ApplyVoteRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use CommandRequest.newBuilder() to construct.
+    private CommandRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private ApplyVoteRequest() {
-      nodeId_ = "";
+    private CommandRequest() {
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new ApplyVoteRequest();
+      return new CommandRequest();
     }
 
     @java.lang.Override
@@ -3397,65 +4722,41 @@ public final class Grpc {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_descriptor;
+      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_CommandRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_fieldAccessorTable
+      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_CommandRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              top.fengye.rpc.grpc.Grpc.ApplyVoteRequest.class, top.fengye.rpc.grpc.Grpc.ApplyVoteRequest.Builder.class);
+              top.fengye.rpc.grpc.Grpc.CommandRequest.class, top.fengye.rpc.grpc.Grpc.CommandRequest.Builder.class);
     }
 
-    public static final int NODEID_FIELD_NUMBER = 1;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object nodeId_ = "";
+    public static final int COMMAND_FIELD_NUMBER = 1;
+    private top.fengye.rpc.grpc.BizParam.Command command_;
     /**
-     * <code>string nodeId = 1;</code>
-     * @return The nodeId.
+     * <code>.top.fengye.rpc.grpc.Command command = 1;</code>
+     * @return Whether the command field is set.
      */
     @java.lang.Override
-    public java.lang.String getNodeId() {
-      java.lang.Object ref = nodeId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        nodeId_ = s;
-        return s;
-      }
+    public boolean hasCommand() {
+      return command_ != null;
     }
     /**
-     * <code>string nodeId = 1;</code>
-     * @return The bytes for nodeId.
+     * <code>.top.fengye.rpc.grpc.Command command = 1;</code>
+     * @return The command.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString
-        getNodeIdBytes() {
-      java.lang.Object ref = nodeId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        nodeId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public top.fengye.rpc.grpc.BizParam.Command getCommand() {
+      return command_ == null ? top.fengye.rpc.grpc.BizParam.Command.getDefaultInstance() : command_;
     }
-
-    public static final int TERM_FIELD_NUMBER = 2;
-    private long term_ = 0L;
     /**
-     * <code>int64 term = 2;</code>
-     * @return The term.
+     * <code>.top.fengye.rpc.grpc.Command command = 1;</code>
      */
     @java.lang.Override
-    public long getTerm() {
-      return term_;
+    public top.fengye.rpc.grpc.BizParam.CommandOrBuilder getCommandOrBuilder() {
+      return command_ == null ? top.fengye.rpc.grpc.BizParam.Command.getDefaultInstance() : command_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -3472,11 +4773,8 @@ public final class Grpc {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, nodeId_);
-      }
-      if (term_ != 0L) {
-        output.writeInt64(2, term_);
+      if (command_ != null) {
+        output.writeMessage(1, getCommand());
       }
       getUnknownFields().writeTo(output);
     }
@@ -3487,12 +4785,9 @@ public final class Grpc {
       if (size != -1) return size;
 
       size = 0;
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, nodeId_);
-      }
-      if (term_ != 0L) {
+      if (command_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, term_);
+          .computeMessageSize(1, getCommand());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -3504,15 +4799,16 @@ public final class Grpc {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof top.fengye.rpc.grpc.Grpc.ApplyVoteRequest)) {
+      if (!(obj instanceof top.fengye.rpc.grpc.Grpc.CommandRequest)) {
         return super.equals(obj);
       }
-      top.fengye.rpc.grpc.Grpc.ApplyVoteRequest other = (top.fengye.rpc.grpc.Grpc.ApplyVoteRequest) obj;
+      top.fengye.rpc.grpc.Grpc.CommandRequest other = (top.fengye.rpc.grpc.Grpc.CommandRequest) obj;
 
-      if (!getNodeId()
-          .equals(other.getNodeId())) return false;
-      if (getTerm()
-          != other.getTerm()) return false;
+      if (hasCommand() != other.hasCommand()) return false;
+      if (hasCommand()) {
+        if (!getCommand()
+            .equals(other.getCommand())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -3524,79 +4820,78 @@ public final class Grpc {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + NODEID_FIELD_NUMBER;
-      hash = (53 * hash) + getNodeId().hashCode();
-      hash = (37 * hash) + TERM_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getTerm());
+      if (hasCommand()) {
+        hash = (37 * hash) + COMMAND_FIELD_NUMBER;
+        hash = (53 * hash) + getCommand().hashCode();
+      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandRequest parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandRequest parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandRequest parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(byte[] data)
+    public static top.fengye.rpc.grpc.Grpc.CommandRequest parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandRequest parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(java.io.InputStream input)
+    public static top.fengye.rpc.grpc.Grpc.CommandRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseDelimitedFrom(java.io.InputStream input)
+    public static top.fengye.rpc.grpc.Grpc.CommandRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseDelimitedFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -3609,7 +4904,7 @@ public final class Grpc {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(top.fengye.rpc.grpc.Grpc.ApplyVoteRequest prototype) {
+    public static Builder newBuilder(top.fengye.rpc.grpc.Grpc.CommandRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -3625,26 +4920,26 @@ public final class Grpc {
       return builder;
     }
     /**
-     * Protobuf type {@code top.fengye.rpc.grpc.ApplyVoteRequest}
+     * Protobuf type {@code top.fengye.rpc.grpc.CommandRequest}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:top.fengye.rpc.grpc.ApplyVoteRequest)
-        top.fengye.rpc.grpc.Grpc.ApplyVoteRequestOrBuilder {
+        // @@protoc_insertion_point(builder_implements:top.fengye.rpc.grpc.CommandRequest)
+        top.fengye.rpc.grpc.Grpc.CommandRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_descriptor;
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_CommandRequest_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_fieldAccessorTable
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_CommandRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                top.fengye.rpc.grpc.Grpc.ApplyVoteRequest.class, top.fengye.rpc.grpc.Grpc.ApplyVoteRequest.Builder.class);
+                top.fengye.rpc.grpc.Grpc.CommandRequest.class, top.fengye.rpc.grpc.Grpc.CommandRequest.Builder.class);
       }
 
-      // Construct using top.fengye.rpc.grpc.Grpc.ApplyVoteRequest.newBuilder()
+      // Construct using top.fengye.rpc.grpc.Grpc.CommandRequest.newBuilder()
       private Builder() {
 
       }
@@ -3658,25 +4953,28 @@ public final class Grpc {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        nodeId_ = "";
-        term_ = 0L;
+        command_ = null;
+        if (commandBuilder_ != null) {
+          commandBuilder_.dispose();
+          commandBuilder_ = null;
+        }
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_descriptor;
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_CommandRequest_descriptor;
       }
 
       @java.lang.Override
-      public top.fengye.rpc.grpc.Grpc.ApplyVoteRequest getDefaultInstanceForType() {
-        return top.fengye.rpc.grpc.Grpc.ApplyVoteRequest.getDefaultInstance();
+      public top.fengye.rpc.grpc.Grpc.CommandRequest getDefaultInstanceForType() {
+        return top.fengye.rpc.grpc.Grpc.CommandRequest.getDefaultInstance();
       }
 
       @java.lang.Override
-      public top.fengye.rpc.grpc.Grpc.ApplyVoteRequest build() {
-        top.fengye.rpc.grpc.Grpc.ApplyVoteRequest result = buildPartial();
+      public top.fengye.rpc.grpc.Grpc.CommandRequest build() {
+        top.fengye.rpc.grpc.Grpc.CommandRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -3684,20 +4982,19 @@ public final class Grpc {
       }
 
       @java.lang.Override
-      public top.fengye.rpc.grpc.Grpc.ApplyVoteRequest buildPartial() {
-        top.fengye.rpc.grpc.Grpc.ApplyVoteRequest result = new top.fengye.rpc.grpc.Grpc.ApplyVoteRequest(this);
+      public top.fengye.rpc.grpc.Grpc.CommandRequest buildPartial() {
+        top.fengye.rpc.grpc.Grpc.CommandRequest result = new top.fengye.rpc.grpc.Grpc.CommandRequest(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(top.fengye.rpc.grpc.Grpc.ApplyVoteRequest result) {
+      private void buildPartial0(top.fengye.rpc.grpc.Grpc.CommandRequest result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.nodeId_ = nodeId_;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.term_ = term_;
+          result.command_ = commandBuilder_ == null
+              ? command_
+              : commandBuilder_.build();
         }
       }
 
@@ -3735,23 +5032,18 @@ public final class Grpc {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof top.fengye.rpc.grpc.Grpc.ApplyVoteRequest) {
-          return mergeFrom((top.fengye.rpc.grpc.Grpc.ApplyVoteRequest)other);
+        if (other instanceof top.fengye.rpc.grpc.Grpc.CommandRequest) {
+          return mergeFrom((top.fengye.rpc.grpc.Grpc.CommandRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(top.fengye.rpc.grpc.Grpc.ApplyVoteRequest other) {
-        if (other == top.fengye.rpc.grpc.Grpc.ApplyVoteRequest.getDefaultInstance()) return this;
-        if (!other.getNodeId().isEmpty()) {
-          nodeId_ = other.nodeId_;
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        if (other.getTerm() != 0L) {
-          setTerm(other.getTerm());
+      public Builder mergeFrom(top.fengye.rpc.grpc.Grpc.CommandRequest other) {
+        if (other == top.fengye.rpc.grpc.Grpc.CommandRequest.getDefaultInstance()) return this;
+        if (other.hasCommand()) {
+          mergeCommand(other.getCommand());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -3780,15 +5072,12 @@ public final class Grpc {
                 done = true;
                 break;
               case 10: {
-                nodeId_ = input.readStringRequireUtf8();
+                input.readMessage(
+                    getCommandFieldBuilder().getBuilder(),
+                    extensionRegistry);
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
-              case 16: {
-                term_ = input.readInt64();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 16
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -3806,108 +5095,123 @@ public final class Grpc {
       }
       private int bitField0_;
 
-      private java.lang.Object nodeId_ = "";
+      private top.fengye.rpc.grpc.BizParam.Command command_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          top.fengye.rpc.grpc.BizParam.Command, top.fengye.rpc.grpc.BizParam.Command.Builder, top.fengye.rpc.grpc.BizParam.CommandOrBuilder> commandBuilder_;
       /**
-       * <code>string nodeId = 1;</code>
-       * @return The nodeId.
+       * <code>.top.fengye.rpc.grpc.Command command = 1;</code>
+       * @return Whether the command field is set.
        */
-      public java.lang.String getNodeId() {
-        java.lang.Object ref = nodeId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          nodeId_ = s;
-          return s;
+      public boolean hasCommand() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>.top.fengye.rpc.grpc.Command command = 1;</code>
+       * @return The command.
+       */
+      public top.fengye.rpc.grpc.BizParam.Command getCommand() {
+        if (commandBuilder_ == null) {
+          return command_ == null ? top.fengye.rpc.grpc.BizParam.Command.getDefaultInstance() : command_;
         } else {
-          return (java.lang.String) ref;
+          return commandBuilder_.getMessage();
         }
       }
       /**
-       * <code>string nodeId = 1;</code>
-       * @return The bytes for nodeId.
+       * <code>.top.fengye.rpc.grpc.Command command = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getNodeIdBytes() {
-        java.lang.Object ref = nodeId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          nodeId_ = b;
-          return b;
+      public Builder setCommand(top.fengye.rpc.grpc.BizParam.Command value) {
+        if (commandBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          command_ = value;
         } else {
-          return (com.google.protobuf.ByteString) ref;
+          commandBuilder_.setMessage(value);
         }
-      }
-      /**
-       * <code>string nodeId = 1;</code>
-       * @param value The nodeId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setNodeId(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        nodeId_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
       /**
-       * <code>string nodeId = 1;</code>
-       * @return This builder for chaining.
+       * <code>.top.fengye.rpc.grpc.Command command = 1;</code>
        */
-      public Builder clearNodeId() {
-        nodeId_ = getDefaultInstance().getNodeId();
+      public Builder setCommand(
+          top.fengye.rpc.grpc.BizParam.Command.Builder builderForValue) {
+        if (commandBuilder_ == null) {
+          command_ = builderForValue.build();
+        } else {
+          commandBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.top.fengye.rpc.grpc.Command command = 1;</code>
+       */
+      public Builder mergeCommand(top.fengye.rpc.grpc.BizParam.Command value) {
+        if (commandBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0) &&
+            command_ != null &&
+            command_ != top.fengye.rpc.grpc.BizParam.Command.getDefaultInstance()) {
+            getCommandBuilder().mergeFrom(value);
+          } else {
+            command_ = value;
+          }
+        } else {
+          commandBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.top.fengye.rpc.grpc.Command command = 1;</code>
+       */
+      public Builder clearCommand() {
         bitField0_ = (bitField0_ & ~0x00000001);
+        command_ = null;
+        if (commandBuilder_ != null) {
+          commandBuilder_.dispose();
+          commandBuilder_ = null;
+        }
         onChanged();
         return this;
       }
       /**
-       * <code>string nodeId = 1;</code>
-       * @param value The bytes for nodeId to set.
-       * @return This builder for chaining.
+       * <code>.top.fengye.rpc.grpc.Command command = 1;</code>
        */
-      public Builder setNodeIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        nodeId_ = value;
+      public top.fengye.rpc.grpc.BizParam.Command.Builder getCommandBuilder() {
         bitField0_ |= 0x00000001;
         onChanged();
-        return this;
-      }
-
-      private long term_ ;
-      /**
-       * <code>int64 term = 2;</code>
-       * @return The term.
-       */
-      @java.lang.Override
-      public long getTerm() {
-        return term_;
+        return getCommandFieldBuilder().getBuilder();
       }
       /**
-       * <code>int64 term = 2;</code>
-       * @param value The term to set.
-       * @return This builder for chaining.
+       * <code>.top.fengye.rpc.grpc.Command command = 1;</code>
        */
-      public Builder setTerm(long value) {
-        
-        term_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
+      public top.fengye.rpc.grpc.BizParam.CommandOrBuilder getCommandOrBuilder() {
+        if (commandBuilder_ != null) {
+          return commandBuilder_.getMessageOrBuilder();
+        } else {
+          return command_ == null ?
+              top.fengye.rpc.grpc.BizParam.Command.getDefaultInstance() : command_;
+        }
       }
       /**
-       * <code>int64 term = 2;</code>
-       * @return This builder for chaining.
+       * <code>.top.fengye.rpc.grpc.Command command = 1;</code>
        */
-      public Builder clearTerm() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        term_ = 0L;
-        onChanged();
-        return this;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          top.fengye.rpc.grpc.BizParam.Command, top.fengye.rpc.grpc.BizParam.Command.Builder, top.fengye.rpc.grpc.BizParam.CommandOrBuilder> 
+          getCommandFieldBuilder() {
+        if (commandBuilder_ == null) {
+          commandBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              top.fengye.rpc.grpc.BizParam.Command, top.fengye.rpc.grpc.BizParam.Command.Builder, top.fengye.rpc.grpc.BizParam.CommandOrBuilder>(
+                  getCommand(),
+                  getParentForChildren(),
+                  isClean());
+          command_ = null;
+        }
+        return commandBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -3922,23 +5226,23 @@ public final class Grpc {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:top.fengye.rpc.grpc.ApplyVoteRequest)
+      // @@protoc_insertion_point(builder_scope:top.fengye.rpc.grpc.CommandRequest)
     }
 
-    // @@protoc_insertion_point(class_scope:top.fengye.rpc.grpc.ApplyVoteRequest)
-    private static final top.fengye.rpc.grpc.Grpc.ApplyVoteRequest DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:top.fengye.rpc.grpc.CommandRequest)
+    private static final top.fengye.rpc.grpc.Grpc.CommandRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new top.fengye.rpc.grpc.Grpc.ApplyVoteRequest();
+      DEFAULT_INSTANCE = new top.fengye.rpc.grpc.Grpc.CommandRequest();
     }
 
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteRequest getDefaultInstance() {
+    public static top.fengye.rpc.grpc.Grpc.CommandRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<ApplyVoteRequest>
-        PARSER = new com.google.protobuf.AbstractParser<ApplyVoteRequest>() {
+    private static final com.google.protobuf.Parser<CommandRequest>
+        PARSER = new com.google.protobuf.AbstractParser<CommandRequest>() {
       @java.lang.Override
-      public ApplyVoteRequest parsePartialFrom(
+      public CommandRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3957,71 +5261,64 @@ public final class Grpc {
       }
     };
 
-    public static com.google.protobuf.Parser<ApplyVoteRequest> parser() {
+    public static com.google.protobuf.Parser<CommandRequest> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<ApplyVoteRequest> getParserForType() {
+    public com.google.protobuf.Parser<CommandRequest> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public top.fengye.rpc.grpc.Grpc.ApplyVoteRequest getDefaultInstanceForType() {
+    public top.fengye.rpc.grpc.Grpc.CommandRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface ApplyVoteResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:top.fengye.rpc.grpc.ApplyVoteResponse)
+  public interface CommandResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:top.fengye.rpc.grpc.CommandResponse)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string nodeId = 1;</code>
-     * @return The nodeId.
+     * <code>bool redirect = 1;</code>
+     * @return The redirect.
      */
-    java.lang.String getNodeId();
-    /**
-     * <code>string nodeId = 1;</code>
-     * @return The bytes for nodeId.
-     */
-    com.google.protobuf.ByteString
-        getNodeIdBytes();
+    boolean getRedirect();
 
     /**
-     * <code>int64 term = 2;</code>
-     * @return The term.
+     * <code>int32 redirectPort = 2;</code>
+     * @return The redirectPort.
      */
-    long getTerm();
+    int getRedirectPort();
 
     /**
-     * <code>bool agreed = 3;</code>
-     * @return The agreed.
+     * <code>bool success = 3;</code>
+     * @return The success.
      */
-    boolean getAgreed();
+    boolean getSuccess();
   }
   /**
-   * Protobuf type {@code top.fengye.rpc.grpc.ApplyVoteResponse}
+   * Protobuf type {@code top.fengye.rpc.grpc.CommandResponse}
    */
-  public static final class ApplyVoteResponse extends
+  public static final class CommandResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:top.fengye.rpc.grpc.ApplyVoteResponse)
-      ApplyVoteResponseOrBuilder {
+      // @@protoc_insertion_point(message_implements:top.fengye.rpc.grpc.CommandResponse)
+      CommandResponseOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use ApplyVoteResponse.newBuilder() to construct.
-    private ApplyVoteResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use CommandResponse.newBuilder() to construct.
+    private CommandResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private ApplyVoteResponse() {
-      nodeId_ = "";
+    private CommandResponse() {
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new ApplyVoteResponse();
+      return new CommandResponse();
     }
 
     @java.lang.Override
@@ -4031,76 +5328,48 @@ public final class Grpc {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_descriptor;
+      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_CommandResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_fieldAccessorTable
+      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_CommandResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              top.fengye.rpc.grpc.Grpc.ApplyVoteResponse.class, top.fengye.rpc.grpc.Grpc.ApplyVoteResponse.Builder.class);
+              top.fengye.rpc.grpc.Grpc.CommandResponse.class, top.fengye.rpc.grpc.Grpc.CommandResponse.Builder.class);
     }
 
-    public static final int NODEID_FIELD_NUMBER = 1;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object nodeId_ = "";
+    public static final int REDIRECT_FIELD_NUMBER = 1;
+    private boolean redirect_ = false;
     /**
-     * <code>string nodeId = 1;</code>
-     * @return The nodeId.
+     * <code>bool redirect = 1;</code>
+     * @return The redirect.
      */
     @java.lang.Override
-    public java.lang.String getNodeId() {
-      java.lang.Object ref = nodeId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        nodeId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string nodeId = 1;</code>
-     * @return The bytes for nodeId.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getNodeIdBytes() {
-      java.lang.Object ref = nodeId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        nodeId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public boolean getRedirect() {
+      return redirect_;
     }
 
-    public static final int TERM_FIELD_NUMBER = 2;
-    private long term_ = 0L;
+    public static final int REDIRECTPORT_FIELD_NUMBER = 2;
+    private int redirectPort_ = 0;
     /**
-     * <code>int64 term = 2;</code>
-     * @return The term.
+     * <code>int32 redirectPort = 2;</code>
+     * @return The redirectPort.
      */
     @java.lang.Override
-    public long getTerm() {
-      return term_;
+    public int getRedirectPort() {
+      return redirectPort_;
     }
 
-    public static final int AGREED_FIELD_NUMBER = 3;
-    private boolean agreed_ = false;
+    public static final int SUCCESS_FIELD_NUMBER = 3;
+    private boolean success_ = false;
     /**
-     * <code>bool agreed = 3;</code>
-     * @return The agreed.
+     * <code>bool success = 3;</code>
+     * @return The success.
      */
     @java.lang.Override
-    public boolean getAgreed() {
-      return agreed_;
+    public boolean getSuccess() {
+      return success_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -4117,14 +5386,14 @@ public final class Grpc {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, nodeId_);
+      if (redirect_ != false) {
+        output.writeBool(1, redirect_);
       }
-      if (term_ != 0L) {
-        output.writeInt64(2, term_);
+      if (redirectPort_ != 0) {
+        output.writeInt32(2, redirectPort_);
       }
-      if (agreed_ != false) {
-        output.writeBool(3, agreed_);
+      if (success_ != false) {
+        output.writeBool(3, success_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -4135,16 +5404,17 @@ public final class Grpc {
       if (size != -1) return size;
 
       size = 0;
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, nodeId_);
-      }
-      if (term_ != 0L) {
+      if (redirect_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, term_);
+          .computeBoolSize(1, redirect_);
       }
-      if (agreed_ != false) {
+      if (redirectPort_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(3, agreed_);
+          .computeInt32Size(2, redirectPort_);
+      }
+      if (success_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, success_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -4156,17 +5426,17 @@ public final class Grpc {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof top.fengye.rpc.grpc.Grpc.ApplyVoteResponse)) {
+      if (!(obj instanceof top.fengye.rpc.grpc.Grpc.CommandResponse)) {
         return super.equals(obj);
       }
-      top.fengye.rpc.grpc.Grpc.ApplyVoteResponse other = (top.fengye.rpc.grpc.Grpc.ApplyVoteResponse) obj;
+      top.fengye.rpc.grpc.Grpc.CommandResponse other = (top.fengye.rpc.grpc.Grpc.CommandResponse) obj;
 
-      if (!getNodeId()
-          .equals(other.getNodeId())) return false;
-      if (getTerm()
-          != other.getTerm()) return false;
-      if (getAgreed()
-          != other.getAgreed()) return false;
+      if (getRedirect()
+          != other.getRedirect()) return false;
+      if (getRedirectPort()
+          != other.getRedirectPort()) return false;
+      if (getSuccess()
+          != other.getSuccess()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -4178,82 +5448,82 @@ public final class Grpc {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + NODEID_FIELD_NUMBER;
-      hash = (53 * hash) + getNodeId().hashCode();
-      hash = (37 * hash) + TERM_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getTerm());
-      hash = (37 * hash) + AGREED_FIELD_NUMBER;
+      hash = (37 * hash) + REDIRECT_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getAgreed());
+          getRedirect());
+      hash = (37 * hash) + REDIRECTPORT_FIELD_NUMBER;
+      hash = (53 * hash) + getRedirectPort();
+      hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getSuccess());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandResponse parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandResponse parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandResponse parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(byte[] data)
+    public static top.fengye.rpc.grpc.Grpc.CommandResponse parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandResponse parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(java.io.InputStream input)
+    public static top.fengye.rpc.grpc.Grpc.CommandResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseDelimitedFrom(java.io.InputStream input)
+    public static top.fengye.rpc.grpc.Grpc.CommandResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseDelimitedFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.CommandResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -4266,7 +5536,7 @@ public final class Grpc {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(top.fengye.rpc.grpc.Grpc.ApplyVoteResponse prototype) {
+    public static Builder newBuilder(top.fengye.rpc.grpc.Grpc.CommandResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -4282,26 +5552,26 @@ public final class Grpc {
       return builder;
     }
     /**
-     * Protobuf type {@code top.fengye.rpc.grpc.ApplyVoteResponse}
+     * Protobuf type {@code top.fengye.rpc.grpc.CommandResponse}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:top.fengye.rpc.grpc.ApplyVoteResponse)
-        top.fengye.rpc.grpc.Grpc.ApplyVoteResponseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:top.fengye.rpc.grpc.CommandResponse)
+        top.fengye.rpc.grpc.Grpc.CommandResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_descriptor;
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_CommandResponse_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_fieldAccessorTable
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_CommandResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                top.fengye.rpc.grpc.Grpc.ApplyVoteResponse.class, top.fengye.rpc.grpc.Grpc.ApplyVoteResponse.Builder.class);
+                top.fengye.rpc.grpc.Grpc.CommandResponse.class, top.fengye.rpc.grpc.Grpc.CommandResponse.Builder.class);
       }
 
-      // Construct using top.fengye.rpc.grpc.Grpc.ApplyVoteResponse.newBuilder()
+      // Construct using top.fengye.rpc.grpc.Grpc.CommandResponse.newBuilder()
       private Builder() {
 
       }
@@ -4315,26 +5585,26 @@ public final class Grpc {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        nodeId_ = "";
-        term_ = 0L;
-        agreed_ = false;
+        redirect_ = false;
+        redirectPort_ = 0;
+        success_ = false;
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_descriptor;
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_CommandResponse_descriptor;
       }
 
       @java.lang.Override
-      public top.fengye.rpc.grpc.Grpc.ApplyVoteResponse getDefaultInstanceForType() {
-        return top.fengye.rpc.grpc.Grpc.ApplyVoteResponse.getDefaultInstance();
+      public top.fengye.rpc.grpc.Grpc.CommandResponse getDefaultInstanceForType() {
+        return top.fengye.rpc.grpc.Grpc.CommandResponse.getDefaultInstance();
       }
 
       @java.lang.Override
-      public top.fengye.rpc.grpc.Grpc.ApplyVoteResponse build() {
-        top.fengye.rpc.grpc.Grpc.ApplyVoteResponse result = buildPartial();
+      public top.fengye.rpc.grpc.Grpc.CommandResponse build() {
+        top.fengye.rpc.grpc.Grpc.CommandResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -4342,23 +5612,23 @@ public final class Grpc {
       }
 
       @java.lang.Override
-      public top.fengye.rpc.grpc.Grpc.ApplyVoteResponse buildPartial() {
-        top.fengye.rpc.grpc.Grpc.ApplyVoteResponse result = new top.fengye.rpc.grpc.Grpc.ApplyVoteResponse(this);
+      public top.fengye.rpc.grpc.Grpc.CommandResponse buildPartial() {
+        top.fengye.rpc.grpc.Grpc.CommandResponse result = new top.fengye.rpc.grpc.Grpc.CommandResponse(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(top.fengye.rpc.grpc.Grpc.ApplyVoteResponse result) {
+      private void buildPartial0(top.fengye.rpc.grpc.Grpc.CommandResponse result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.nodeId_ = nodeId_;
+          result.redirect_ = redirect_;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.term_ = term_;
+          result.redirectPort_ = redirectPort_;
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.agreed_ = agreed_;
+          result.success_ = success_;
         }
       }
 
@@ -4396,26 +5666,24 @@ public final class Grpc {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof top.fengye.rpc.grpc.Grpc.ApplyVoteResponse) {
-          return mergeFrom((top.fengye.rpc.grpc.Grpc.ApplyVoteResponse)other);
+        if (other instanceof top.fengye.rpc.grpc.Grpc.CommandResponse) {
+          return mergeFrom((top.fengye.rpc.grpc.Grpc.CommandResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(top.fengye.rpc.grpc.Grpc.ApplyVoteResponse other) {
-        if (other == top.fengye.rpc.grpc.Grpc.ApplyVoteResponse.getDefaultInstance()) return this;
-        if (!other.getNodeId().isEmpty()) {
-          nodeId_ = other.nodeId_;
-          bitField0_ |= 0x00000001;
-          onChanged();
+      public Builder mergeFrom(top.fengye.rpc.grpc.Grpc.CommandResponse other) {
+        if (other == top.fengye.rpc.grpc.Grpc.CommandResponse.getDefaultInstance()) return this;
+        if (other.getRedirect() != false) {
+          setRedirect(other.getRedirect());
         }
-        if (other.getTerm() != 0L) {
-          setTerm(other.getTerm());
+        if (other.getRedirectPort() != 0) {
+          setRedirectPort(other.getRedirectPort());
         }
-        if (other.getAgreed() != false) {
-          setAgreed(other.getAgreed());
+        if (other.getSuccess() != false) {
+          setSuccess(other.getSuccess());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -4443,18 +5711,18 @@ public final class Grpc {
               case 0:
                 done = true;
                 break;
-              case 10: {
-                nodeId_ = input.readStringRequireUtf8();
+              case 8: {
+                redirect_ = input.readBool();
                 bitField0_ |= 0x00000001;
                 break;
-              } // case 10
+              } // case 8
               case 16: {
-                term_ = input.readInt64();
+                redirectPort_ = input.readInt32();
                 bitField0_ |= 0x00000002;
                 break;
               } // case 16
               case 24: {
-                agreed_ = input.readBool();
+                success_ = input.readBool();
                 bitField0_ |= 0x00000004;
                 break;
               } // case 24
@@ -4475,138 +5743,98 @@ public final class Grpc {
       }
       private int bitField0_;
 
-      private java.lang.Object nodeId_ = "";
+      private boolean redirect_ ;
       /**
-       * <code>string nodeId = 1;</code>
-       * @return The nodeId.
+       * <code>bool redirect = 1;</code>
+       * @return The redirect.
        */
-      public java.lang.String getNodeId() {
-        java.lang.Object ref = nodeId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          nodeId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      @java.lang.Override
+      public boolean getRedirect() {
+        return redirect_;
       }
       /**
-       * <code>string nodeId = 1;</code>
-       * @return The bytes for nodeId.
-       */
-      public com.google.protobuf.ByteString
-          getNodeIdBytes() {
-        java.lang.Object ref = nodeId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          nodeId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string nodeId = 1;</code>
-       * @param value The nodeId to set.
+       * <code>bool redirect = 1;</code>
+       * @param value The redirect to set.
        * @return This builder for chaining.
        */
-      public Builder setNodeId(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        nodeId_ = value;
+      public Builder setRedirect(boolean value) {
+        
+        redirect_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
       /**
-       * <code>string nodeId = 1;</code>
+       * <code>bool redirect = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearNodeId() {
-        nodeId_ = getDefaultInstance().getNodeId();
+      public Builder clearRedirect() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string nodeId = 1;</code>
-       * @param value The bytes for nodeId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setNodeIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        nodeId_ = value;
-        bitField0_ |= 0x00000001;
+        redirect_ = false;
         onChanged();
         return this;
       }
 
-      private long term_ ;
+      private int redirectPort_ ;
       /**
-       * <code>int64 term = 2;</code>
-       * @return The term.
+       * <code>int32 redirectPort = 2;</code>
+       * @return The redirectPort.
        */
       @java.lang.Override
-      public long getTerm() {
-        return term_;
+      public int getRedirectPort() {
+        return redirectPort_;
       }
       /**
-       * <code>int64 term = 2;</code>
-       * @param value The term to set.
+       * <code>int32 redirectPort = 2;</code>
+       * @param value The redirectPort to set.
        * @return This builder for chaining.
        */
-      public Builder setTerm(long value) {
+      public Builder setRedirectPort(int value) {
         
-        term_ = value;
+        redirectPort_ = value;
         bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 term = 2;</code>
+       * <code>int32 redirectPort = 2;</code>
        * @return This builder for chaining.
        */
-      public Builder clearTerm() {
+      public Builder clearRedirectPort() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        term_ = 0L;
+        redirectPort_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean agreed_ ;
+      private boolean success_ ;
       /**
-       * <code>bool agreed = 3;</code>
-       * @return The agreed.
+       * <code>bool success = 3;</code>
+       * @return The success.
        */
       @java.lang.Override
-      public boolean getAgreed() {
-        return agreed_;
+      public boolean getSuccess() {
+        return success_;
       }
       /**
-       * <code>bool agreed = 3;</code>
-       * @param value The agreed to set.
+       * <code>bool success = 3;</code>
+       * @param value The success to set.
        * @return This builder for chaining.
        */
-      public Builder setAgreed(boolean value) {
+      public Builder setSuccess(boolean value) {
         
-        agreed_ = value;
+        success_ = value;
         bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
       /**
-       * <code>bool agreed = 3;</code>
+       * <code>bool success = 3;</code>
        * @return This builder for chaining.
        */
-      public Builder clearAgreed() {
+      public Builder clearSuccess() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        agreed_ = false;
+        success_ = false;
         onChanged();
         return this;
       }
@@ -4623,23 +5851,23 @@ public final class Grpc {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:top.fengye.rpc.grpc.ApplyVoteResponse)
+      // @@protoc_insertion_point(builder_scope:top.fengye.rpc.grpc.CommandResponse)
     }
 
-    // @@protoc_insertion_point(class_scope:top.fengye.rpc.grpc.ApplyVoteResponse)
-    private static final top.fengye.rpc.grpc.Grpc.ApplyVoteResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:top.fengye.rpc.grpc.CommandResponse)
+    private static final top.fengye.rpc.grpc.Grpc.CommandResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new top.fengye.rpc.grpc.Grpc.ApplyVoteResponse();
+      DEFAULT_INSTANCE = new top.fengye.rpc.grpc.Grpc.CommandResponse();
     }
 
-    public static top.fengye.rpc.grpc.Grpc.ApplyVoteResponse getDefaultInstance() {
+    public static top.fengye.rpc.grpc.Grpc.CommandResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<ApplyVoteResponse>
-        PARSER = new com.google.protobuf.AbstractParser<ApplyVoteResponse>() {
+    private static final com.google.protobuf.Parser<CommandResponse>
+        PARSER = new com.google.protobuf.AbstractParser<CommandResponse>() {
       @java.lang.Override
-      public ApplyVoteResponse parsePartialFrom(
+      public CommandResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -4658,17 +5886,17 @@ public final class Grpc {
       }
     };
 
-    public static com.google.protobuf.Parser<ApplyVoteResponse> parser() {
+    public static com.google.protobuf.Parser<CommandResponse> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<ApplyVoteResponse> getParserForType() {
+    public com.google.protobuf.Parser<CommandResponse> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public top.fengye.rpc.grpc.Grpc.ApplyVoteResponse getDefaultInstanceForType() {
+    public top.fengye.rpc.grpc.Grpc.CommandResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4690,6 +5918,16 @@ public final class Grpc {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_top_fengye_rpc_grpc_shutDownResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_top_fengye_rpc_grpc_AppendEntriesRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -4700,15 +5938,15 @@ public final class Grpc {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_top_fengye_rpc_grpc_AppendEntriesResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_descriptor;
+    internal_static_top_fengye_rpc_grpc_CommandRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_fieldAccessorTable;
+      internal_static_top_fengye_rpc_grpc_CommandRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_descriptor;
+    internal_static_top_fengye_rpc_grpc_CommandResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_fieldAccessorTable;
+      internal_static_top_fengye_rpc_grpc_CommandResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -4722,24 +5960,30 @@ public final class Grpc {
       "ram.proto\"\007\n\005Empty\">\n\033queryElectionStatu" +
       "sResponse\022\016\n\006nodeId\030\001 \001(\t\022\017\n\007message\030\002 \001" +
       "(\t\"3\n\020shutDownResponse\022\016\n\006nodeId\030\001 \001(\t\022\017" +
-      "\n\007message\030\002 \001(\t\"c\n\024AppendEntriesRequest\022" +
-      "\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\022-\n\007command" +
-      "\030\003 \001(\0132\034.top.fengye.rpc.grpc.Command\"F\n\025" +
-      "AppendEntriesResponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n" +
-      "\004term\030\002 \001(\003\022\017\n\007success\030\003 \001(\010\"0\n\020ApplyVot" +
-      "eRequest\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\"A" +
-      "\n\021ApplyVoteResponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004t" +
-      "erm\030\002 \001(\003\022\016\n\006agreed\030\003 \001(\0102\376\002\n\004Raft\022c\n\023qu" +
-      "eryElectionStatus\022\032.top.fengye.rpc.grpc." +
-      "Empty\0320.top.fengye.rpc.grpc.queryElectio" +
-      "nStatusResponse\022M\n\010shutDown\022\032.top.fengye" +
-      ".rpc.grpc.Empty\032%.top.fengye.rpc.grpc.sh" +
-      "utDownResponse\022Z\n\tapplyVote\022%.top.fengye" +
-      ".rpc.grpc.ApplyVoteRequest\032&.top.fengye." +
-      "rpc.grpc.ApplyVoteResponse\022f\n\rappendEntr" +
-      "ies\022).top.fengye.rpc.grpc.AppendEntriesR" +
-      "equest\032*.top.fengye.rpc.grpc.AppendEntri" +
-      "esResponseb\006proto3"
+      "\n\007message\030\002 \001(\t\"0\n\020ApplyVoteRequest\022\016\n\006n" +
+      "odeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\"A\n\021ApplyVoteRe" +
+      "sponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\022\016\n\006" +
+      "agreed\030\003 \001(\010\"c\n\024AppendEntriesRequest\022\016\n\006" +
+      "nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\022-\n\007command\030\003 " +
+      "\001(\0132\034.top.fengye.rpc.grpc.Command\"F\n\025App" +
+      "endEntriesResponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004te" +
+      "rm\030\002 \001(\003\022\017\n\007success\030\003 \001(\010\"?\n\016CommandRequ" +
+      "est\022-\n\007command\030\001 \001(\0132\034.top.fengye.rpc.gr" +
+      "pc.Command\"J\n\017CommandResponse\022\020\n\010redirec" +
+      "t\030\001 \001(\010\022\024\n\014redirectPort\030\002 \001(\005\022\017\n\007success" +
+      "\030\003 \001(\0102\332\003\n\004Raft\022c\n\023queryElectionStatus\022\032" +
+      ".top.fengye.rpc.grpc.Empty\0320.top.fengye." +
+      "rpc.grpc.queryElectionStatusResponse\022M\n\010" +
+      "shutDown\022\032.top.fengye.rpc.grpc.Empty\032%.t" +
+      "op.fengye.rpc.grpc.shutDownResponse\022Z\n\ta" +
+      "pplyVote\022%.top.fengye.rpc.grpc.ApplyVote" +
+      "Request\032&.top.fengye.rpc.grpc.ApplyVoteR" +
+      "esponse\022f\n\rappendEntries\022).top.fengye.rp" +
+      "c.grpc.AppendEntriesRequest\032*.top.fengye" +
+      ".rpc.grpc.AppendEntriesResponse\022Z\n\rhandl" +
+      "eRequest\022#.top.fengye.rpc.grpc.CommandRe" +
+      "quest\032$.top.fengye.rpc.grpc.CommandRespo" +
+      "nseb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -4764,30 +6008,42 @@ public final class Grpc {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_fengye_rpc_grpc_shutDownResponse_descriptor,
         new java.lang.String[] { "NodeId", "Message", });
-    internal_static_top_fengye_rpc_grpc_AppendEntriesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(3);
-    internal_static_top_fengye_rpc_grpc_AppendEntriesRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_top_fengye_rpc_grpc_AppendEntriesRequest_descriptor,
-        new java.lang.String[] { "NodeId", "Term", "Command", });
-    internal_static_top_fengye_rpc_grpc_AppendEntriesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(4);
-    internal_static_top_fengye_rpc_grpc_AppendEntriesResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_top_fengye_rpc_grpc_AppendEntriesResponse_descriptor,
-        new java.lang.String[] { "NodeId", "Term", "Success", });
     internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_fengye_rpc_grpc_ApplyVoteRequest_descriptor,
         new java.lang.String[] { "NodeId", "Term", });
     internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_fengye_rpc_grpc_ApplyVoteResponse_descriptor,
         new java.lang.String[] { "NodeId", "Term", "Agreed", });
+    internal_static_top_fengye_rpc_grpc_AppendEntriesRequest_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_top_fengye_rpc_grpc_AppendEntriesRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_top_fengye_rpc_grpc_AppendEntriesRequest_descriptor,
+        new java.lang.String[] { "NodeId", "Term", "Command", });
+    internal_static_top_fengye_rpc_grpc_AppendEntriesResponse_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_top_fengye_rpc_grpc_AppendEntriesResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_top_fengye_rpc_grpc_AppendEntriesResponse_descriptor,
+        new java.lang.String[] { "NodeId", "Term", "Success", });
+    internal_static_top_fengye_rpc_grpc_CommandRequest_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_top_fengye_rpc_grpc_CommandRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_top_fengye_rpc_grpc_CommandRequest_descriptor,
+        new java.lang.String[] { "Command", });
+    internal_static_top_fengye_rpc_grpc_CommandResponse_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_top_fengye_rpc_grpc_CommandResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_top_fengye_rpc_grpc_CommandResponse_descriptor,
+        new java.lang.String[] { "Redirect", "RedirectPort", "Success", });
     top.fengye.rpc.grpc.BizParam.getDescriptor();
   }
 

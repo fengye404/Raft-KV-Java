@@ -1,63 +1,40 @@
 package top.fengye.biz;
 
-import io.netty.buffer.ByteBuf;
-import io.vertx.core.buffer.Buffer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
+import top.fengye.rpc.grpc.BizParam;
 
-import java.nio.charset.Charset;
+import javax.annotation.Nullable;
 
 /**
  * @author: FengYe
- * @date: 2024/3/14 1:02
- * @description: Command
+ * @date: 2024/4/10 上午2:50
+ * @description: 将 Command 与 grpc 的 bizParam 分开是为了解耦，同时定制化其结构
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain = true)
 public class Command {
 
-    private Type type;
+    private CommandType commandType;
+    private Key key;
+    private Value value;
 
-    private String key;
-
-    private String value;
-
-    private static final String split = "\0";
-
-    public Command(Buffer buffer) {
-        ByteBuf byteBuf = buffer.getByteBuf();
-        this.type = Type.ofCode(byteBuf.readInt());
-        String[] keyValue = byteBuf.toString(Charset.defaultCharset()).split(split);
-        this.key = keyValue[0];
-        this.value = keyValue[1];
+    public Command(BizParam.Command command) {
+        this.key = new Key(command.getKey());
+        this.value = new Value(command.getValue());
+        this.commandType = CommandType.parse(command.getType());
     }
 
-    public Buffer toBuffer() {
-        Buffer buffer = Buffer.buffer();
-        buffer.appendInt(type.code);
-        buffer.appendString(key + split + value);
-        return buffer;
-    }
+    public enum CommandType {
+        GET,
+        PUT,
+        DEL;
 
-    @Getter
-    public enum Type {
-        GET(1),
-        PUT(2);
-
-        private final int code;
-
-        Type(int code) {
-            this.code = code;
-        }
-
-        public static Type ofCode(int code) {
-            for (Type value : values()) {
-                if (code == value.getCode()) {
+        public static CommandType parse(BizParam.CommandType commandType) {
+            for (CommandType value : CommandType.values()) {
+                if (value.name().equals(commandType.name())) {
                     return value;
                 }
             }

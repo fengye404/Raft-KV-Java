@@ -1,3 +1,4 @@
+import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
@@ -5,8 +6,10 @@ import io.vertx.core.net.SocketAddress;
 import io.vertx.grpc.client.GrpcClient;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import top.fengye.biz.Command;
 import top.fengye.raft.RaftNode;
 import top.fengye.rpc.RpcAddress;
+import top.fengye.rpc.grpc.BizParam;
 import top.fengye.rpc.grpc.Grpc;
 import top.fengye.rpc.grpc.VertxRaftGrpcClient;
 
@@ -80,5 +83,11 @@ public class RaftTest {
         vertx3.deployVerticle(raftNode3).onSuccess(s -> deployId3 = s);
 
         while (true) ;
+    }
+
+
+    @Test
+    public void test(){
+        System.out.println(Command.CommandType.parse(BizParam.CommandType.GET));
     }
 }

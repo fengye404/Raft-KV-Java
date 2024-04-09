@@ -8,42 +8,49 @@ service Raft {
   rpc shutDown(Empty) returns (shutDownResponse);
   rpc applyVote (ApplyVoteRequest) returns (ApplyVoteResponse);
   rpc appendEntries (AppendEntriesRequest) returns (AppendEntriesResponse);
+  rpc handleRequest (CommandRequest) returns (CommandResponse);
 }
 
 message Empty{
-
 }
-
 message queryElectionStatusResponse{
   string nodeId = 1;
   string message = 2;
 }
-
 message shutDownResponse{
   string nodeId = 1;
   string message = 2;
 }
 
-message AppendEntriesRequest {
-  string nodeId = 1;
-  int64 term = 2;
-  Command command = 3;
-}
-
-message AppendEntriesResponse {
-  string nodeId = 1;
-  int64 term = 2;
-  bool success = 3;
-}
 
 message ApplyVoteRequest{
   string nodeId = 1;
   int64 term = 2;
 }
-
 message ApplyVoteResponse {
   string nodeId = 1;
   int64 term = 2;
   bool agreed = 3;
 }
 
+
+message AppendEntriesRequest {
+  string nodeId = 1;
+  int64 term = 2;
+  Command command = 3;
+}
+message AppendEntriesResponse {
+  string nodeId = 1;
+  int64 term = 2;
+  bool success = 3;
+}
+
+
+message CommandRequest {
+  Command command = 1;
+}
+message CommandResponse {
+  bool redirect = 1;
+  int32 redirectPort = 2;
+  bool success = 3;
+}

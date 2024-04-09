@@ -5,6 +5,7 @@ import io.vertx.core.Promise;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import top.fengye.biz.Command;
 import top.fengye.rpc.RpcAddress;
 import top.fengye.rpc.RpcProxy;
 import top.fengye.rpc.grpc.Grpc;
@@ -25,54 +26,39 @@ import java.util.stream.Collectors;
 @Setter
 @Slf4j
 public class RaftNode extends AbstractVerticle implements Serializable {
-
     private static final long serialVersionUID = -1;
-
     private String nodeId;
-
+    private String leaderId;
     private RaftLog raftLog;
-
+    private RaftStateMachine raftStateMachine;
     private long currentTerm;
-
     private String votedFor;
-
     private RoleEnum role;
-
     private Map<String, RaftNode> peers;
-
     private Map<String, Long> nextLogIndexMap;
-
     private RpcAddress rpcAddress;
-
     private RpcProxy rpcProxy;
-
     private Long heartBeatPeriodicId;
-
     /**
      * 最后一次心跳时间，用于选举计时器计算
      */
     private long lastHeartBeat;
-
     /**
      * 选举超时时长，每次选举后都会重置，范围为 150ms ~ 300ms
      */
     private long electionTimeout;
-
     /**
      * 心跳间隔
      */
     private static final int HEARTBEAT_INTERVAL = 1000;
-
     /**
      * 最小选举超时
      */
     private static final int MIN_ELECTION_TIMEOUT = 1500;
-
     /**
      * 最大选举超时
      */
     private static final int MAX_ELECTION_TIMEOUT = 3000;
-
 
     private final Random random = new Random();
 
@@ -125,7 +111,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
                     .onSuccess(res -> {
                         // 如果自己的 term 小于一个 peer 的 term，说明选期已经落后，直接变为 follower，以减少不必要的选举
                         if (res.getTerm() > currentTerm) {
-                            becomeFollow(res.getTerm());
+                            becomeFollow(res.getTerm(), null);
                         }
                         if (res.getAgreed()) {
                             // 前一个判断条件用于 cas 判断得到的票数是否过半
@@ -152,20 +138,10 @@ public class RaftNode extends AbstractVerticle implements Serializable {
                 });
     }
 
-    public void becomeLeader() {
-        log.info("{} becomeLeader, term:{}", nodeId, currentTerm);
-        // 在节点发起选举的过程中，可能有其他节点已经成功成为了 Leader，而这个节点变为了 Follower
-        // 对非 candidate 的直接拦截
-        if (role != RoleEnum.Candidate) {
-            return;
-        }
-        this.role = RoleEnum.Leader;
-        this.lastHeartBeat = System.currentTimeMillis();
-        vertx.setPeriodic(0, HEARTBEAT_INTERVAL, id -> {
-            heartBeatPeriodicId = id;
-            broadcastAppendEntries();
-        });
+    public void doPut(Command command, Promise<Void> promise) {
+
     }
+
 
     /**
      * Leader 节点需要定时广播给其他节点 appendEntries RPC
@@ -178,7 +154,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
                     .onSuccess(res -> {
                         // 如果 leader 发现其他节点的 term 大于自己，需要重新将自己变更为 follower
                         if (!res.getSuccess()) {
-                            becomeFollow(res.getTerm());
+                            becomeFollow(res.getTerm(), null);
                         }
                     });
         }
@@ -194,12 +170,13 @@ public class RaftNode extends AbstractVerticle implements Serializable {
     }
 
     public void becomeFollow() {
-        becomeFollow(currentTerm);
+        becomeFollow(currentTerm, null);
     }
 
-    public void becomeFollow(long term) {
+    public void becomeFollow(long term, String leaderId) {
         revokeHeartBeatPeriodic();
         this.currentTerm = term;
+        this.leaderId = leaderId;
         this.role = RoleEnum.Follower;
         this.votedFor = null;
         this.lastHeartBeat = System.currentTimeMillis();
@@ -208,17 +185,42 @@ public class RaftNode extends AbstractVerticle implements Serializable {
     public void becomeCandidate() {
         revokeHeartBeatPeriodic();
         this.role = RoleEnum.Candidate;
+        this.leaderId = this.nodeId;
         this.votedFor = this.nodeId;
         this.currentTerm++;
         this.lastHeartBeat = System.currentTimeMillis();
         log.info("{} becomeCandidate, term:{}", nodeId, currentTerm);
     }
 
+    public void becomeLeader() {
+        log.info("{} becomeLeader, term:{}", nodeId, currentTerm);
+        // 在节点发起选举的过程中，可能有其他节点已经成功成为了 Leader，而这个节点变为了 Follower
+        // 对非 candidate 的直接拦截
+        if (role != RoleEnum.Candidate) {
+            return;
+        }
+        this.role = RoleEnum.Leader;
+        this.leaderId = this.nodeId;
+        this.lastHeartBeat = System.currentTimeMillis();
+        vertx.setPeriodic(0, HEARTBEAT_INTERVAL, id -> {
+            heartBeatPeriodicId = id;
+            broadcastAppendEntries();
+        });
+    }
 
+
+    /**
+     * 重设选举过期时间
+     */
     public void resetElectionTimeout() {
         electionTimeout = MIN_ELECTION_TIMEOUT + random.nextInt(MAX_ELECTION_TIMEOUT - MIN_ELECTION_TIMEOUT + 1);
     }
 
+    /**
+     * peers过滤掉自己
+     *
+     * @param map
+     */
     public void setPeers(Map<String, RaftNode> map) {
         peers = map.entrySet().stream().filter(entry -> !entry.getValue().getNodeId().equals(this.nodeId))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));

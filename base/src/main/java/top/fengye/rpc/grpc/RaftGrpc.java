@@ -139,6 +139,37 @@ public final class RaftGrpc {
     return getAppendEntriesMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<top.fengye.rpc.grpc.Grpc.CommandRequest,
+      top.fengye.rpc.grpc.Grpc.CommandResponse> getHandleRequestMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "handleRequest",
+      requestType = top.fengye.rpc.grpc.Grpc.CommandRequest.class,
+      responseType = top.fengye.rpc.grpc.Grpc.CommandResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<top.fengye.rpc.grpc.Grpc.CommandRequest,
+      top.fengye.rpc.grpc.Grpc.CommandResponse> getHandleRequestMethod() {
+    io.grpc.MethodDescriptor<top.fengye.rpc.grpc.Grpc.CommandRequest, top.fengye.rpc.grpc.Grpc.CommandResponse> getHandleRequestMethod;
+    if ((getHandleRequestMethod = RaftGrpc.getHandleRequestMethod) == null) {
+      synchronized (RaftGrpc.class) {
+        if ((getHandleRequestMethod = RaftGrpc.getHandleRequestMethod) == null) {
+          RaftGrpc.getHandleRequestMethod = getHandleRequestMethod =
+              io.grpc.MethodDescriptor.<top.fengye.rpc.grpc.Grpc.CommandRequest, top.fengye.rpc.grpc.Grpc.CommandResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "handleRequest"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  top.fengye.rpc.grpc.Grpc.CommandRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  top.fengye.rpc.grpc.Grpc.CommandResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new RaftMethodDescriptorSupplier("handleRequest"))
+              .build();
+        }
+      }
+    }
+    return getHandleRequestMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -215,6 +246,13 @@ public final class RaftGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAppendEntriesMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void handleRequest(top.fengye.rpc.grpc.Grpc.CommandRequest request,
+        io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.CommandResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getHandleRequestMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -245,6 +283,13 @@ public final class RaftGrpc {
                 top.fengye.rpc.grpc.Grpc.AppendEntriesRequest,
                 top.fengye.rpc.grpc.Grpc.AppendEntriesResponse>(
                   this, METHODID_APPEND_ENTRIES)))
+          .addMethod(
+            getHandleRequestMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                top.fengye.rpc.grpc.Grpc.CommandRequest,
+                top.fengye.rpc.grpc.Grpc.CommandResponse>(
+                  this, METHODID_HANDLE_REQUEST)))
           .build();
     }
   }
@@ -294,6 +339,14 @@ public final class RaftGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getAppendEntriesMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void handleRequest(top.fengye.rpc.grpc.Grpc.CommandRequest request,
+        io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.CommandResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getHandleRequestMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -336,6 +389,13 @@ public final class RaftGrpc {
     public top.fengye.rpc.grpc.Grpc.AppendEntriesResponse appendEntries(top.fengye.rpc.grpc.Grpc.AppendEntriesRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getAppendEntriesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public top.fengye.rpc.grpc.Grpc.CommandResponse handleRequest(top.fengye.rpc.grpc.Grpc.CommandRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getHandleRequestMethod(), getCallOptions(), request);
     }
   }
 
@@ -384,12 +444,21 @@ public final class RaftGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getAppendEntriesMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<top.fengye.rpc.grpc.Grpc.CommandResponse> handleRequest(
+        top.fengye.rpc.grpc.Grpc.CommandRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getHandleRequestMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_QUERY_ELECTION_STATUS = 0;
   private static final int METHODID_SHUT_DOWN = 1;
   private static final int METHODID_APPLY_VOTE = 2;
   private static final int METHODID_APPEND_ENTRIES = 3;
+  private static final int METHODID_HANDLE_REQUEST = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -423,6 +492,10 @@ public final class RaftGrpc {
         case METHODID_APPEND_ENTRIES:
           serviceImpl.appendEntries((top.fengye.rpc.grpc.Grpc.AppendEntriesRequest) request,
               (io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.AppendEntriesResponse>) responseObserver);
+          break;
+        case METHODID_HANDLE_REQUEST:
+          serviceImpl.handleRequest((top.fengye.rpc.grpc.Grpc.CommandRequest) request,
+              (io.grpc.stub.StreamObserver<top.fengye.rpc.grpc.Grpc.CommandResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -489,6 +562,7 @@ public final class RaftGrpc {
               .addMethod(getShutDownMethod())
               .addMethod(getApplyVoteMethod())
               .addMethod(getAppendEntriesMethod())
+              .addMethod(getHandleRequestMethod())
               .build();
         }
       }

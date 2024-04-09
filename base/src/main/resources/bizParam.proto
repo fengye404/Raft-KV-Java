@@ -3,14 +3,22 @@ syntax = "proto3";
 
 package top.fengye.rpc.grpc;
 
-
 message Command {
   CommandType type = 1;
-  string key = 2;
-  string value = 3;
+  Key key = 2;
+  Value value = 3;
+}
+
+message Key {
+  bytes data = 1 ;
+}
+
+message Value {
+  bytes data = 1 ;
 }
 
 enum CommandType {
   GET = 0;
   PUT = 1;
+  DEL = 2;
 }

@@ -45,4 +45,11 @@ public class VertxRaftGrpcClient {
     });
   }
 
+  public Future<top.fengye.rpc.grpc.Grpc.CommandResponse> handleRequest(top.fengye.rpc.grpc.Grpc.CommandRequest request) {
+    return client.request(socketAddress, RaftGrpc.getHandleRequestMethod()).compose(req -> {
+      req.end(request);
+      return req.response().compose(resp -> resp.last());
+    });
+  }
+
 }

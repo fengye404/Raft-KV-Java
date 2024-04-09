@@ -47,6 +47,14 @@ public class VertxRaftGrpcServer  {
         .onSuccess(msg -> response.complete(msg))
         .onFailure(error -> response.fail(error));
     }
+    default Future<top.fengye.rpc.grpc.Grpc.CommandResponse> handleRequest(top.fengye.rpc.grpc.Grpc.CommandRequest request) {
+      throw new UnsupportedOperationException("Not implemented");
+    }
+    default void handleRequest(top.fengye.rpc.grpc.Grpc.CommandRequest request, Promise<top.fengye.rpc.grpc.Grpc.CommandResponse> response) {
+      handleRequest(request)
+        .onSuccess(msg -> response.complete(msg))
+        .onFailure(error -> response.fail(error));
+    }
 
     default RaftApi bind_queryElectionStatus(GrpcServer server) {
       server.callHandler(RaftGrpc.getQueryElectionStatusMethod(), request -> {
@@ -112,12 +120,29 @@ public class VertxRaftGrpcServer  {
       });
       return this;
     }
+    default RaftApi bind_handleRequest(GrpcServer server) {
+      server.callHandler(RaftGrpc.getHandleRequestMethod(), request -> {
+        Promise<top.fengye.rpc.grpc.Grpc.CommandResponse> promise = Promise.promise();
+        request.handler(req -> {
+          try {
+            handleRequest(req, promise);
+          } catch (RuntimeException err) {
+            promise.tryFail(err);
+          }
+        });
+        promise.future()
+          .onFailure(err -> request.response().status(GrpcStatus.INTERNAL).end())
+          .onSuccess(resp -> request.response().end(resp));
+      });
+      return this;
+    }
 
     default RaftApi bindAll(GrpcServer server) {
       bind_queryElectionStatus(server);
       bind_shutDown(server);
       bind_applyVote(server);
       bind_appendEntries(server);
+      bind_handleRequest(server);
       return this;
     }
   }
