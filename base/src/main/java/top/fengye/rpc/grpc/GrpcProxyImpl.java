@@ -9,13 +9,16 @@ import io.vertx.core.net.SocketAddress;
 import io.vertx.grpc.client.GrpcClient;
 import io.vertx.grpc.server.GrpcServer;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
+import top.fengye.biz.Command;
+import top.fengye.raft.RaftLog;
 import top.fengye.raft.RaftNode;
 import top.fengye.raft.RoleEnum;
 import top.fengye.rpc.RpcAddress;
 import top.fengye.rpc.RpcProxy;
-import top.fengye.rpc.config.RpcConstants;
 
-import javax.imageio.stream.MemoryCacheImageOutputStream;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 /**
  * @author: FengYe
@@ -88,13 +91,25 @@ public class GrpcProxyImpl implements RpcProxy {
                     );
                 } else {
                     raftNode.becomeFollow(request.getTerm(), request.getNodeId());
-                    response.complete(
-                            Grpc.AppendEntriesResponse.newBuilder()
-                                    .setNodeId(raftNode.getNodeId())
-                                    .setTerm(raftNode.getCurrentTerm())
-                                    .setSuccess(true)
-                                    .build()
-                    );
+                    // entries 为空代表为心跳
+                    if (CollectionUtils.isEmpty(request.getEntriesList())) {
+                        response.complete(
+                                Grpc.AppendEntriesResponse.newBuilder()
+                                        .setNodeId(raftNode.getNodeId())
+                                        .setTerm(raftNode.getCurrentTerm())
+                                        .setSuccess(true)
+                                        .build()
+                        );
+                    } else {
+                        boolean success = raftNode.processAppendEntriesRequest(request);
+                        response.complete(
+                                Grpc.AppendEntriesResponse.newBuilder()
+                                        .setNodeId(raftNode.getNodeId())
+                                        .setTerm(raftNode.getCurrentTerm())
+                                        .setSuccess(success)
+                                        .build()
+                        );
+                    }
                 }
             }
 
@@ -147,7 +162,7 @@ public class GrpcProxyImpl implements RpcProxy {
                     }
                 } else {
                     // 如果当前节点是 Leader，则开始处理请求
-
+                    raftNode.processCommandRequest(Command.parse(request.getCommand()));
                 }
             }
         };

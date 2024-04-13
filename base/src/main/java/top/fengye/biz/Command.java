@@ -1,11 +1,10 @@
 package top.fengye.biz;
 
+import com.google.protobuf.ByteString;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.fengye.rpc.grpc.BizParam;
-
-import javax.annotation.Nullable;
 
 /**
  * @author: FengYe
@@ -25,6 +24,22 @@ public class Command {
         this.key = new Key(command.getKey());
         this.value = new Value(command.getValue());
         this.commandType = CommandType.parse(command.getType());
+    }
+
+    public static Command parse(BizParam.Command command){
+        Command res = new Command();
+        res.key = new Key(command.getKey());
+        res.value = new Value(command.getValue());
+        res.commandType = CommandType.parse(command.getType());
+        return res;
+    }
+
+    public BizParam.Command antiParse(){
+        return BizParam.Command.newBuilder()
+                .setType(BizParam.CommandType.valueOf(this.commandType.name()))
+                .setKey(BizParam.Key.newBuilder().setData(ByteString.copyFrom(this.key.getData())))
+                .setValue(BizParam.Value.newBuilder().setData(ByteString.copyFrom(this.value.getData())))
+                .build();
     }
 
     public enum CommandType {

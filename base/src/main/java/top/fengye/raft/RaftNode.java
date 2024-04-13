@@ -1,6 +1,7 @@
 package top.fengye.raft;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -106,21 +108,25 @@ public class RaftNode extends AbstractVerticle implements Serializable {
 
         // 给所有其他节点发送投票信息
         for (RaftNode node : peers.values()) {
-            RpcAddress peerAddress = node.getRpcAddress();
-            rpcProxy.applyVote(peerAddress, Grpc.ApplyVoteRequest.newBuilder().setNodeId(nodeId).setTerm(currentTerm).build())
-                    .onSuccess(res -> {
-                        // 如果自己的 term 小于一个 peer 的 term，说明选期已经落后，直接变为 follower，以减少不必要的选举
-                        if (res.getTerm() > currentTerm) {
-                            becomeFollow(res.getTerm(), null);
-                        }
-                        if (res.getAgreed()) {
-                            // 前一个判断条件用于 cas 判断得到的票数是否过半
-                            // 后一个判断条件用于防止 promise 被重复 complete
-                            if (majority.decrementAndGet() == 0 && completeStatus.compareAndSet(false, true)) {
-                                promise.complete();
-                            }
-                        }
-                    });
+            rpcProxy.applyVote(node.getRpcAddress(),
+                    Grpc.ApplyVoteRequest
+                            .newBuilder()
+                            .setNodeId(nodeId)
+                            .setTerm(currentTerm)
+                            .build()
+            ).onSuccess(res -> {
+                // 如果自己的 term 小于一个 peer 的 term，说明选期已经落后，直接变为 follower，以减少不必要的选举
+                if (res.getTerm() > currentTerm) {
+                    becomeFollow(res.getTerm(), null);
+                }
+                if (res.getAgreed()) {
+                    // 前一个判断条件用于 cas 判断得到的票数是否过半
+                    // 后一个判断条件用于防止 promise 被重复 complete
+                    if (majority.decrementAndGet() == 0 && completeStatus.compareAndSet(false, true)) {
+                        promise.complete();
+                    }
+                }
+            });
         }
 
         // candidate 经过一段时间的投票后，还没有成为 Leader，则视为选举失败，退回 Follower
@@ -138,26 +144,77 @@ public class RaftNode extends AbstractVerticle implements Serializable {
                 });
     }
 
-    public void doPut(Command command, Promise<Void> promise) {
 
+    public boolean processAppendEntriesRequest(Grpc.AppendEntriesRequest request) {
+        if (raftLog.checkPre(request.getPreLogIndex(), request.getPreLogTerm())) {
+            return false;
+        }
+        List<RaftLog.Entry> entries = request.getEntriesList().stream().map(RaftLog.Entry::parse).collect(Collectors.toList());
+        raftLog.append(entries);
+        return true;
     }
 
+    /**
+     * leader raft 节点处理来自客户端的请求
+     * 1. 先将请求写入自己的日志
+     * 2. 向其余节点广播 appendEntries
+     * 3. 如果有过半节点收到 appendEntries 并成功返回，leader 则 apply 请求并相应客户端
+     * <p>
+     * 如果有节点返回 false，则说明其日志和 leader 有出入，对其进行日志恢复
+     *
+     * @param command
+     */
+    public void processCommandRequest(Command command) {
+        RaftLog.Entry entry = raftLog.append(command);
+
+        // peers 中不包含自己，过半数量直接取 peers.size() / 2，不用算自己
+        AtomicInteger majority = new AtomicInteger(peers.size() / 2);
+        Promise<Void> promise = Promise.promise();
+        AtomicBoolean completeStatus = new AtomicBoolean(false);
+        // 广播 appendEntries rpc
+        // 其中附带 preLogIndex 和 preLogTerm 用于日志恢复
+        broadcastAppendEntries(node -> {
+            String peerId = node.getNodeId();
+            long preLogIndex = nextLogIndexMap.get(peerId) - 1;
+            return Grpc.AppendEntriesRequest
+                    .newBuilder()
+                    .setNodeId(nodeId)
+                    .setTerm(currentTerm)
+                    .setPreLogIndex(preLogIndex)
+                    .setPreLogTerm(raftLog.getTermByIndex(preLogIndex))
+                    .addAllEntries(List.of(entry.antiParse()))
+                    .build();
+        }).forEach(future -> {
+            future.onSuccess(res -> {
+                if (res.getSuccess()) {
+                    if (majority.getAndDecrement() == 0 && completeStatus.compareAndSet(false, true)) {
+                        promise.complete();
+                    }
+                } else {
+                    // todo 对其单独开线程，执行日志恢复
+
+                }
+            });
+        });
+
+        promise.future().onComplete(res -> {
+            // todo 根据一致性要求再改动
+        });
+    }
 
     /**
-     * Leader 节点需要定时广播给其他节点 appendEntries RPC
+     * 给所有其他节点发送 appendEntries RPC
+     *
+     * @param requestAcquire 请求构造func
+     * @return
      */
-    public void broadcastAppendEntries() {
-        // 给所有其他节点发送 appendEntries RPC
+    public List<Future<Grpc.AppendEntriesResponse>> broadcastAppendEntries(Function<RaftNode, Grpc.AppendEntriesRequest> requestAcquire) {
+        List<Future<Grpc.AppendEntriesResponse>> res = new ArrayList<>();
         for (RaftNode node : peers.values()) {
             RpcAddress peerAddress = node.getRpcAddress();
-            rpcProxy.appendEntries(peerAddress, Grpc.AppendEntriesRequest.newBuilder().setNodeId(nodeId).setTerm(currentTerm).build())
-                    .onSuccess(res -> {
-                        // 如果 leader 发现其他节点的 term 大于自己，需要重新将自己变更为 follower
-                        if (!res.getSuccess()) {
-                            becomeFollow(res.getTerm(), null);
-                        }
-                    });
+            res.add(rpcProxy.appendEntries(peerAddress, requestAcquire.apply(node)));
         }
+        return res;
     }
 
     /**
@@ -201,10 +258,21 @@ public class RaftNode extends AbstractVerticle implements Serializable {
         }
         this.role = RoleEnum.Leader;
         this.leaderId = this.nodeId;
+        this.nextLogIndexMap.replaceAll((key, value) -> raftLog.getNextLogIndex());
         this.lastHeartBeat = System.currentTimeMillis();
         vertx.setPeriodic(0, HEARTBEAT_INTERVAL, id -> {
             heartBeatPeriodicId = id;
-            broadcastAppendEntries();
+            broadcastAppendEntries(node -> Grpc.AppendEntriesRequest.newBuilder().setNodeId(nodeId).setTerm(currentTerm).build())
+                    .forEach(future -> {
+                        future.onSuccess(
+                                res -> {
+                                    // 如果 leader 发现其他节点的 term 大于自己，需要重新将自己变更为 follower
+                                    if (!res.getSuccess()) {
+                                        becomeFollow(res.getTerm(), null);
+                                    }
+                                }
+                        );
+                    });
         });
     }
 
@@ -217,12 +285,16 @@ public class RaftNode extends AbstractVerticle implements Serializable {
     }
 
     /**
-     * peers过滤掉自己
+     * peers 转化为除了自己的所有节点
+     * nextLogIndexMap value 初始化为下一个 logIndex
      *
-     * @param map
+     * @param map 所有节点
      */
-    public void setPeers(Map<String, RaftNode> map) {
-        peers = map.entrySet().stream().filter(entry -> !entry.getValue().getNodeId().equals(this.nodeId))
+    public void loadPeers(Map<String, RaftNode> map) {
+        peers = map.entrySet().stream()
+                .filter(entry -> !entry.getValue().getNodeId().equals(this.nodeId))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        nextLogIndexMap = peers.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, v -> raftLog.getNextLogIndex()));
     }
 }

@@ -37,7 +37,9 @@ message ApplyVoteResponse {
 message AppendEntriesRequest {
   string nodeId = 1;
   int64 term = 2;
-  Command command = 3;
+  int64 preLogIndex = 3;
+  int64 preLogTerm = 4;
+  repeated LogEntry entries = 5;
 }
 message AppendEntriesResponse {
   string nodeId = 1;

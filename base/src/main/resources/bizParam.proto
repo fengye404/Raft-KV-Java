@@ -22,3 +22,9 @@ enum CommandType {
   PUT = 1;
   DEL = 2;
 }
+
+message LogEntry {
+  int64 index = 1;
+  int64 term = 2;
+  Command command = 3;
+}

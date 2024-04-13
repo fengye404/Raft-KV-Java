@@ -1,10 +1,13 @@
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
+import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
+import io.vertx.core.VertxOptions;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.grpc.client.GrpcClient;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import top.fengye.biz.Command;
 import top.fengye.raft.RaftNode;
@@ -13,8 +16,11 @@ import top.fengye.rpc.grpc.BizParam;
 import top.fengye.rpc.grpc.Grpc;
 import top.fengye.rpc.grpc.VertxRaftGrpcClient;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author: FengYe
@@ -70,13 +76,20 @@ public class RaftTest {
         peers.put(raftNode1.getNodeId(), raftNode1);
         peers.put(raftNode2.getNodeId(), raftNode2);
         peers.put(raftNode3.getNodeId(), raftNode3);
-        raftNode1.setPeers(peers);
-        raftNode2.setPeers(peers);
-        raftNode3.setPeers(peers);
+        raftNode1.loadPeers(peers);
+        raftNode2.loadPeers(peers);
+        raftNode3.loadPeers(peers);
 
-        Vertx vertx1 = Vertx.vertx();
-        Vertx vertx2 = Vertx.vertx();
-        Vertx vertx3 = Vertx.vertx();
+        VertxOptions vertxOptions = new VertxOptions()
+                .setBlockedThreadCheckInterval(10000000L)
+                .setBlockedThreadCheckIntervalUnit(TimeUnit.DAYS)
+                .setEventLoopPoolSize(1)
+                .setWorkerPoolSize(1)
+                .setInternalBlockingPoolSize(1);
+        Vertx vertx1 = Vertx.vertx(vertxOptions);
+        Vertx vertx2 = Vertx.vertx(vertxOptions);
+        Vertx vertx3 = Vertx.vertx(vertxOptions);
+
 
         vertx1.deployVerticle(raftNode1).onSuccess(s -> deployId1 = s);
         vertx2.deployVerticle(raftNode2).onSuccess(s -> deployId2 = s);

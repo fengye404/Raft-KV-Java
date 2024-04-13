@@ -3172,19 +3172,40 @@ public final class Grpc {
     long getTerm();
 
     /**
-     * <code>.top.fengye.rpc.grpc.Command command = 3;</code>
-     * @return Whether the command field is set.
+     * <code>int64 preLogIndex = 3;</code>
+     * @return The preLogIndex.
      */
-    boolean hasCommand();
+    long getPreLogIndex();
+
     /**
-     * <code>.top.fengye.rpc.grpc.Command command = 3;</code>
-     * @return The command.
+     * <code>int64 preLogTerm = 4;</code>
+     * @return The preLogTerm.
      */
-    top.fengye.rpc.grpc.BizParam.Command getCommand();
+    long getPreLogTerm();
+
     /**
-     * <code>.top.fengye.rpc.grpc.Command command = 3;</code>
+     * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
      */
-    top.fengye.rpc.grpc.BizParam.CommandOrBuilder getCommandOrBuilder();
+    java.util.List<top.fengye.rpc.grpc.BizParam.LogEntry> 
+        getEntriesList();
+    /**
+     * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+     */
+    top.fengye.rpc.grpc.BizParam.LogEntry getEntries(int index);
+    /**
+     * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+     */
+    int getEntriesCount();
+    /**
+     * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+     */
+    java.util.List<? extends top.fengye.rpc.grpc.BizParam.LogEntryOrBuilder> 
+        getEntriesOrBuilderList();
+    /**
+     * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+     */
+    top.fengye.rpc.grpc.BizParam.LogEntryOrBuilder getEntriesOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code top.fengye.rpc.grpc.AppendEntriesRequest}
@@ -3200,6 +3221,7 @@ public final class Grpc {
     }
     private AppendEntriesRequest() {
       nodeId_ = "";
+      entries_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -3277,30 +3299,67 @@ public final class Grpc {
       return term_;
     }
 
-    public static final int COMMAND_FIELD_NUMBER = 3;
-    private top.fengye.rpc.grpc.BizParam.Command command_;
+    public static final int PRELOGINDEX_FIELD_NUMBER = 3;
+    private long preLogIndex_ = 0L;
     /**
-     * <code>.top.fengye.rpc.grpc.Command command = 3;</code>
-     * @return Whether the command field is set.
+     * <code>int64 preLogIndex = 3;</code>
+     * @return The preLogIndex.
      */
     @java.lang.Override
-    public boolean hasCommand() {
-      return command_ != null;
+    public long getPreLogIndex() {
+      return preLogIndex_;
+    }
+
+    public static final int PRELOGTERM_FIELD_NUMBER = 4;
+    private long preLogTerm_ = 0L;
+    /**
+     * <code>int64 preLogTerm = 4;</code>
+     * @return The preLogTerm.
+     */
+    @java.lang.Override
+    public long getPreLogTerm() {
+      return preLogTerm_;
+    }
+
+    public static final int ENTRIES_FIELD_NUMBER = 5;
+    @SuppressWarnings("serial")
+    private java.util.List<top.fengye.rpc.grpc.BizParam.LogEntry> entries_;
+    /**
+     * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<top.fengye.rpc.grpc.BizParam.LogEntry> getEntriesList() {
+      return entries_;
     }
     /**
-     * <code>.top.fengye.rpc.grpc.Command command = 3;</code>
-     * @return The command.
+     * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
      */
     @java.lang.Override
-    public top.fengye.rpc.grpc.BizParam.Command getCommand() {
-      return command_ == null ? top.fengye.rpc.grpc.BizParam.Command.getDefaultInstance() : command_;
+    public java.util.List<? extends top.fengye.rpc.grpc.BizParam.LogEntryOrBuilder> 
+        getEntriesOrBuilderList() {
+      return entries_;
     }
     /**
-     * <code>.top.fengye.rpc.grpc.Command command = 3;</code>
+     * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
      */
     @java.lang.Override
-    public top.fengye.rpc.grpc.BizParam.CommandOrBuilder getCommandOrBuilder() {
-      return command_ == null ? top.fengye.rpc.grpc.BizParam.Command.getDefaultInstance() : command_;
+    public int getEntriesCount() {
+      return entries_.size();
+    }
+    /**
+     * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+     */
+    @java.lang.Override
+    public top.fengye.rpc.grpc.BizParam.LogEntry getEntries(int index) {
+      return entries_.get(index);
+    }
+    /**
+     * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+     */
+    @java.lang.Override
+    public top.fengye.rpc.grpc.BizParam.LogEntryOrBuilder getEntriesOrBuilder(
+        int index) {
+      return entries_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -3323,8 +3382,14 @@ public final class Grpc {
       if (term_ != 0L) {
         output.writeInt64(2, term_);
       }
-      if (command_ != null) {
-        output.writeMessage(3, getCommand());
+      if (preLogIndex_ != 0L) {
+        output.writeInt64(3, preLogIndex_);
+      }
+      if (preLogTerm_ != 0L) {
+        output.writeInt64(4, preLogTerm_);
+      }
+      for (int i = 0; i < entries_.size(); i++) {
+        output.writeMessage(5, entries_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -3342,9 +3407,17 @@ public final class Grpc {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(2, term_);
       }
-      if (command_ != null) {
+      if (preLogIndex_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, getCommand());
+          .computeInt64Size(3, preLogIndex_);
+      }
+      if (preLogTerm_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(4, preLogTerm_);
+      }
+      for (int i = 0; i < entries_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, entries_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -3365,11 +3438,12 @@ public final class Grpc {
           .equals(other.getNodeId())) return false;
       if (getTerm()
           != other.getTerm()) return false;
-      if (hasCommand() != other.hasCommand()) return false;
-      if (hasCommand()) {
-        if (!getCommand()
-            .equals(other.getCommand())) return false;
-      }
+      if (getPreLogIndex()
+          != other.getPreLogIndex()) return false;
+      if (getPreLogTerm()
+          != other.getPreLogTerm()) return false;
+      if (!getEntriesList()
+          .equals(other.getEntriesList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -3386,9 +3460,15 @@ public final class Grpc {
       hash = (37 * hash) + TERM_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getTerm());
-      if (hasCommand()) {
-        hash = (37 * hash) + COMMAND_FIELD_NUMBER;
-        hash = (53 * hash) + getCommand().hashCode();
+      hash = (37 * hash) + PRELOGINDEX_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getPreLogIndex());
+      hash = (37 * hash) + PRELOGTERM_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getPreLogTerm());
+      if (getEntriesCount() > 0) {
+        hash = (37 * hash) + ENTRIES_FIELD_NUMBER;
+        hash = (53 * hash) + getEntriesList().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -3521,11 +3601,15 @@ public final class Grpc {
         bitField0_ = 0;
         nodeId_ = "";
         term_ = 0L;
-        command_ = null;
-        if (commandBuilder_ != null) {
-          commandBuilder_.dispose();
-          commandBuilder_ = null;
+        preLogIndex_ = 0L;
+        preLogTerm_ = 0L;
+        if (entriesBuilder_ == null) {
+          entries_ = java.util.Collections.emptyList();
+        } else {
+          entries_ = null;
+          entriesBuilder_.clear();
         }
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -3552,9 +3636,22 @@ public final class Grpc {
       @java.lang.Override
       public top.fengye.rpc.grpc.Grpc.AppendEntriesRequest buildPartial() {
         top.fengye.rpc.grpc.Grpc.AppendEntriesRequest result = new top.fengye.rpc.grpc.Grpc.AppendEntriesRequest(this);
+        buildPartialRepeatedFields(result);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartialRepeatedFields(top.fengye.rpc.grpc.Grpc.AppendEntriesRequest result) {
+        if (entriesBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) != 0)) {
+            entries_ = java.util.Collections.unmodifiableList(entries_);
+            bitField0_ = (bitField0_ & ~0x00000010);
+          }
+          result.entries_ = entries_;
+        } else {
+          result.entries_ = entriesBuilder_.build();
+        }
       }
 
       private void buildPartial0(top.fengye.rpc.grpc.Grpc.AppendEntriesRequest result) {
@@ -3566,9 +3663,10 @@ public final class Grpc {
           result.term_ = term_;
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.command_ = commandBuilder_ == null
-              ? command_
-              : commandBuilder_.build();
+          result.preLogIndex_ = preLogIndex_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.preLogTerm_ = preLogTerm_;
         }
       }
 
@@ -3624,8 +3722,37 @@ public final class Grpc {
         if (other.getTerm() != 0L) {
           setTerm(other.getTerm());
         }
-        if (other.hasCommand()) {
-          mergeCommand(other.getCommand());
+        if (other.getPreLogIndex() != 0L) {
+          setPreLogIndex(other.getPreLogIndex());
+        }
+        if (other.getPreLogTerm() != 0L) {
+          setPreLogTerm(other.getPreLogTerm());
+        }
+        if (entriesBuilder_ == null) {
+          if (!other.entries_.isEmpty()) {
+            if (entries_.isEmpty()) {
+              entries_ = other.entries_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+            } else {
+              ensureEntriesIsMutable();
+              entries_.addAll(other.entries_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.entries_.isEmpty()) {
+            if (entriesBuilder_.isEmpty()) {
+              entriesBuilder_.dispose();
+              entriesBuilder_ = null;
+              entries_ = other.entries_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+              entriesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getEntriesFieldBuilder() : null;
+            } else {
+              entriesBuilder_.addAllMessages(other.entries_);
+            }
+          }
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -3663,13 +3790,29 @@ public final class Grpc {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 16
-              case 26: {
-                input.readMessage(
-                    getCommandFieldBuilder().getBuilder(),
-                    extensionRegistry);
+              case 24: {
+                preLogIndex_ = input.readInt64();
                 bitField0_ |= 0x00000004;
                 break;
-              } // case 26
+              } // case 24
+              case 32: {
+                preLogTerm_ = input.readInt64();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 32
+              case 42: {
+                top.fengye.rpc.grpc.BizParam.LogEntry m =
+                    input.readMessage(
+                        top.fengye.rpc.grpc.BizParam.LogEntry.parser(),
+                        extensionRegistry);
+                if (entriesBuilder_ == null) {
+                  ensureEntriesIsMutable();
+                  entries_.add(m);
+                } else {
+                  entriesBuilder_.addMessage(m);
+                }
+                break;
+              } // case 42
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -3791,123 +3934,308 @@ public final class Grpc {
         return this;
       }
 
-      private top.fengye.rpc.grpc.BizParam.Command command_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          top.fengye.rpc.grpc.BizParam.Command, top.fengye.rpc.grpc.BizParam.Command.Builder, top.fengye.rpc.grpc.BizParam.CommandOrBuilder> commandBuilder_;
+      private long preLogIndex_ ;
       /**
-       * <code>.top.fengye.rpc.grpc.Command command = 3;</code>
-       * @return Whether the command field is set.
+       * <code>int64 preLogIndex = 3;</code>
+       * @return The preLogIndex.
        */
-      public boolean hasCommand() {
-        return ((bitField0_ & 0x00000004) != 0);
+      @java.lang.Override
+      public long getPreLogIndex() {
+        return preLogIndex_;
       }
       /**
-       * <code>.top.fengye.rpc.grpc.Command command = 3;</code>
-       * @return The command.
+       * <code>int64 preLogIndex = 3;</code>
+       * @param value The preLogIndex to set.
+       * @return This builder for chaining.
        */
-      public top.fengye.rpc.grpc.BizParam.Command getCommand() {
-        if (commandBuilder_ == null) {
-          return command_ == null ? top.fengye.rpc.grpc.BizParam.Command.getDefaultInstance() : command_;
+      public Builder setPreLogIndex(long value) {
+        
+        preLogIndex_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 preLogIndex = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPreLogIndex() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        preLogIndex_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long preLogTerm_ ;
+      /**
+       * <code>int64 preLogTerm = 4;</code>
+       * @return The preLogTerm.
+       */
+      @java.lang.Override
+      public long getPreLogTerm() {
+        return preLogTerm_;
+      }
+      /**
+       * <code>int64 preLogTerm = 4;</code>
+       * @param value The preLogTerm to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPreLogTerm(long value) {
+        
+        preLogTerm_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 preLogTerm = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPreLogTerm() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        preLogTerm_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<top.fengye.rpc.grpc.BizParam.LogEntry> entries_ =
+        java.util.Collections.emptyList();
+      private void ensureEntriesIsMutable() {
+        if (!((bitField0_ & 0x00000010) != 0)) {
+          entries_ = new java.util.ArrayList<top.fengye.rpc.grpc.BizParam.LogEntry>(entries_);
+          bitField0_ |= 0x00000010;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          top.fengye.rpc.grpc.BizParam.LogEntry, top.fengye.rpc.grpc.BizParam.LogEntry.Builder, top.fengye.rpc.grpc.BizParam.LogEntryOrBuilder> entriesBuilder_;
+
+      /**
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+       */
+      public java.util.List<top.fengye.rpc.grpc.BizParam.LogEntry> getEntriesList() {
+        if (entriesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(entries_);
         } else {
-          return commandBuilder_.getMessage();
+          return entriesBuilder_.getMessageList();
         }
       }
       /**
-       * <code>.top.fengye.rpc.grpc.Command command = 3;</code>
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
        */
-      public Builder setCommand(top.fengye.rpc.grpc.BizParam.Command value) {
-        if (commandBuilder_ == null) {
+      public int getEntriesCount() {
+        if (entriesBuilder_ == null) {
+          return entries_.size();
+        } else {
+          return entriesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+       */
+      public top.fengye.rpc.grpc.BizParam.LogEntry getEntries(int index) {
+        if (entriesBuilder_ == null) {
+          return entries_.get(index);
+        } else {
+          return entriesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+       */
+      public Builder setEntries(
+          int index, top.fengye.rpc.grpc.BizParam.LogEntry value) {
+        if (entriesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          command_ = value;
+          ensureEntriesIsMutable();
+          entries_.set(index, value);
+          onChanged();
         } else {
-          commandBuilder_.setMessage(value);
+          entriesBuilder_.setMessage(index, value);
         }
-        bitField0_ |= 0x00000004;
-        onChanged();
         return this;
       }
       /**
-       * <code>.top.fengye.rpc.grpc.Command command = 3;</code>
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
        */
-      public Builder setCommand(
-          top.fengye.rpc.grpc.BizParam.Command.Builder builderForValue) {
-        if (commandBuilder_ == null) {
-          command_ = builderForValue.build();
+      public Builder setEntries(
+          int index, top.fengye.rpc.grpc.BizParam.LogEntry.Builder builderForValue) {
+        if (entriesBuilder_ == null) {
+          ensureEntriesIsMutable();
+          entries_.set(index, builderForValue.build());
+          onChanged();
         } else {
-          commandBuilder_.setMessage(builderForValue.build());
+          entriesBuilder_.setMessage(index, builderForValue.build());
         }
-        bitField0_ |= 0x00000004;
-        onChanged();
         return this;
       }
       /**
-       * <code>.top.fengye.rpc.grpc.Command command = 3;</code>
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
        */
-      public Builder mergeCommand(top.fengye.rpc.grpc.BizParam.Command value) {
-        if (commandBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) != 0) &&
-            command_ != null &&
-            command_ != top.fengye.rpc.grpc.BizParam.Command.getDefaultInstance()) {
-            getCommandBuilder().mergeFrom(value);
-          } else {
-            command_ = value;
+      public Builder addEntries(top.fengye.rpc.grpc.BizParam.LogEntry value) {
+        if (entriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
           }
+          ensureEntriesIsMutable();
+          entries_.add(value);
+          onChanged();
         } else {
-          commandBuilder_.mergeFrom(value);
+          entriesBuilder_.addMessage(value);
         }
-        bitField0_ |= 0x00000004;
-        onChanged();
         return this;
       }
       /**
-       * <code>.top.fengye.rpc.grpc.Command command = 3;</code>
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
        */
-      public Builder clearCommand() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        command_ = null;
-        if (commandBuilder_ != null) {
-          commandBuilder_.dispose();
-          commandBuilder_ = null;
+      public Builder addEntries(
+          int index, top.fengye.rpc.grpc.BizParam.LogEntry value) {
+        if (entriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEntriesIsMutable();
+          entries_.add(index, value);
+          onChanged();
+        } else {
+          entriesBuilder_.addMessage(index, value);
         }
-        onChanged();
         return this;
       }
       /**
-       * <code>.top.fengye.rpc.grpc.Command command = 3;</code>
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
        */
-      public top.fengye.rpc.grpc.BizParam.Command.Builder getCommandBuilder() {
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return getCommandFieldBuilder().getBuilder();
+      public Builder addEntries(
+          top.fengye.rpc.grpc.BizParam.LogEntry.Builder builderForValue) {
+        if (entriesBuilder_ == null) {
+          ensureEntriesIsMutable();
+          entries_.add(builderForValue.build());
+          onChanged();
+        } else {
+          entriesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
       }
       /**
-       * <code>.top.fengye.rpc.grpc.Command command = 3;</code>
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
        */
-      public top.fengye.rpc.grpc.BizParam.CommandOrBuilder getCommandOrBuilder() {
-        if (commandBuilder_ != null) {
-          return commandBuilder_.getMessageOrBuilder();
+      public Builder addEntries(
+          int index, top.fengye.rpc.grpc.BizParam.LogEntry.Builder builderForValue) {
+        if (entriesBuilder_ == null) {
+          ensureEntriesIsMutable();
+          entries_.add(index, builderForValue.build());
+          onChanged();
         } else {
-          return command_ == null ?
-              top.fengye.rpc.grpc.BizParam.Command.getDefaultInstance() : command_;
+          entriesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+       */
+      public Builder addAllEntries(
+          java.lang.Iterable<? extends top.fengye.rpc.grpc.BizParam.LogEntry> values) {
+        if (entriesBuilder_ == null) {
+          ensureEntriesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, entries_);
+          onChanged();
+        } else {
+          entriesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+       */
+      public Builder clearEntries() {
+        if (entriesBuilder_ == null) {
+          entries_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+          onChanged();
+        } else {
+          entriesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+       */
+      public Builder removeEntries(int index) {
+        if (entriesBuilder_ == null) {
+          ensureEntriesIsMutable();
+          entries_.remove(index);
+          onChanged();
+        } else {
+          entriesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+       */
+      public top.fengye.rpc.grpc.BizParam.LogEntry.Builder getEntriesBuilder(
+          int index) {
+        return getEntriesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+       */
+      public top.fengye.rpc.grpc.BizParam.LogEntryOrBuilder getEntriesOrBuilder(
+          int index) {
+        if (entriesBuilder_ == null) {
+          return entries_.get(index);  } else {
+          return entriesBuilder_.getMessageOrBuilder(index);
         }
       }
       /**
-       * <code>.top.fengye.rpc.grpc.Command command = 3;</code>
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
        */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          top.fengye.rpc.grpc.BizParam.Command, top.fengye.rpc.grpc.BizParam.Command.Builder, top.fengye.rpc.grpc.BizParam.CommandOrBuilder> 
-          getCommandFieldBuilder() {
-        if (commandBuilder_ == null) {
-          commandBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              top.fengye.rpc.grpc.BizParam.Command, top.fengye.rpc.grpc.BizParam.Command.Builder, top.fengye.rpc.grpc.BizParam.CommandOrBuilder>(
-                  getCommand(),
+      public java.util.List<? extends top.fengye.rpc.grpc.BizParam.LogEntryOrBuilder> 
+           getEntriesOrBuilderList() {
+        if (entriesBuilder_ != null) {
+          return entriesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(entries_);
+        }
+      }
+      /**
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+       */
+      public top.fengye.rpc.grpc.BizParam.LogEntry.Builder addEntriesBuilder() {
+        return getEntriesFieldBuilder().addBuilder(
+            top.fengye.rpc.grpc.BizParam.LogEntry.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+       */
+      public top.fengye.rpc.grpc.BizParam.LogEntry.Builder addEntriesBuilder(
+          int index) {
+        return getEntriesFieldBuilder().addBuilder(
+            index, top.fengye.rpc.grpc.BizParam.LogEntry.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
+       */
+      public java.util.List<top.fengye.rpc.grpc.BizParam.LogEntry.Builder> 
+           getEntriesBuilderList() {
+        return getEntriesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          top.fengye.rpc.grpc.BizParam.LogEntry, top.fengye.rpc.grpc.BizParam.LogEntry.Builder, top.fengye.rpc.grpc.BizParam.LogEntryOrBuilder> 
+          getEntriesFieldBuilder() {
+        if (entriesBuilder_ == null) {
+          entriesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              top.fengye.rpc.grpc.BizParam.LogEntry, top.fengye.rpc.grpc.BizParam.LogEntry.Builder, top.fengye.rpc.grpc.BizParam.LogEntryOrBuilder>(
+                  entries_,
+                  ((bitField0_ & 0x00000010) != 0),
                   getParentForChildren(),
                   isClean());
-          command_ = null;
+          entries_ = null;
         }
-        return commandBuilder_;
+        return entriesBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -5963,27 +6291,28 @@ public final class Grpc {
       "\n\007message\030\002 \001(\t\"0\n\020ApplyVoteRequest\022\016\n\006n" +
       "odeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\"A\n\021ApplyVoteRe" +
       "sponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\022\016\n\006" +
-      "agreed\030\003 \001(\010\"c\n\024AppendEntriesRequest\022\016\n\006" +
-      "nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\022-\n\007command\030\003 " +
-      "\001(\0132\034.top.fengye.rpc.grpc.Command\"F\n\025App" +
-      "endEntriesResponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004te" +
-      "rm\030\002 \001(\003\022\017\n\007success\030\003 \001(\010\"?\n\016CommandRequ" +
-      "est\022-\n\007command\030\001 \001(\0132\034.top.fengye.rpc.gr" +
-      "pc.Command\"J\n\017CommandResponse\022\020\n\010redirec" +
-      "t\030\001 \001(\010\022\024\n\014redirectPort\030\002 \001(\005\022\017\n\007success" +
-      "\030\003 \001(\0102\332\003\n\004Raft\022c\n\023queryElectionStatus\022\032" +
-      ".top.fengye.rpc.grpc.Empty\0320.top.fengye." +
-      "rpc.grpc.queryElectionStatusResponse\022M\n\010" +
-      "shutDown\022\032.top.fengye.rpc.grpc.Empty\032%.t" +
-      "op.fengye.rpc.grpc.shutDownResponse\022Z\n\ta" +
-      "pplyVote\022%.top.fengye.rpc.grpc.ApplyVote" +
-      "Request\032&.top.fengye.rpc.grpc.ApplyVoteR" +
-      "esponse\022f\n\rappendEntries\022).top.fengye.rp" +
-      "c.grpc.AppendEntriesRequest\032*.top.fengye" +
-      ".rpc.grpc.AppendEntriesResponse\022Z\n\rhandl" +
-      "eRequest\022#.top.fengye.rpc.grpc.CommandRe" +
-      "quest\032$.top.fengye.rpc.grpc.CommandRespo" +
-      "nseb\006proto3"
+      "agreed\030\003 \001(\010\"\215\001\n\024AppendEntriesRequest\022\016\n" +
+      "\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\022\023\n\013preLogInd" +
+      "ex\030\003 \001(\003\022\022\n\npreLogTerm\030\004 \001(\003\022.\n\007entries\030" +
+      "\005 \003(\0132\035.top.fengye.rpc.grpc.LogEntry\"F\n\025" +
+      "AppendEntriesResponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n" +
+      "\004term\030\002 \001(\003\022\017\n\007success\030\003 \001(\010\"?\n\016CommandR" +
+      "equest\022-\n\007command\030\001 \001(\0132\034.top.fengye.rpc" +
+      ".grpc.Command\"J\n\017CommandResponse\022\020\n\010redi" +
+      "rect\030\001 \001(\010\022\024\n\014redirectPort\030\002 \001(\005\022\017\n\007succ" +
+      "ess\030\003 \001(\0102\332\003\n\004Raft\022c\n\023queryElectionStatu" +
+      "s\022\032.top.fengye.rpc.grpc.Empty\0320.top.feng" +
+      "ye.rpc.grpc.queryElectionStatusResponse\022" +
+      "M\n\010shutDown\022\032.top.fengye.rpc.grpc.Empty\032" +
+      "%.top.fengye.rpc.grpc.shutDownResponse\022Z" +
+      "\n\tapplyVote\022%.top.fengye.rpc.grpc.ApplyV" +
+      "oteRequest\032&.top.fengye.rpc.grpc.ApplyVo" +
+      "teResponse\022f\n\rappendEntries\022).top.fengye" +
+      ".rpc.grpc.AppendEntriesRequest\032*.top.fen" +
+      "gye.rpc.grpc.AppendEntriesResponse\022Z\n\rha" +
+      "ndleRequest\022#.top.fengye.rpc.grpc.Comman" +
+      "dRequest\032$.top.fengye.rpc.grpc.CommandRe" +
+      "sponseb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -6025,7 +6354,7 @@ public final class Grpc {
     internal_static_top_fengye_rpc_grpc_AppendEntriesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_fengye_rpc_grpc_AppendEntriesRequest_descriptor,
-        new java.lang.String[] { "NodeId", "Term", "Command", });
+        new java.lang.String[] { "NodeId", "Term", "PreLogIndex", "PreLogTerm", "Entries", });
     internal_static_top_fengye_rpc_grpc_AppendEntriesResponse_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_top_fengye_rpc_grpc_AppendEntriesResponse_fieldAccessorTable = new
