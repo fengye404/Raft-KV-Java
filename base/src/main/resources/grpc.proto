@@ -4,7 +4,7 @@ package top.fengye.rpc.grpc;
 import "bizParam.proto";
 
 service Raft {
-  rpc queryElectionStatus (Empty) returns (queryElectionStatusResponse);
+  rpc queryStatus (Empty) returns (queryStatusResponse);
   rpc shutDown(Empty) returns (shutDownResponse);
   rpc applyVote (ApplyVoteRequest) returns (ApplyVoteResponse);
   rpc appendEntries (AppendEntriesRequest) returns (AppendEntriesResponse);
@@ -13,7 +13,7 @@ service Raft {
 
 message Empty{
 }
-message queryElectionStatusResponse{
+message queryStatusResponse{
   string nodeId = 1;
   string message = 2;
 }
@@ -25,25 +25,25 @@ message shutDownResponse{
 
 message ApplyVoteRequest{
   string nodeId = 1;
-  int64 term = 2;
+  int32 term = 2;
 }
 message ApplyVoteResponse {
   string nodeId = 1;
-  int64 term = 2;
+  int32 term = 2;
   bool agreed = 3;
 }
 
 
 message AppendEntriesRequest {
   string nodeId = 1;
-  int64 term = 2;
-  int64 preLogIndex = 3;
-  int64 preLogTerm = 4;
+  int32 term = 2;
+  int32 preLogIndex = 3;
+  int32 preLogTerm = 4;
   repeated LogEntry entries = 5;
 }
 message AppendEntriesResponse {
   string nodeId = 1;
-  int64 term = 2;
+  int32 term = 2;
   bool success = 3;
 }
 

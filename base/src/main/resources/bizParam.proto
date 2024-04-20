@@ -24,7 +24,7 @@ enum CommandType {
 }
 
 message LogEntry {
-  int64 index = 1;
-  int64 term = 2;
+  int32 index = 1;
+  int32 term = 2;
   Command command = 3;
 }

@@ -2000,16 +2000,16 @@ public final class BizParam {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int64 index = 1;</code>
+     * <code>int32 index = 1;</code>
      * @return The index.
      */
-    long getIndex();
+    int getIndex();
 
     /**
-     * <code>int64 term = 2;</code>
+     * <code>int32 term = 2;</code>
      * @return The term.
      */
-    long getTerm();
+    int getTerm();
 
     /**
      * <code>.top.fengye.rpc.grpc.Command command = 3;</code>
@@ -2067,24 +2067,24 @@ public final class BizParam {
     }
 
     public static final int INDEX_FIELD_NUMBER = 1;
-    private long index_ = 0L;
+    private int index_ = 0;
     /**
-     * <code>int64 index = 1;</code>
+     * <code>int32 index = 1;</code>
      * @return The index.
      */
     @java.lang.Override
-    public long getIndex() {
+    public int getIndex() {
       return index_;
     }
 
     public static final int TERM_FIELD_NUMBER = 2;
-    private long term_ = 0L;
+    private int term_ = 0;
     /**
-     * <code>int64 term = 2;</code>
+     * <code>int32 term = 2;</code>
      * @return The term.
      */
     @java.lang.Override
-    public long getTerm() {
+    public int getTerm() {
       return term_;
     }
 
@@ -2128,11 +2128,11 @@ public final class BizParam {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (index_ != 0L) {
-        output.writeInt64(1, index_);
+      if (index_ != 0) {
+        output.writeInt32(1, index_);
       }
-      if (term_ != 0L) {
-        output.writeInt64(2, term_);
+      if (term_ != 0) {
+        output.writeInt32(2, term_);
       }
       if (command_ != null) {
         output.writeMessage(3, getCommand());
@@ -2146,13 +2146,13 @@ public final class BizParam {
       if (size != -1) return size;
 
       size = 0;
-      if (index_ != 0L) {
+      if (index_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, index_);
+          .computeInt32Size(1, index_);
       }
-      if (term_ != 0L) {
+      if (term_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, term_);
+          .computeInt32Size(2, term_);
       }
       if (command_ != null) {
         size += com.google.protobuf.CodedOutputStream
@@ -2194,11 +2194,9 @@ public final class BizParam {
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + INDEX_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getIndex());
+      hash = (53 * hash) + getIndex();
       hash = (37 * hash) + TERM_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getTerm());
+      hash = (53 * hash) + getTerm();
       if (hasCommand()) {
         hash = (37 * hash) + COMMAND_FIELD_NUMBER;
         hash = (53 * hash) + getCommand().hashCode();
@@ -2332,8 +2330,8 @@ public final class BizParam {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        index_ = 0L;
-        term_ = 0L;
+        index_ = 0;
+        term_ = 0;
         command_ = null;
         if (commandBuilder_ != null) {
           commandBuilder_.dispose();
@@ -2429,10 +2427,10 @@ public final class BizParam {
 
       public Builder mergeFrom(top.fengye.rpc.grpc.BizParam.LogEntry other) {
         if (other == top.fengye.rpc.grpc.BizParam.LogEntry.getDefaultInstance()) return this;
-        if (other.getIndex() != 0L) {
+        if (other.getIndex() != 0) {
           setIndex(other.getIndex());
         }
-        if (other.getTerm() != 0L) {
+        if (other.getTerm() != 0) {
           setTerm(other.getTerm());
         }
         if (other.hasCommand()) {
@@ -2465,12 +2463,12 @@ public final class BizParam {
                 done = true;
                 break;
               case 8: {
-                index_ = input.readInt64();
+                index_ = input.readInt32();
                 bitField0_ |= 0x00000001;
                 break;
               } // case 8
               case 16: {
-                term_ = input.readInt64();
+                term_ = input.readInt32();
                 bitField0_ |= 0x00000002;
                 break;
               } // case 16
@@ -2498,21 +2496,21 @@ public final class BizParam {
       }
       private int bitField0_;
 
-      private long index_ ;
+      private int index_ ;
       /**
-       * <code>int64 index = 1;</code>
+       * <code>int32 index = 1;</code>
        * @return The index.
        */
       @java.lang.Override
-      public long getIndex() {
+      public int getIndex() {
         return index_;
       }
       /**
-       * <code>int64 index = 1;</code>
+       * <code>int32 index = 1;</code>
        * @param value The index to set.
        * @return This builder for chaining.
        */
-      public Builder setIndex(long value) {
+      public Builder setIndex(int value) {
         
         index_ = value;
         bitField0_ |= 0x00000001;
@@ -2520,31 +2518,31 @@ public final class BizParam {
         return this;
       }
       /**
-       * <code>int64 index = 1;</code>
+       * <code>int32 index = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearIndex() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        index_ = 0L;
+        index_ = 0;
         onChanged();
         return this;
       }
 
-      private long term_ ;
+      private int term_ ;
       /**
-       * <code>int64 term = 2;</code>
+       * <code>int32 term = 2;</code>
        * @return The term.
        */
       @java.lang.Override
-      public long getTerm() {
+      public int getTerm() {
         return term_;
       }
       /**
-       * <code>int64 term = 2;</code>
+       * <code>int32 term = 2;</code>
        * @param value The term to set.
        * @return This builder for chaining.
        */
-      public Builder setTerm(long value) {
+      public Builder setTerm(int value) {
         
         term_ = value;
         bitField0_ |= 0x00000002;
@@ -2552,12 +2550,12 @@ public final class BizParam {
         return this;
       }
       /**
-       * <code>int64 term = 2;</code>
+       * <code>int32 term = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearTerm() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        term_ = 0L;
+        term_ = 0;
         onChanged();
         return this;
       }
@@ -2779,7 +2777,7 @@ public final class BizParam {
       "gye.rpc.grpc.Key\022)\n\005value\030\003 \001(\0132\032.top.fe" +
       "ngye.rpc.grpc.Value\"\023\n\003Key\022\014\n\004data\030\001 \001(\014" +
       "\"\025\n\005Value\022\014\n\004data\030\001 \001(\014\"V\n\010LogEntry\022\r\n\005i" +
-      "ndex\030\001 \001(\003\022\014\n\004term\030\002 \001(\003\022-\n\007command\030\003 \001(" +
+      "ndex\030\001 \001(\005\022\014\n\004term\030\002 \001(\005\022-\n\007command\030\003 \001(" +
       "\0132\034.top.fengye.rpc.grpc.Command*(\n\013Comma" +
       "ndType\022\007\n\003GET\020\000\022\007\n\003PUT\020\001\022\007\n\003DEL\020\002b\006proto" +
       "3"

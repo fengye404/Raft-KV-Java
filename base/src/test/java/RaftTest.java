@@ -33,25 +33,30 @@ public class RaftTest {
     private RaftNode raftNode1;
     private RaftNode raftNode2;
     private RaftNode raftNode3;
+    private Map<String, RaftNode> peers;
 
-    private String deployId1;
-    private String deployId2;
-    private String deployId3;
+    private VertxOptions vertxOptions;
 
-    public static void main(String[] args) throws InvalidProtocolBufferException, InterruptedException {
-
-        Vertx vertx = Vertx.vertx();
-
-        TestServerVerticle testServerVerticle = new TestServerVerticle();
-        vertx.deployVerticle(testServerVerticle);
-
-        Thread.sleep(3000L);
-
-
-        TestClientVerticle testClientVerticle = new TestClientVerticle();
-        vertx.deployVerticle(testClientVerticle);
-
-        while (true) ;
+    {
+        raftNode1 = new RaftNode(new RpcAddress("localhost", 8080));
+        raftNode2 = new RaftNode(new RpcAddress("localhost", 8081));
+        raftNode3 = new RaftNode(new RpcAddress("localhost", 8082));
+        raftNode1.setNodeId("node1");
+        raftNode2.setNodeId("node2");
+        raftNode3.setNodeId("node3");
+        peers = new HashMap<>();
+        peers.put(raftNode1.getNodeId(), raftNode1);
+        peers.put(raftNode2.getNodeId(), raftNode2);
+        peers.put(raftNode3.getNodeId(), raftNode3);
+        raftNode1.loadPeers(peers);
+        raftNode2.loadPeers(peers);
+        raftNode3.loadPeers(peers);
+        vertxOptions = new VertxOptions()
+                .setBlockedThreadCheckInterval(10000000L)
+                .setBlockedThreadCheckIntervalUnit(TimeUnit.DAYS)
+                .setEventLoopPoolSize(1)
+                .setWorkerPoolSize(1)
+                .setInternalBlockingPoolSize(1);
     }
 
     @Test
@@ -63,44 +68,23 @@ public class RaftTest {
     }
 
     @Test
-    public void testElection() {
-        raftNode1 = new RaftNode(new RpcAddress("localhost", 8080));
-        raftNode2 = new RaftNode(new RpcAddress("localhost", 8081));
-        raftNode3 = new RaftNode(new RpcAddress("localhost", 8082));
-
-        raftNode1.setNodeId("node1");
-        raftNode2.setNodeId("node2");
-        raftNode3.setNodeId("node3");
-
-        Map<String, RaftNode> peers = new HashMap<>();
-        peers.put(raftNode1.getNodeId(), raftNode1);
-        peers.put(raftNode2.getNodeId(), raftNode2);
-        peers.put(raftNode3.getNodeId(), raftNode3);
-        raftNode1.loadPeers(peers);
-        raftNode2.loadPeers(peers);
-        raftNode3.loadPeers(peers);
-
-        VertxOptions vertxOptions = new VertxOptions()
-                .setBlockedThreadCheckInterval(10000000L)
-                .setBlockedThreadCheckIntervalUnit(TimeUnit.DAYS)
-                .setEventLoopPoolSize(1)
-                .setWorkerPoolSize(1)
-                .setInternalBlockingPoolSize(1);
+    public void deploy1() {
         Vertx vertx1 = Vertx.vertx(vertxOptions);
-        Vertx vertx2 = Vertx.vertx(vertxOptions);
-        Vertx vertx3 = Vertx.vertx(vertxOptions);
-
-
-        vertx1.deployVerticle(raftNode1).onSuccess(s -> deployId1 = s);
-        vertx2.deployVerticle(raftNode2).onSuccess(s -> deployId2 = s);
-        vertx3.deployVerticle(raftNode3).onSuccess(s -> deployId3 = s);
-
+        vertx1.deployVerticle(raftNode1);
         while (true) ;
     }
 
+    @Test
+    public void deploy2() {
+        Vertx vertx2 = Vertx.vertx(vertxOptions);
+        vertx2.deployVerticle(raftNode2);
+        while (true) ;
+    }
 
     @Test
-    public void test(){
-        System.out.println(Command.CommandType.parse(BizParam.CommandType.GET));
+    public void deploy3() {
+        Vertx vertx3 = Vertx.vertx(vertxOptions);
+        vertx3.deployVerticle(raftNode3);
+        while (true) ;
     }
 }

@@ -54,7 +54,7 @@ public class GrpcProxyImpl implements RpcProxy {
             public void applyVote(Grpc.ApplyVoteRequest request, Promise<Grpc.ApplyVoteResponse> response) {
                 raftNode.setLastHeartBeat(System.currentTimeMillis());
                 String requestNodeId = request.getNodeId();
-                long requestTerm = request.getTerm();
+                int requestTerm = request.getTerm();
                 boolean agreed = false;
                 // 如果 candidate 的 term 小于 follower 的 term，那么 follower 不会给该 candidate 投票
                 // 如果 candidate 的 term 等于 follower 的 term，那么 follower 会先比较 candidate 的日志和自己的日志，
@@ -80,43 +80,23 @@ public class GrpcProxyImpl implements RpcProxy {
 
             @Override
             public void appendEntries(Grpc.AppendEntriesRequest request, Promise<Grpc.AppendEntriesResponse> response) {
+                Grpc.AppendEntriesResponse.Builder responseBuilder = Grpc.AppendEntriesResponse.newBuilder()
+                        .setNodeId(raftNode.getNodeId())
+                        .setTerm(raftNode.getCurrentTerm());
                 // 如果请求过来的 term 小于自己的，则拒绝接收
                 if (request.getTerm() < raftNode.getCurrentTerm()) {
-                    response.complete(
-                            Grpc.AppendEntriesResponse.newBuilder()
-                                    .setNodeId(raftNode.getNodeId())
-                                    .setTerm(raftNode.getCurrentTerm())
-                                    .setSuccess(false)
-                                    .build()
-                    );
+                    response.complete(responseBuilder.setSuccess(false).build());
                 } else {
                     raftNode.becomeFollow(request.getTerm(), request.getNodeId());
-                    // entries 为空代表为心跳
-                    if (CollectionUtils.isEmpty(request.getEntriesList())) {
-                        response.complete(
-                                Grpc.AppendEntriesResponse.newBuilder()
-                                        .setNodeId(raftNode.getNodeId())
-                                        .setTerm(raftNode.getCurrentTerm())
-                                        .setSuccess(true)
-                                        .build()
-                        );
-                    } else {
-                        boolean success = raftNode.processAppendEntriesRequest(request);
-                        response.complete(
-                                Grpc.AppendEntriesResponse.newBuilder()
-                                        .setNodeId(raftNode.getNodeId())
-                                        .setTerm(raftNode.getCurrentTerm())
-                                        .setSuccess(success)
-                                        .build()
-                        );
-                    }
+                    boolean success = raftNode.processAppendEntriesRequest(request);
+                    response.complete(responseBuilder.setSuccess(success).build());
                 }
             }
 
             @Override
-            public void queryElectionStatus(Grpc.Empty empty, Promise<Grpc.queryElectionStatusResponse> response) {
+            public void queryStatus(Grpc.Empty empty, Promise<Grpc.queryStatusResponse> response) {
                 response.complete(
-                        Grpc.queryElectionStatusResponse.newBuilder()
+                        Grpc.queryStatusResponse.newBuilder()
                                 .setNodeId(raftNode.getNodeId())
                                 .setMessage(raftNode.getRole().name() + ":" + raftNode.getCurrentTerm())
                                 .build()

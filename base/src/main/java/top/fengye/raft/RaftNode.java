@@ -1,11 +1,14 @@
 package top.fengye.raft;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Context;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
+import io.vertx.core.impl.ContextInternal;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import top.fengye.biz.Command;
 import top.fengye.rpc.RpcAddress;
 import top.fengye.rpc.RpcProxy;
@@ -33,14 +36,16 @@ public class RaftNode extends AbstractVerticle implements Serializable {
     private String leaderId;
     private RaftLog raftLog;
     private RaftStateMachine raftStateMachine;
-    private long currentTerm;
+    private int currentTerm;
     private String votedFor;
     private RoleEnum role;
     private Map<String, RaftNode> peers;
-    private Map<String, Long> nextLogIndexMap;
+    private Map<String, Integer> nextLogIndexMap;
+    private Map<String, Integer> matchLogIndexMap;
     private RpcAddress rpcAddress;
     private RpcProxy rpcProxy;
     private Long heartBeatPeriodicId;
+    private ContextInternal contextInternal;
     /**
      * 最后一次心跳时间，用于选举计时器计算
      */
@@ -68,19 +73,19 @@ public class RaftNode extends AbstractVerticle implements Serializable {
         this.nodeId = UUID.randomUUID().toString();
         this.raftLog = new RaftLog();
         this.lastHeartBeat = System.currentTimeMillis();
-        this.currentTerm = 0L;
+        this.currentTerm = 0;
         this.votedFor = null;
         this.role = RoleEnum.Follower;
         this.peers = new HashMap<>();
         this.nextLogIndexMap = new HashMap<>();
         this.rpcAddress = rpcAddress;
+        this.contextInternal = (ContextInternal) context;
         resetElectionTimeout();
     }
 
     @Override
     public void start() throws Exception {
         this.rpcProxy = new GrpcProxyImpl(this);
-
         startElectionTimer();
         super.start();
     }
@@ -103,7 +108,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
 
         // peers 中不包含自己，过半数量直接取 peers.size() / 2，因为自己默认已经给自己投票了
         AtomicInteger majority = new AtomicInteger(peers.size() / 2);
-        Promise<Void> promise = Promise.promise();
+        Promise<Void> promise = contextInternal.promise();
         AtomicBoolean completeStatus = new AtomicBoolean(false);
 
         // 给所有其他节点发送投票信息
@@ -146,9 +151,14 @@ public class RaftNode extends AbstractVerticle implements Serializable {
 
 
     public boolean processAppendEntriesRequest(Grpc.AppendEntriesRequest request) {
+        // 如果没有附带 entriesList 则说明只是心跳请求，直接返回
+        if (CollectionUtils.isEmpty(request.getEntriesList())) {
+            return true;
+        }
         if (raftLog.checkPre(request.getPreLogIndex(), request.getPreLogTerm())) {
             return false;
         }
+        log.info("{} receive appendEntries: {}", nodeId, request);
         List<RaftLog.Entry> entries = request.getEntriesList().stream().map(RaftLog.Entry::parse).collect(Collectors.toList());
         raftLog.append(entries);
         return true;
@@ -165,56 +175,57 @@ public class RaftNode extends AbstractVerticle implements Serializable {
      * @param command
      */
     public void processCommandRequest(Command command) {
-        RaftLog.Entry entry = raftLog.append(command);
+        RaftLog.Entry append = raftLog.append(command);
+        broadcastAppendEntries();
 
-        // peers 中不包含自己，过半数量直接取 peers.size() / 2，不用算自己
-        AtomicInteger majority = new AtomicInteger(peers.size() / 2);
-        Promise<Void> promise = Promise.promise();
-        AtomicBoolean completeStatus = new AtomicBoolean(false);
-        // 广播 appendEntries rpc
-        // 其中附带 preLogIndex 和 preLogTerm 用于日志恢复
-        broadcastAppendEntries(node -> {
-            String peerId = node.getNodeId();
-            long preLogIndex = nextLogIndexMap.get(peerId) - 1;
-            return Grpc.AppendEntriesRequest
-                    .newBuilder()
-                    .setNodeId(nodeId)
-                    .setTerm(currentTerm)
-                    .setPreLogIndex(preLogIndex)
-                    .setPreLogTerm(raftLog.getTermByIndex(preLogIndex))
-                    .addAllEntries(List.of(entry.antiParse()))
-                    .build();
-        }).forEach(future -> {
-            future.onSuccess(res -> {
-                if (res.getSuccess()) {
-                    if (majority.getAndDecrement() == 0 && completeStatus.compareAndSet(false, true)) {
-                        promise.complete();
-                    }
-                } else {
-                    // todo 对其单独开线程，执行日志恢复
-
-                }
-            });
-        });
-
-        promise.future().onComplete(res -> {
-            // todo 根据一致性要求再改动
-        });
+        // TODO 添加 raftLog apply 回调
     }
 
     /**
      * 给所有其他节点发送 appendEntries RPC
      *
-     * @param requestAcquire 请求构造func
      * @return
      */
-    public List<Future<Grpc.AppendEntriesResponse>> broadcastAppendEntries(Function<RaftNode, Grpc.AppendEntriesRequest> requestAcquire) {
+    public List<Future<Grpc.AppendEntriesResponse>> broadcastAppendEntries() {
         List<Future<Grpc.AppendEntriesResponse>> res = new ArrayList<>();
         for (RaftNode node : peers.values()) {
-            RpcAddress peerAddress = node.getRpcAddress();
-            res.add(rpcProxy.appendEntries(peerAddress, requestAcquire.apply(node)));
+            res.add(this.appendEntries(node));
         }
         return res;
+    }
+
+    public Future<Grpc.AppendEntriesResponse> appendEntries(RaftNode peer) {
+        String peerId = peer.getNodeId();
+        int myCurrentIndex = raftLog.getCurrentLogIndex();
+        int peerNextIndex = nextLogIndexMap.get(peerId);
+        int peerPreIndex = peerNextIndex - 1;
+        Grpc.AppendEntriesRequest.Builder requestBuilder = Grpc.AppendEntriesRequest.newBuilder()
+                .setNodeId(peer.getNodeId())
+                .setTerm(currentTerm)
+                .setPreLogIndex(peerPreIndex)
+                .setPreLogTerm(raftLog.getTermByIndex(peerPreIndex));
+        if (peerNextIndex <= myCurrentIndex) {
+            // 如果目标的 log 落后自己，则说明需要给其复制日志，截取 [peerNextIndex,myNextIndex)
+            // 否则不用附带 entries 字段，目标收到后会将其视作心跳
+            requestBuilder.addAllEntries(raftLog.slice(peerNextIndex).stream().map(RaftLog.Entry::antiParse).collect(Collectors.toList()));
+        }
+
+        return rpcProxy.appendEntries(rpcAddress, requestBuilder.build())
+                .onSuccess(res -> {
+                    if (res.getSuccess()) {
+                        matchLogIndexMap.put(peerId, myCurrentIndex);
+                        nextLogIndexMap.put(peerId, myCurrentIndex + 1);
+                        raftLog.reCalculateCommitIndex();
+                    } else {
+                        if (res.getTerm() > currentTerm) {
+                            becomeFollow(res.getTerm(), null);
+                        } else {
+                            // 目标拒绝接收，说明目标日志和自己不一致，回退目标的 next
+                            // 随着不断地 appendEntries，peerNextIndex 会不会断回退，直到和自己一致
+                            nextLogIndexMap.put(peerId, peerNextIndex - 1);
+                        }
+                    }
+                });
     }
 
     /**
@@ -230,7 +241,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
         becomeFollow(currentTerm, null);
     }
 
-    public void becomeFollow(long term, String leaderId) {
+    public void becomeFollow(int term, String leaderId) {
         revokeHeartBeatPeriodic();
         this.currentTerm = term;
         this.leaderId = leaderId;
@@ -258,21 +269,11 @@ public class RaftNode extends AbstractVerticle implements Serializable {
         }
         this.role = RoleEnum.Leader;
         this.leaderId = this.nodeId;
-        this.nextLogIndexMap.replaceAll((key, value) -> raftLog.getNextLogIndex());
+        this.nextLogIndexMap.replaceAll((key, value) -> raftLog.getCurrentLogIndex() + 1);
         this.lastHeartBeat = System.currentTimeMillis();
         vertx.setPeriodic(0, HEARTBEAT_INTERVAL, id -> {
             heartBeatPeriodicId = id;
-            broadcastAppendEntries(node -> Grpc.AppendEntriesRequest.newBuilder().setNodeId(nodeId).setTerm(currentTerm).build())
-                    .forEach(future -> {
-                        future.onSuccess(
-                                res -> {
-                                    // 如果 leader 发现其他节点的 term 大于自己，需要重新将自己变更为 follower
-                                    if (!res.getSuccess()) {
-                                        becomeFollow(res.getTerm(), null);
-                                    }
-                                }
-                        );
-                    });
+            broadcastAppendEntries();
         });
     }
 
@@ -287,6 +288,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
     /**
      * peers 转化为除了自己的所有节点
      * nextLogIndexMap value 初始化为下一个 logIndex
+     * matchLogIndexMap value 全部初始化为 0
      *
      * @param map 所有节点
      */
@@ -295,6 +297,8 @@ public class RaftNode extends AbstractVerticle implements Serializable {
                 .filter(entry -> !entry.getValue().getNodeId().equals(this.nodeId))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         nextLogIndexMap = peers.entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, v -> raftLog.getNextLogIndex()));
+                .collect(Collectors.toMap(Map.Entry::getKey, v -> raftLog.getCurrentLogIndex() + 1));
+        matchLogIndexMap = peers.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, v -> 0));
     }
 }

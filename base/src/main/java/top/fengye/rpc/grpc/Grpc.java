@@ -414,8 +414,8 @@ public final class Grpc {
 
   }
 
-  public interface queryElectionStatusResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:top.fengye.rpc.grpc.queryElectionStatusResponse)
+  public interface queryStatusResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:top.fengye.rpc.grpc.queryStatusResponse)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -443,18 +443,18 @@ public final class Grpc {
         getMessageBytes();
   }
   /**
-   * Protobuf type {@code top.fengye.rpc.grpc.queryElectionStatusResponse}
+   * Protobuf type {@code top.fengye.rpc.grpc.queryStatusResponse}
    */
-  public static final class queryElectionStatusResponse extends
+  public static final class queryStatusResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:top.fengye.rpc.grpc.queryElectionStatusResponse)
-      queryElectionStatusResponseOrBuilder {
+      // @@protoc_insertion_point(message_implements:top.fengye.rpc.grpc.queryStatusResponse)
+      queryStatusResponseOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use queryElectionStatusResponse.newBuilder() to construct.
-    private queryElectionStatusResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use queryStatusResponse.newBuilder() to construct.
+    private queryStatusResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private queryElectionStatusResponse() {
+    private queryStatusResponse() {
       nodeId_ = "";
       message_ = "";
     }
@@ -463,7 +463,7 @@ public final class Grpc {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new queryElectionStatusResponse();
+      return new queryStatusResponse();
     }
 
     @java.lang.Override
@@ -473,15 +473,15 @@ public final class Grpc {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_queryElectionStatusResponse_descriptor;
+      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_queryStatusResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_queryElectionStatusResponse_fieldAccessorTable
+      return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_queryStatusResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse.class, top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse.Builder.class);
+              top.fengye.rpc.grpc.Grpc.queryStatusResponse.class, top.fengye.rpc.grpc.Grpc.queryStatusResponse.Builder.class);
     }
 
     public static final int NODEID_FIELD_NUMBER = 1;
@@ -607,10 +607,10 @@ public final class Grpc {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse)) {
+      if (!(obj instanceof top.fengye.rpc.grpc.Grpc.queryStatusResponse)) {
         return super.equals(obj);
       }
-      top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse other = (top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse) obj;
+      top.fengye.rpc.grpc.Grpc.queryStatusResponse other = (top.fengye.rpc.grpc.Grpc.queryStatusResponse) obj;
 
       if (!getNodeId()
           .equals(other.getNodeId())) return false;
@@ -636,69 +636,69 @@ public final class Grpc {
       return hash;
     }
 
-    public static top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.queryStatusResponse parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.queryStatusResponse parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.queryStatusResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.queryStatusResponse parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse parseFrom(byte[] data)
+    public static top.fengye.rpc.grpc.Grpc.queryStatusResponse parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.queryStatusResponse parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse parseFrom(java.io.InputStream input)
+    public static top.fengye.rpc.grpc.Grpc.queryStatusResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.queryStatusResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse parseDelimitedFrom(java.io.InputStream input)
+    public static top.fengye.rpc.grpc.Grpc.queryStatusResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse parseDelimitedFrom(
+    public static top.fengye.rpc.grpc.Grpc.queryStatusResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.queryStatusResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse parseFrom(
+    public static top.fengye.rpc.grpc.Grpc.queryStatusResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -711,7 +711,7 @@ public final class Grpc {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse prototype) {
+    public static Builder newBuilder(top.fengye.rpc.grpc.Grpc.queryStatusResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -727,26 +727,26 @@ public final class Grpc {
       return builder;
     }
     /**
-     * Protobuf type {@code top.fengye.rpc.grpc.queryElectionStatusResponse}
+     * Protobuf type {@code top.fengye.rpc.grpc.queryStatusResponse}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:top.fengye.rpc.grpc.queryElectionStatusResponse)
-        top.fengye.rpc.grpc.Grpc.queryElectionStatusResponseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:top.fengye.rpc.grpc.queryStatusResponse)
+        top.fengye.rpc.grpc.Grpc.queryStatusResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_queryElectionStatusResponse_descriptor;
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_queryStatusResponse_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_queryElectionStatusResponse_fieldAccessorTable
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_queryStatusResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse.class, top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse.Builder.class);
+                top.fengye.rpc.grpc.Grpc.queryStatusResponse.class, top.fengye.rpc.grpc.Grpc.queryStatusResponse.Builder.class);
       }
 
-      // Construct using top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse.newBuilder()
+      // Construct using top.fengye.rpc.grpc.Grpc.queryStatusResponse.newBuilder()
       private Builder() {
 
       }
@@ -768,17 +768,17 @@ public final class Grpc {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_queryElectionStatusResponse_descriptor;
+        return top.fengye.rpc.grpc.Grpc.internal_static_top_fengye_rpc_grpc_queryStatusResponse_descriptor;
       }
 
       @java.lang.Override
-      public top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse getDefaultInstanceForType() {
-        return top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse.getDefaultInstance();
+      public top.fengye.rpc.grpc.Grpc.queryStatusResponse getDefaultInstanceForType() {
+        return top.fengye.rpc.grpc.Grpc.queryStatusResponse.getDefaultInstance();
       }
 
       @java.lang.Override
-      public top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse build() {
-        top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse result = buildPartial();
+      public top.fengye.rpc.grpc.Grpc.queryStatusResponse build() {
+        top.fengye.rpc.grpc.Grpc.queryStatusResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -786,14 +786,14 @@ public final class Grpc {
       }
 
       @java.lang.Override
-      public top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse buildPartial() {
-        top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse result = new top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse(this);
+      public top.fengye.rpc.grpc.Grpc.queryStatusResponse buildPartial() {
+        top.fengye.rpc.grpc.Grpc.queryStatusResponse result = new top.fengye.rpc.grpc.Grpc.queryStatusResponse(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse result) {
+      private void buildPartial0(top.fengye.rpc.grpc.Grpc.queryStatusResponse result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.nodeId_ = nodeId_;
@@ -837,16 +837,16 @@ public final class Grpc {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse) {
-          return mergeFrom((top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse)other);
+        if (other instanceof top.fengye.rpc.grpc.Grpc.queryStatusResponse) {
+          return mergeFrom((top.fengye.rpc.grpc.Grpc.queryStatusResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse other) {
-        if (other == top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(top.fengye.rpc.grpc.Grpc.queryStatusResponse other) {
+        if (other == top.fengye.rpc.grpc.Grpc.queryStatusResponse.getDefaultInstance()) return this;
         if (!other.getNodeId().isEmpty()) {
           nodeId_ = other.nodeId_;
           bitField0_ |= 0x00000001;
@@ -1066,23 +1066,23 @@ public final class Grpc {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:top.fengye.rpc.grpc.queryElectionStatusResponse)
+      // @@protoc_insertion_point(builder_scope:top.fengye.rpc.grpc.queryStatusResponse)
     }
 
-    // @@protoc_insertion_point(class_scope:top.fengye.rpc.grpc.queryElectionStatusResponse)
-    private static final top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:top.fengye.rpc.grpc.queryStatusResponse)
+    private static final top.fengye.rpc.grpc.Grpc.queryStatusResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse();
+      DEFAULT_INSTANCE = new top.fengye.rpc.grpc.Grpc.queryStatusResponse();
     }
 
-    public static top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse getDefaultInstance() {
+    public static top.fengye.rpc.grpc.Grpc.queryStatusResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<queryElectionStatusResponse>
-        PARSER = new com.google.protobuf.AbstractParser<queryElectionStatusResponse>() {
+    private static final com.google.protobuf.Parser<queryStatusResponse>
+        PARSER = new com.google.protobuf.AbstractParser<queryStatusResponse>() {
       @java.lang.Override
-      public queryElectionStatusResponse parsePartialFrom(
+      public queryStatusResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1101,17 +1101,17 @@ public final class Grpc {
       }
     };
 
-    public static com.google.protobuf.Parser<queryElectionStatusResponse> parser() {
+    public static com.google.protobuf.Parser<queryStatusResponse> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<queryElectionStatusResponse> getParserForType() {
+    public com.google.protobuf.Parser<queryStatusResponse> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse getDefaultInstanceForType() {
+    public top.fengye.rpc.grpc.Grpc.queryStatusResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1837,10 +1837,10 @@ public final class Grpc {
         getNodeIdBytes();
 
     /**
-     * <code>int64 term = 2;</code>
+     * <code>int32 term = 2;</code>
      * @return The term.
      */
-    long getTerm();
+    int getTerm();
   }
   /**
    * Protobuf type {@code top.fengye.rpc.grpc.ApplyVoteRequest}
@@ -1923,13 +1923,13 @@ public final class Grpc {
     }
 
     public static final int TERM_FIELD_NUMBER = 2;
-    private long term_ = 0L;
+    private int term_ = 0;
     /**
-     * <code>int64 term = 2;</code>
+     * <code>int32 term = 2;</code>
      * @return The term.
      */
     @java.lang.Override
-    public long getTerm() {
+    public int getTerm() {
       return term_;
     }
 
@@ -1950,8 +1950,8 @@ public final class Grpc {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, nodeId_);
       }
-      if (term_ != 0L) {
-        output.writeInt64(2, term_);
+      if (term_ != 0) {
+        output.writeInt32(2, term_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1965,9 +1965,9 @@ public final class Grpc {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, nodeId_);
       }
-      if (term_ != 0L) {
+      if (term_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, term_);
+          .computeInt32Size(2, term_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -2002,8 +2002,7 @@ public final class Grpc {
       hash = (37 * hash) + NODEID_FIELD_NUMBER;
       hash = (53 * hash) + getNodeId().hashCode();
       hash = (37 * hash) + TERM_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getTerm());
+      hash = (53 * hash) + getTerm();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2134,7 +2133,7 @@ public final class Grpc {
         super.clear();
         bitField0_ = 0;
         nodeId_ = "";
-        term_ = 0L;
+        term_ = 0;
         return this;
       }
 
@@ -2225,7 +2224,7 @@ public final class Grpc {
           bitField0_ |= 0x00000001;
           onChanged();
         }
-        if (other.getTerm() != 0L) {
+        if (other.getTerm() != 0) {
           setTerm(other.getTerm());
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -2260,7 +2259,7 @@ public final class Grpc {
                 break;
               } // case 10
               case 16: {
-                term_ = input.readInt64();
+                term_ = input.readInt32();
                 bitField0_ |= 0x00000002;
                 break;
               } // case 16
@@ -2353,21 +2352,21 @@ public final class Grpc {
         return this;
       }
 
-      private long term_ ;
+      private int term_ ;
       /**
-       * <code>int64 term = 2;</code>
+       * <code>int32 term = 2;</code>
        * @return The term.
        */
       @java.lang.Override
-      public long getTerm() {
+      public int getTerm() {
         return term_;
       }
       /**
-       * <code>int64 term = 2;</code>
+       * <code>int32 term = 2;</code>
        * @param value The term to set.
        * @return This builder for chaining.
        */
-      public Builder setTerm(long value) {
+      public Builder setTerm(int value) {
         
         term_ = value;
         bitField0_ |= 0x00000002;
@@ -2375,12 +2374,12 @@ public final class Grpc {
         return this;
       }
       /**
-       * <code>int64 term = 2;</code>
+       * <code>int32 term = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearTerm() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        term_ = 0L;
+        term_ = 0;
         onChanged();
         return this;
       }
@@ -2465,10 +2464,10 @@ public final class Grpc {
         getNodeIdBytes();
 
     /**
-     * <code>int64 term = 2;</code>
+     * <code>int32 term = 2;</code>
      * @return The term.
      */
-    long getTerm();
+    int getTerm();
 
     /**
      * <code>bool agreed = 3;</code>
@@ -2557,13 +2556,13 @@ public final class Grpc {
     }
 
     public static final int TERM_FIELD_NUMBER = 2;
-    private long term_ = 0L;
+    private int term_ = 0;
     /**
-     * <code>int64 term = 2;</code>
+     * <code>int32 term = 2;</code>
      * @return The term.
      */
     @java.lang.Override
-    public long getTerm() {
+    public int getTerm() {
       return term_;
     }
 
@@ -2595,8 +2594,8 @@ public final class Grpc {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, nodeId_);
       }
-      if (term_ != 0L) {
-        output.writeInt64(2, term_);
+      if (term_ != 0) {
+        output.writeInt32(2, term_);
       }
       if (agreed_ != false) {
         output.writeBool(3, agreed_);
@@ -2613,9 +2612,9 @@ public final class Grpc {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, nodeId_);
       }
-      if (term_ != 0L) {
+      if (term_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, term_);
+          .computeInt32Size(2, term_);
       }
       if (agreed_ != false) {
         size += com.google.protobuf.CodedOutputStream
@@ -2656,8 +2655,7 @@ public final class Grpc {
       hash = (37 * hash) + NODEID_FIELD_NUMBER;
       hash = (53 * hash) + getNodeId().hashCode();
       hash = (37 * hash) + TERM_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getTerm());
+      hash = (53 * hash) + getTerm();
       hash = (37 * hash) + AGREED_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getAgreed());
@@ -2791,7 +2789,7 @@ public final class Grpc {
         super.clear();
         bitField0_ = 0;
         nodeId_ = "";
-        term_ = 0L;
+        term_ = 0;
         agreed_ = false;
         return this;
       }
@@ -2886,7 +2884,7 @@ public final class Grpc {
           bitField0_ |= 0x00000001;
           onChanged();
         }
-        if (other.getTerm() != 0L) {
+        if (other.getTerm() != 0) {
           setTerm(other.getTerm());
         }
         if (other.getAgreed() != false) {
@@ -2924,7 +2922,7 @@ public final class Grpc {
                 break;
               } // case 10
               case 16: {
-                term_ = input.readInt64();
+                term_ = input.readInt32();
                 bitField0_ |= 0x00000002;
                 break;
               } // case 16
@@ -3022,21 +3020,21 @@ public final class Grpc {
         return this;
       }
 
-      private long term_ ;
+      private int term_ ;
       /**
-       * <code>int64 term = 2;</code>
+       * <code>int32 term = 2;</code>
        * @return The term.
        */
       @java.lang.Override
-      public long getTerm() {
+      public int getTerm() {
         return term_;
       }
       /**
-       * <code>int64 term = 2;</code>
+       * <code>int32 term = 2;</code>
        * @param value The term to set.
        * @return This builder for chaining.
        */
-      public Builder setTerm(long value) {
+      public Builder setTerm(int value) {
         
         term_ = value;
         bitField0_ |= 0x00000002;
@@ -3044,12 +3042,12 @@ public final class Grpc {
         return this;
       }
       /**
-       * <code>int64 term = 2;</code>
+       * <code>int32 term = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearTerm() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        term_ = 0L;
+        term_ = 0;
         onChanged();
         return this;
       }
@@ -3166,22 +3164,22 @@ public final class Grpc {
         getNodeIdBytes();
 
     /**
-     * <code>int64 term = 2;</code>
+     * <code>int32 term = 2;</code>
      * @return The term.
      */
-    long getTerm();
+    int getTerm();
 
     /**
-     * <code>int64 preLogIndex = 3;</code>
+     * <code>int32 preLogIndex = 3;</code>
      * @return The preLogIndex.
      */
-    long getPreLogIndex();
+    int getPreLogIndex();
 
     /**
-     * <code>int64 preLogTerm = 4;</code>
+     * <code>int32 preLogTerm = 4;</code>
      * @return The preLogTerm.
      */
-    long getPreLogTerm();
+    int getPreLogTerm();
 
     /**
      * <code>repeated .top.fengye.rpc.grpc.LogEntry entries = 5;</code>
@@ -3289,35 +3287,35 @@ public final class Grpc {
     }
 
     public static final int TERM_FIELD_NUMBER = 2;
-    private long term_ = 0L;
+    private int term_ = 0;
     /**
-     * <code>int64 term = 2;</code>
+     * <code>int32 term = 2;</code>
      * @return The term.
      */
     @java.lang.Override
-    public long getTerm() {
+    public int getTerm() {
       return term_;
     }
 
     public static final int PRELOGINDEX_FIELD_NUMBER = 3;
-    private long preLogIndex_ = 0L;
+    private int preLogIndex_ = 0;
     /**
-     * <code>int64 preLogIndex = 3;</code>
+     * <code>int32 preLogIndex = 3;</code>
      * @return The preLogIndex.
      */
     @java.lang.Override
-    public long getPreLogIndex() {
+    public int getPreLogIndex() {
       return preLogIndex_;
     }
 
     public static final int PRELOGTERM_FIELD_NUMBER = 4;
-    private long preLogTerm_ = 0L;
+    private int preLogTerm_ = 0;
     /**
-     * <code>int64 preLogTerm = 4;</code>
+     * <code>int32 preLogTerm = 4;</code>
      * @return The preLogTerm.
      */
     @java.lang.Override
-    public long getPreLogTerm() {
+    public int getPreLogTerm() {
       return preLogTerm_;
     }
 
@@ -3379,14 +3377,14 @@ public final class Grpc {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, nodeId_);
       }
-      if (term_ != 0L) {
-        output.writeInt64(2, term_);
+      if (term_ != 0) {
+        output.writeInt32(2, term_);
       }
-      if (preLogIndex_ != 0L) {
-        output.writeInt64(3, preLogIndex_);
+      if (preLogIndex_ != 0) {
+        output.writeInt32(3, preLogIndex_);
       }
-      if (preLogTerm_ != 0L) {
-        output.writeInt64(4, preLogTerm_);
+      if (preLogTerm_ != 0) {
+        output.writeInt32(4, preLogTerm_);
       }
       for (int i = 0; i < entries_.size(); i++) {
         output.writeMessage(5, entries_.get(i));
@@ -3403,17 +3401,17 @@ public final class Grpc {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, nodeId_);
       }
-      if (term_ != 0L) {
+      if (term_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, term_);
+          .computeInt32Size(2, term_);
       }
-      if (preLogIndex_ != 0L) {
+      if (preLogIndex_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(3, preLogIndex_);
+          .computeInt32Size(3, preLogIndex_);
       }
-      if (preLogTerm_ != 0L) {
+      if (preLogTerm_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(4, preLogTerm_);
+          .computeInt32Size(4, preLogTerm_);
       }
       for (int i = 0; i < entries_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -3458,14 +3456,11 @@ public final class Grpc {
       hash = (37 * hash) + NODEID_FIELD_NUMBER;
       hash = (53 * hash) + getNodeId().hashCode();
       hash = (37 * hash) + TERM_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getTerm());
+      hash = (53 * hash) + getTerm();
       hash = (37 * hash) + PRELOGINDEX_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getPreLogIndex());
+      hash = (53 * hash) + getPreLogIndex();
       hash = (37 * hash) + PRELOGTERM_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getPreLogTerm());
+      hash = (53 * hash) + getPreLogTerm();
       if (getEntriesCount() > 0) {
         hash = (37 * hash) + ENTRIES_FIELD_NUMBER;
         hash = (53 * hash) + getEntriesList().hashCode();
@@ -3600,9 +3595,9 @@ public final class Grpc {
         super.clear();
         bitField0_ = 0;
         nodeId_ = "";
-        term_ = 0L;
-        preLogIndex_ = 0L;
-        preLogTerm_ = 0L;
+        term_ = 0;
+        preLogIndex_ = 0;
+        preLogTerm_ = 0;
         if (entriesBuilder_ == null) {
           entries_ = java.util.Collections.emptyList();
         } else {
@@ -3719,13 +3714,13 @@ public final class Grpc {
           bitField0_ |= 0x00000001;
           onChanged();
         }
-        if (other.getTerm() != 0L) {
+        if (other.getTerm() != 0) {
           setTerm(other.getTerm());
         }
-        if (other.getPreLogIndex() != 0L) {
+        if (other.getPreLogIndex() != 0) {
           setPreLogIndex(other.getPreLogIndex());
         }
-        if (other.getPreLogTerm() != 0L) {
+        if (other.getPreLogTerm() != 0) {
           setPreLogTerm(other.getPreLogTerm());
         }
         if (entriesBuilder_ == null) {
@@ -3786,17 +3781,17 @@ public final class Grpc {
                 break;
               } // case 10
               case 16: {
-                term_ = input.readInt64();
+                term_ = input.readInt32();
                 bitField0_ |= 0x00000002;
                 break;
               } // case 16
               case 24: {
-                preLogIndex_ = input.readInt64();
+                preLogIndex_ = input.readInt32();
                 bitField0_ |= 0x00000004;
                 break;
               } // case 24
               case 32: {
-                preLogTerm_ = input.readInt64();
+                preLogTerm_ = input.readInt32();
                 bitField0_ |= 0x00000008;
                 break;
               } // case 32
@@ -3902,21 +3897,21 @@ public final class Grpc {
         return this;
       }
 
-      private long term_ ;
+      private int term_ ;
       /**
-       * <code>int64 term = 2;</code>
+       * <code>int32 term = 2;</code>
        * @return The term.
        */
       @java.lang.Override
-      public long getTerm() {
+      public int getTerm() {
         return term_;
       }
       /**
-       * <code>int64 term = 2;</code>
+       * <code>int32 term = 2;</code>
        * @param value The term to set.
        * @return This builder for chaining.
        */
-      public Builder setTerm(long value) {
+      public Builder setTerm(int value) {
         
         term_ = value;
         bitField0_ |= 0x00000002;
@@ -3924,31 +3919,31 @@ public final class Grpc {
         return this;
       }
       /**
-       * <code>int64 term = 2;</code>
+       * <code>int32 term = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearTerm() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        term_ = 0L;
+        term_ = 0;
         onChanged();
         return this;
       }
 
-      private long preLogIndex_ ;
+      private int preLogIndex_ ;
       /**
-       * <code>int64 preLogIndex = 3;</code>
+       * <code>int32 preLogIndex = 3;</code>
        * @return The preLogIndex.
        */
       @java.lang.Override
-      public long getPreLogIndex() {
+      public int getPreLogIndex() {
         return preLogIndex_;
       }
       /**
-       * <code>int64 preLogIndex = 3;</code>
+       * <code>int32 preLogIndex = 3;</code>
        * @param value The preLogIndex to set.
        * @return This builder for chaining.
        */
-      public Builder setPreLogIndex(long value) {
+      public Builder setPreLogIndex(int value) {
         
         preLogIndex_ = value;
         bitField0_ |= 0x00000004;
@@ -3956,31 +3951,31 @@ public final class Grpc {
         return this;
       }
       /**
-       * <code>int64 preLogIndex = 3;</code>
+       * <code>int32 preLogIndex = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearPreLogIndex() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        preLogIndex_ = 0L;
+        preLogIndex_ = 0;
         onChanged();
         return this;
       }
 
-      private long preLogTerm_ ;
+      private int preLogTerm_ ;
       /**
-       * <code>int64 preLogTerm = 4;</code>
+       * <code>int32 preLogTerm = 4;</code>
        * @return The preLogTerm.
        */
       @java.lang.Override
-      public long getPreLogTerm() {
+      public int getPreLogTerm() {
         return preLogTerm_;
       }
       /**
-       * <code>int64 preLogTerm = 4;</code>
+       * <code>int32 preLogTerm = 4;</code>
        * @param value The preLogTerm to set.
        * @return This builder for chaining.
        */
-      public Builder setPreLogTerm(long value) {
+      public Builder setPreLogTerm(int value) {
         
         preLogTerm_ = value;
         bitField0_ |= 0x00000008;
@@ -3988,12 +3983,12 @@ public final class Grpc {
         return this;
       }
       /**
-       * <code>int64 preLogTerm = 4;</code>
+       * <code>int32 preLogTerm = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearPreLogTerm() {
         bitField0_ = (bitField0_ & ~0x00000008);
-        preLogTerm_ = 0L;
+        preLogTerm_ = 0;
         onChanged();
         return this;
       }
@@ -4318,10 +4313,10 @@ public final class Grpc {
         getNodeIdBytes();
 
     /**
-     * <code>int64 term = 2;</code>
+     * <code>int32 term = 2;</code>
      * @return The term.
      */
-    long getTerm();
+    int getTerm();
 
     /**
      * <code>bool success = 3;</code>
@@ -4410,13 +4405,13 @@ public final class Grpc {
     }
 
     public static final int TERM_FIELD_NUMBER = 2;
-    private long term_ = 0L;
+    private int term_ = 0;
     /**
-     * <code>int64 term = 2;</code>
+     * <code>int32 term = 2;</code>
      * @return The term.
      */
     @java.lang.Override
-    public long getTerm() {
+    public int getTerm() {
       return term_;
     }
 
@@ -4448,8 +4443,8 @@ public final class Grpc {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, nodeId_);
       }
-      if (term_ != 0L) {
-        output.writeInt64(2, term_);
+      if (term_ != 0) {
+        output.writeInt32(2, term_);
       }
       if (success_ != false) {
         output.writeBool(3, success_);
@@ -4466,9 +4461,9 @@ public final class Grpc {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, nodeId_);
       }
-      if (term_ != 0L) {
+      if (term_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, term_);
+          .computeInt32Size(2, term_);
       }
       if (success_ != false) {
         size += com.google.protobuf.CodedOutputStream
@@ -4509,8 +4504,7 @@ public final class Grpc {
       hash = (37 * hash) + NODEID_FIELD_NUMBER;
       hash = (53 * hash) + getNodeId().hashCode();
       hash = (37 * hash) + TERM_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getTerm());
+      hash = (53 * hash) + getTerm();
       hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getSuccess());
@@ -4644,7 +4638,7 @@ public final class Grpc {
         super.clear();
         bitField0_ = 0;
         nodeId_ = "";
-        term_ = 0L;
+        term_ = 0;
         success_ = false;
         return this;
       }
@@ -4739,7 +4733,7 @@ public final class Grpc {
           bitField0_ |= 0x00000001;
           onChanged();
         }
-        if (other.getTerm() != 0L) {
+        if (other.getTerm() != 0) {
           setTerm(other.getTerm());
         }
         if (other.getSuccess() != false) {
@@ -4777,7 +4771,7 @@ public final class Grpc {
                 break;
               } // case 10
               case 16: {
-                term_ = input.readInt64();
+                term_ = input.readInt32();
                 bitField0_ |= 0x00000002;
                 break;
               } // case 16
@@ -4875,21 +4869,21 @@ public final class Grpc {
         return this;
       }
 
-      private long term_ ;
+      private int term_ ;
       /**
-       * <code>int64 term = 2;</code>
+       * <code>int32 term = 2;</code>
        * @return The term.
        */
       @java.lang.Override
-      public long getTerm() {
+      public int getTerm() {
         return term_;
       }
       /**
-       * <code>int64 term = 2;</code>
+       * <code>int32 term = 2;</code>
        * @param value The term to set.
        * @return This builder for chaining.
        */
-      public Builder setTerm(long value) {
+      public Builder setTerm(int value) {
         
         term_ = value;
         bitField0_ |= 0x00000002;
@@ -4897,12 +4891,12 @@ public final class Grpc {
         return this;
       }
       /**
-       * <code>int64 term = 2;</code>
+       * <code>int32 term = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearTerm() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        term_ = 0L;
+        term_ = 0;
         onChanged();
         return this;
       }
@@ -6236,10 +6230,10 @@ public final class Grpc {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_top_fengye_rpc_grpc_Empty_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_top_fengye_rpc_grpc_queryElectionStatusResponse_descriptor;
+    internal_static_top_fengye_rpc_grpc_queryStatusResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_top_fengye_rpc_grpc_queryElectionStatusResponse_fieldAccessorTable;
+      internal_static_top_fengye_rpc_grpc_queryStatusResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_top_fengye_rpc_grpc_shutDownResponse_descriptor;
   private static final 
@@ -6285,34 +6279,33 @@ public final class Grpc {
   static {
     java.lang.String[] descriptorData = {
       "\n\ngrpc.proto\022\023top.fengye.rpc.grpc\032\016bizPa" +
-      "ram.proto\"\007\n\005Empty\">\n\033queryElectionStatu" +
-      "sResponse\022\016\n\006nodeId\030\001 \001(\t\022\017\n\007message\030\002 \001" +
-      "(\t\"3\n\020shutDownResponse\022\016\n\006nodeId\030\001 \001(\t\022\017" +
-      "\n\007message\030\002 \001(\t\"0\n\020ApplyVoteRequest\022\016\n\006n" +
-      "odeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\"A\n\021ApplyVoteRe" +
-      "sponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\022\016\n\006" +
-      "agreed\030\003 \001(\010\"\215\001\n\024AppendEntriesRequest\022\016\n" +
-      "\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\003\022\023\n\013preLogInd" +
-      "ex\030\003 \001(\003\022\022\n\npreLogTerm\030\004 \001(\003\022.\n\007entries\030" +
-      "\005 \003(\0132\035.top.fengye.rpc.grpc.LogEntry\"F\n\025" +
-      "AppendEntriesResponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n" +
-      "\004term\030\002 \001(\003\022\017\n\007success\030\003 \001(\010\"?\n\016CommandR" +
-      "equest\022-\n\007command\030\001 \001(\0132\034.top.fengye.rpc" +
-      ".grpc.Command\"J\n\017CommandResponse\022\020\n\010redi" +
-      "rect\030\001 \001(\010\022\024\n\014redirectPort\030\002 \001(\005\022\017\n\007succ" +
-      "ess\030\003 \001(\0102\332\003\n\004Raft\022c\n\023queryElectionStatu" +
-      "s\022\032.top.fengye.rpc.grpc.Empty\0320.top.feng" +
-      "ye.rpc.grpc.queryElectionStatusResponse\022" +
-      "M\n\010shutDown\022\032.top.fengye.rpc.grpc.Empty\032" +
-      "%.top.fengye.rpc.grpc.shutDownResponse\022Z" +
-      "\n\tapplyVote\022%.top.fengye.rpc.grpc.ApplyV" +
-      "oteRequest\032&.top.fengye.rpc.grpc.ApplyVo" +
-      "teResponse\022f\n\rappendEntries\022).top.fengye" +
-      ".rpc.grpc.AppendEntriesRequest\032*.top.fen" +
-      "gye.rpc.grpc.AppendEntriesResponse\022Z\n\rha" +
-      "ndleRequest\022#.top.fengye.rpc.grpc.Comman" +
-      "dRequest\032$.top.fengye.rpc.grpc.CommandRe" +
-      "sponseb\006proto3"
+      "ram.proto\"\007\n\005Empty\"6\n\023queryStatusRespons" +
+      "e\022\016\n\006nodeId\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\"3\n\020sh" +
+      "utDownResponse\022\016\n\006nodeId\030\001 \001(\t\022\017\n\007messag" +
+      "e\030\002 \001(\t\"0\n\020ApplyVoteRequest\022\016\n\006nodeId\030\001 " +
+      "\001(\t\022\014\n\004term\030\002 \001(\005\"A\n\021ApplyVoteResponse\022\016" +
+      "\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\005\022\016\n\006agreed\030\003" +
+      " \001(\010\"\215\001\n\024AppendEntriesRequest\022\016\n\006nodeId\030" +
+      "\001 \001(\t\022\014\n\004term\030\002 \001(\005\022\023\n\013preLogIndex\030\003 \001(\005" +
+      "\022\022\n\npreLogTerm\030\004 \001(\005\022.\n\007entries\030\005 \003(\0132\035." +
+      "top.fengye.rpc.grpc.LogEntry\"F\n\025AppendEn" +
+      "triesResponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 " +
+      "\001(\005\022\017\n\007success\030\003 \001(\010\"?\n\016CommandRequest\022-" +
+      "\n\007command\030\001 \001(\0132\034.top.fengye.rpc.grpc.Co" +
+      "mmand\"J\n\017CommandResponse\022\020\n\010redirect\030\001 \001" +
+      "(\010\022\024\n\014redirectPort\030\002 \001(\005\022\017\n\007success\030\003 \001(" +
+      "\0102\312\003\n\004Raft\022S\n\013queryStatus\022\032.top.fengye.r" +
+      "pc.grpc.Empty\032(.top.fengye.rpc.grpc.quer" +
+      "yStatusResponse\022M\n\010shutDown\022\032.top.fengye" +
+      ".rpc.grpc.Empty\032%.top.fengye.rpc.grpc.sh" +
+      "utDownResponse\022Z\n\tapplyVote\022%.top.fengye" +
+      ".rpc.grpc.ApplyVoteRequest\032&.top.fengye." +
+      "rpc.grpc.ApplyVoteResponse\022f\n\rappendEntr" +
+      "ies\022).top.fengye.rpc.grpc.AppendEntriesR" +
+      "equest\032*.top.fengye.rpc.grpc.AppendEntri" +
+      "esResponse\022Z\n\rhandleRequest\022#.top.fengye" +
+      ".rpc.grpc.CommandRequest\032$.top.fengye.rp" +
+      "c.grpc.CommandResponseb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -6325,11 +6318,11 @@ public final class Grpc {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_fengye_rpc_grpc_Empty_descriptor,
         new java.lang.String[] { });
-    internal_static_top_fengye_rpc_grpc_queryElectionStatusResponse_descriptor =
+    internal_static_top_fengye_rpc_grpc_queryStatusResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_top_fengye_rpc_grpc_queryElectionStatusResponse_fieldAccessorTable = new
+    internal_static_top_fengye_rpc_grpc_queryStatusResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_top_fengye_rpc_grpc_queryElectionStatusResponse_descriptor,
+        internal_static_top_fengye_rpc_grpc_queryStatusResponse_descriptor,
         new java.lang.String[] { "NodeId", "Message", });
     internal_static_top_fengye_rpc_grpc_shutDownResponse_descriptor =
       getDescriptor().getMessageTypes().get(2);

@@ -33,21 +33,21 @@ public class TestClientVerticle extends AbstractVerticle {
                 grpcClient = GrpcClient.client(vertx);
                 socketAddress = SocketAddress.inetSocketAddress(8080, "localhost");
                 vertxRaftGrpcClient = new VertxRaftGrpcClient(grpcClient, socketAddress);
-                vertxRaftGrpcClient.queryElectionStatus(Grpc.Empty.newBuilder().build())
+                vertxRaftGrpcClient.queryStatus(Grpc.Empty.newBuilder().build())
                         .onSuccess(res->{
                             log.info("{},{}",res.getNodeId(),res.getMessage());
                         });
                 grpcClient = GrpcClient.client(vertx);
                 socketAddress = SocketAddress.inetSocketAddress(8081, "localhost");
                 vertxRaftGrpcClient = new VertxRaftGrpcClient(grpcClient, socketAddress);
-                vertxRaftGrpcClient.queryElectionStatus(Grpc.Empty.newBuilder().build())
+                vertxRaftGrpcClient.queryStatus(Grpc.Empty.newBuilder().build())
                         .onSuccess(res->{
                             log.info("{},{}",res.getNodeId(),res.getMessage());
                         });
                 grpcClient = GrpcClient.client(vertx);
                 socketAddress = SocketAddress.inetSocketAddress(8082, "localhost");
                 vertxRaftGrpcClient = new VertxRaftGrpcClient(grpcClient, socketAddress);
-                vertxRaftGrpcClient.queryElectionStatus(Grpc.Empty.newBuilder().build())
+                vertxRaftGrpcClient.queryStatus(Grpc.Empty.newBuilder().build())
                         .onSuccess(res->{
                             log.info("{},{}",res.getNodeId(),res.getMessage());
                         });

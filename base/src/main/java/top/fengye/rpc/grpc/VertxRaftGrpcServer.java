@@ -15,11 +15,11 @@ import java.util.List;
 
 public class VertxRaftGrpcServer  {
   public interface RaftApi {
-    default Future<top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse> queryElectionStatus(top.fengye.rpc.grpc.Grpc.Empty request) {
+    default Future<top.fengye.rpc.grpc.Grpc.queryStatusResponse> queryStatus(top.fengye.rpc.grpc.Grpc.Empty request) {
       throw new UnsupportedOperationException("Not implemented");
     }
-    default void queryElectionStatus(top.fengye.rpc.grpc.Grpc.Empty request, Promise<top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse> response) {
-      queryElectionStatus(request)
+    default void queryStatus(top.fengye.rpc.grpc.Grpc.Empty request, Promise<top.fengye.rpc.grpc.Grpc.queryStatusResponse> response) {
+      queryStatus(request)
         .onSuccess(msg -> response.complete(msg))
         .onFailure(error -> response.fail(error));
     }
@@ -56,12 +56,12 @@ public class VertxRaftGrpcServer  {
         .onFailure(error -> response.fail(error));
     }
 
-    default RaftApi bind_queryElectionStatus(GrpcServer server) {
-      server.callHandler(RaftGrpc.getQueryElectionStatusMethod(), request -> {
-        Promise<top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse> promise = Promise.promise();
+    default RaftApi bind_queryStatus(GrpcServer server) {
+      server.callHandler(RaftGrpc.getQueryStatusMethod(), request -> {
+        Promise<top.fengye.rpc.grpc.Grpc.queryStatusResponse> promise = Promise.promise();
         request.handler(req -> {
           try {
-            queryElectionStatus(req, promise);
+            queryStatus(req, promise);
           } catch (RuntimeException err) {
             promise.tryFail(err);
           }
@@ -138,7 +138,7 @@ public class VertxRaftGrpcServer  {
     }
 
     default RaftApi bindAll(GrpcServer server) {
-      bind_queryElectionStatus(server);
+      bind_queryStatus(server);
       bind_shutDown(server);
       bind_applyVote(server);
       bind_appendEntries(server);

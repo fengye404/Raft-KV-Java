@@ -17,8 +17,8 @@ public class VertxRaftGrpcClient {
     this.socketAddress = socketAddress;
   }
 
-  public Future<top.fengye.rpc.grpc.Grpc.queryElectionStatusResponse> queryElectionStatus(top.fengye.rpc.grpc.Grpc.Empty request) {
-    return client.request(socketAddress, RaftGrpc.getQueryElectionStatusMethod()).compose(req -> {
+  public Future<top.fengye.rpc.grpc.Grpc.queryStatusResponse> queryStatus(top.fengye.rpc.grpc.Grpc.Empty request) {
+    return client.request(socketAddress, RaftGrpc.getQueryStatusMethod()).compose(req -> {
       req.end(request);
       return req.response().compose(resp -> resp.last());
     });

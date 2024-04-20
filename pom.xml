@@ -99,24 +99,12 @@
             <groupId>io.vertx</groupId>
             <artifactId>vertx-grpc-server</artifactId>
             <version>${vertx.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>guava</artifactId>
-                    <groupId>com.google.guava</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-grpc-client</artifactId>
             <version>${vertx.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>guava</artifactId>
-                    <groupId>com.google.guava</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
     </dependencies>
