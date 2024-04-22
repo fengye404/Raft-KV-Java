@@ -1,10 +1,12 @@
 package top.fengye.rpc.grpc;
 
+import com.alibaba.fastjson2.JSONObject;
 import io.netty.util.internal.StringUtil;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
+import io.vertx.core.json.Json;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.grpc.client.GrpcClient;
 import io.vertx.grpc.server.GrpcServer;
@@ -98,7 +100,7 @@ public class GrpcProxyImpl implements RpcProxy {
                 response.complete(
                         Grpc.queryStatusResponse.newBuilder()
                                 .setNodeId(raftNode.getNodeId())
-                                .setMessage(raftNode.getRole().name() + ":" + raftNode.getCurrentTerm())
+                                .setMessage(raftNode.getRole().name() + ":" + raftNode.getCurrentTerm()+":" + JSONObject.toJSONString(raftNode.getRaftLog().getEntries()))
                                 .build()
                 );
             }
@@ -142,7 +144,7 @@ public class GrpcProxyImpl implements RpcProxy {
                     }
                 } else {
                     // 如果当前节点是 Leader，则开始处理请求
-                    raftNode.processCommandRequest(Command.parse(request.getCommand()));
+                    raftNode.processCommandRequest(Command.parse(request.getCommand()), response);
                 }
             }
         };

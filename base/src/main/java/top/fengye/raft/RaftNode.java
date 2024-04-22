@@ -1,10 +1,13 @@
 package top.fengye.raft;
 
+import com.alibaba.fastjson2.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Context;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.impl.ContextInternal;
+import io.vertx.core.json.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +48,6 @@ public class RaftNode extends AbstractVerticle implements Serializable {
     private RpcAddress rpcAddress;
     private RpcProxy rpcProxy;
     private Long heartBeatPeriodicId;
-    private ContextInternal contextInternal;
     /**
      * 最后一次心跳时间，用于选举计时器计算
      */
@@ -71,7 +73,8 @@ public class RaftNode extends AbstractVerticle implements Serializable {
 
     public RaftNode(RpcAddress rpcAddress) {
         this.nodeId = UUID.randomUUID().toString();
-        this.raftLog = new RaftLog();
+        this.raftLog = new RaftLog(this);
+        this.raftStateMachine = new RaftStateMachine(this);
         this.lastHeartBeat = System.currentTimeMillis();
         this.currentTerm = 0;
         this.votedFor = null;
@@ -79,7 +82,6 @@ public class RaftNode extends AbstractVerticle implements Serializable {
         this.peers = new HashMap<>();
         this.nextLogIndexMap = new HashMap<>();
         this.rpcAddress = rpcAddress;
-        this.contextInternal = (ContextInternal) context;
         resetElectionTimeout();
     }
 
@@ -87,6 +89,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
     public void start() throws Exception {
         this.rpcProxy = new GrpcProxyImpl(this);
         startElectionTimer();
+        startHeatBeatTimer();
         super.start();
     }
 
@@ -97,8 +100,16 @@ public class RaftNode extends AbstractVerticle implements Serializable {
         vertx.setPeriodic(electionTimeout, id -> {
             if (RoleEnum.Leader != role &&
                     System.currentTimeMillis() - lastHeartBeat > electionTimeout) {
-                startElection();
                 resetElectionTimeout();
+                startElection();
+            }
+        });
+    }
+
+    public void startHeatBeatTimer() {
+        vertx.setPeriodic(HEARTBEAT_INTERVAL, id -> {
+            if (RoleEnum.Leader == role) {
+                broadcastAppendEntries();
             }
         });
     }
@@ -108,7 +119,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
 
         // peers 中不包含自己，过半数量直接取 peers.size() / 2，因为自己默认已经给自己投票了
         AtomicInteger majority = new AtomicInteger(peers.size() / 2);
-        Promise<Void> promise = contextInternal.promise();
+        Promise<Void> promise = Promise.promise();
         AtomicBoolean completeStatus = new AtomicBoolean(false);
 
         // 给所有其他节点发送投票信息
@@ -137,11 +148,11 @@ public class RaftNode extends AbstractVerticle implements Serializable {
         // candidate 经过一段时间的投票后，还没有成为 Leader，则视为选举失败，退回 Follower
         // 这个时长一般和选举超时时间一样
         vertx.setTimer(electionTimeout, id -> {
-            promise.fail("node:" + this.nodeId + " election failed, fallback to follower");
+            promise.tryFail("node:" + this.nodeId + " election failed, fallback to follower");
         });
 
         promise.future()
-                .onComplete(res -> {
+                .onSuccess(res -> {
                     becomeLeader();
                 })
                 .onFailure(res -> {
@@ -156,29 +167,27 @@ public class RaftNode extends AbstractVerticle implements Serializable {
             return true;
         }
         if (raftLog.checkPre(request.getPreLogIndex(), request.getPreLogTerm())) {
-            return false;
+            List<RaftLog.Entry> entries = request.getEntriesList().stream().map(RaftLog.Entry::parse).collect(Collectors.toList());
+            raftLog.append(entries);
+            log.info("{} received append entries from {}, data:{}", this.nodeId, request.getNodeId(), JSONObject.toJSONString(entries));
+            return true;
         }
-        log.info("{} receive appendEntries: {}", nodeId, request);
-        List<RaftLog.Entry> entries = request.getEntriesList().stream().map(RaftLog.Entry::parse).collect(Collectors.toList());
-        raftLog.append(entries);
-        return true;
+        return false;
     }
 
     /**
      * leader raft 节点处理来自客户端的请求
      * 1. 先将请求写入自己的日志
      * 2. 向其余节点广播 appendEntries
-     * 3. 如果有过半节点收到 appendEntries 并成功返回，leader 则 apply 请求并相应客户端
+     * 3. 如果有过半节点收到 appendEntries 并成功返回，leader 则将其标记为 commit 请求并相应客户端
      * <p>
      * 如果有节点返回 false，则说明其日志和 leader 有出入，对其进行日志恢复
      *
      * @param command
      */
-    public void processCommandRequest(Command command) {
-        RaftLog.Entry append = raftLog.append(command);
+    public void processCommandRequest(Command command, Promise<Grpc.CommandResponse> promise) {
+        raftLog.append(command, promise);
         broadcastAppendEntries();
-
-        // TODO 添加 raftLog apply 回调
     }
 
     /**
@@ -200,7 +209,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
         int peerNextIndex = nextLogIndexMap.get(peerId);
         int peerPreIndex = peerNextIndex - 1;
         Grpc.AppendEntriesRequest.Builder requestBuilder = Grpc.AppendEntriesRequest.newBuilder()
-                .setNodeId(peer.getNodeId())
+                .setNodeId(nodeId)
                 .setTerm(currentTerm)
                 .setPreLogIndex(peerPreIndex)
                 .setPreLogTerm(raftLog.getTermByIndex(peerPreIndex));
@@ -210,7 +219,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
             requestBuilder.addAllEntries(raftLog.slice(peerNextIndex).stream().map(RaftLog.Entry::antiParse).collect(Collectors.toList()));
         }
 
-        return rpcProxy.appendEntries(rpcAddress, requestBuilder.build())
+        return rpcProxy.appendEntries(peer.rpcAddress, requestBuilder.build())
                 .onSuccess(res -> {
                     if (res.getSuccess()) {
                         matchLogIndexMap.put(peerId, myCurrentIndex);
@@ -228,21 +237,11 @@ public class RaftNode extends AbstractVerticle implements Serializable {
                 });
     }
 
-    /**
-     * 当一个节点失去 Leader 角色后，需要停止心跳
-     */
-    public void revokeHeartBeatPeriodic() {
-        if (null != heartBeatPeriodicId) {
-            vertx.cancelTimer(heartBeatPeriodicId);
-        }
-    }
-
     public void becomeFollow() {
         becomeFollow(currentTerm, null);
     }
 
     public void becomeFollow(int term, String leaderId) {
-        revokeHeartBeatPeriodic();
         this.currentTerm = term;
         this.leaderId = leaderId;
         this.role = RoleEnum.Follower;
@@ -251,7 +250,6 @@ public class RaftNode extends AbstractVerticle implements Serializable {
     }
 
     public void becomeCandidate() {
-        revokeHeartBeatPeriodic();
         this.role = RoleEnum.Candidate;
         this.leaderId = this.nodeId;
         this.votedFor = this.nodeId;
@@ -271,10 +269,6 @@ public class RaftNode extends AbstractVerticle implements Serializable {
         this.leaderId = this.nodeId;
         this.nextLogIndexMap.replaceAll((key, value) -> raftLog.getCurrentLogIndex() + 1);
         this.lastHeartBeat = System.currentTimeMillis();
-        vertx.setPeriodic(0, HEARTBEAT_INTERVAL, id -> {
-            heartBeatPeriodicId = id;
-            broadcastAppendEntries();
-        });
     }
 
 
@@ -287,7 +281,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
 
     /**
      * peers 转化为除了自己的所有节点
-     * nextLogIndexMap value 初始化为下一个 logIndex
+     * nextLogIndexMap value 初始化为 nextLogIndex
      * matchLogIndexMap value 全部初始化为 0
      *
      * @param map 所有节点
@@ -297,7 +291,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
                 .filter(entry -> !entry.getValue().getNodeId().equals(this.nodeId))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         nextLogIndexMap = peers.entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, v -> raftLog.getCurrentLogIndex() + 1));
+                .collect(Collectors.toMap(Map.Entry::getKey, v -> raftLog.getNextLogIndex()));
         matchLogIndexMap = peers.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, v -> 0));
     }

@@ -15,6 +15,7 @@ import top.fengye.rpc.RpcAddress;
 import top.fengye.rpc.grpc.BizParam;
 import top.fengye.rpc.grpc.Grpc;
 import top.fengye.rpc.grpc.VertxRaftGrpcClient;
+import top.fengye.util.CommandUtils;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -37,6 +38,8 @@ public class RaftTest {
 
     private VertxOptions vertxOptions;
 
+    private CommandUtils commandUtils;
+
     {
         raftNode1 = new RaftNode(new RpcAddress("localhost", 8080));
         raftNode2 = new RaftNode(new RpcAddress("localhost", 8081));
@@ -57,6 +60,7 @@ public class RaftTest {
                 .setEventLoopPoolSize(1)
                 .setWorkerPoolSize(1)
                 .setInternalBlockingPoolSize(1);
+        commandUtils = new CommandUtils();
     }
 
     @Test
@@ -85,6 +89,22 @@ public class RaftTest {
     public void deploy3() {
         Vertx vertx3 = Vertx.vertx(vertxOptions);
         vertx3.deployVerticle(raftNode3);
+        while (true) ;
+    }
+
+
+    private GrpcClient grpcClient;
+
+    private SocketAddress socketAddress;
+
+    private VertxRaftGrpcClient vertxRaftGrpcClient;
+
+    @Test
+    public void testCommand() {
+        commandUtils.put(raftNode2.getRpcAddress(), "hello", "raft")
+                .onSuccess(res -> {
+                    log.info("=== {} ===", res);
+                });
         while (true) ;
     }
 }
