@@ -15,7 +15,8 @@ message Empty{
 }
 message queryStatusResponse{
   string nodeId = 1;
-  string message = 2;
+  string roleInfo = 2;
+  string entriesInfo = 3;
 }
 message shutDownResponse{
   string nodeId = 1;

@@ -431,16 +431,28 @@ public final class Grpc {
         getNodeIdBytes();
 
     /**
-     * <code>string message = 2;</code>
-     * @return The message.
+     * <code>string roleInfo = 2;</code>
+     * @return The roleInfo.
      */
-    java.lang.String getMessage();
+    java.lang.String getRoleInfo();
     /**
-     * <code>string message = 2;</code>
-     * @return The bytes for message.
+     * <code>string roleInfo = 2;</code>
+     * @return The bytes for roleInfo.
      */
     com.google.protobuf.ByteString
-        getMessageBytes();
+        getRoleInfoBytes();
+
+    /**
+     * <code>string entriesInfo = 3;</code>
+     * @return The entriesInfo.
+     */
+    java.lang.String getEntriesInfo();
+    /**
+     * <code>string entriesInfo = 3;</code>
+     * @return The bytes for entriesInfo.
+     */
+    com.google.protobuf.ByteString
+        getEntriesInfoBytes();
   }
   /**
    * Protobuf type {@code top.fengye.rpc.grpc.queryStatusResponse}
@@ -456,7 +468,8 @@ public final class Grpc {
     }
     private queryStatusResponse() {
       nodeId_ = "";
-      message_ = "";
+      roleInfo_ = "";
+      entriesInfo_ = "";
     }
 
     @java.lang.Override
@@ -523,39 +536,78 @@ public final class Grpc {
       }
     }
 
-    public static final int MESSAGE_FIELD_NUMBER = 2;
+    public static final int ROLEINFO_FIELD_NUMBER = 2;
     @SuppressWarnings("serial")
-    private volatile java.lang.Object message_ = "";
+    private volatile java.lang.Object roleInfo_ = "";
     /**
-     * <code>string message = 2;</code>
-     * @return The message.
+     * <code>string roleInfo = 2;</code>
+     * @return The roleInfo.
      */
     @java.lang.Override
-    public java.lang.String getMessage() {
-      java.lang.Object ref = message_;
+    public java.lang.String getRoleInfo() {
+      java.lang.Object ref = roleInfo_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        message_ = s;
+        roleInfo_ = s;
         return s;
       }
     }
     /**
-     * <code>string message = 2;</code>
-     * @return The bytes for message.
+     * <code>string roleInfo = 2;</code>
+     * @return The bytes for roleInfo.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getMessageBytes() {
-      java.lang.Object ref = message_;
+        getRoleInfoBytes() {
+      java.lang.Object ref = roleInfo_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        message_ = b;
+        roleInfo_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ENTRIESINFO_FIELD_NUMBER = 3;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object entriesInfo_ = "";
+    /**
+     * <code>string entriesInfo = 3;</code>
+     * @return The entriesInfo.
+     */
+    @java.lang.Override
+    public java.lang.String getEntriesInfo() {
+      java.lang.Object ref = entriesInfo_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        entriesInfo_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string entriesInfo = 3;</code>
+     * @return The bytes for entriesInfo.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getEntriesInfoBytes() {
+      java.lang.Object ref = entriesInfo_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        entriesInfo_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -579,8 +631,11 @@ public final class Grpc {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, nodeId_);
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(roleInfo_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, roleInfo_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(entriesInfo_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, entriesInfo_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -594,8 +649,11 @@ public final class Grpc {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nodeId_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, nodeId_);
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(roleInfo_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, roleInfo_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(entriesInfo_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, entriesInfo_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -614,8 +672,10 @@ public final class Grpc {
 
       if (!getNodeId()
           .equals(other.getNodeId())) return false;
-      if (!getMessage()
-          .equals(other.getMessage())) return false;
+      if (!getRoleInfo()
+          .equals(other.getRoleInfo())) return false;
+      if (!getEntriesInfo()
+          .equals(other.getEntriesInfo())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -629,8 +689,10 @@ public final class Grpc {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + NODEID_FIELD_NUMBER;
       hash = (53 * hash) + getNodeId().hashCode();
-      hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
-      hash = (53 * hash) + getMessage().hashCode();
+      hash = (37 * hash) + ROLEINFO_FIELD_NUMBER;
+      hash = (53 * hash) + getRoleInfo().hashCode();
+      hash = (37 * hash) + ENTRIESINFO_FIELD_NUMBER;
+      hash = (53 * hash) + getEntriesInfo().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -761,7 +823,8 @@ public final class Grpc {
         super.clear();
         bitField0_ = 0;
         nodeId_ = "";
-        message_ = "";
+        roleInfo_ = "";
+        entriesInfo_ = "";
         return this;
       }
 
@@ -799,7 +862,10 @@ public final class Grpc {
           result.nodeId_ = nodeId_;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.message_ = message_;
+          result.roleInfo_ = roleInfo_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.entriesInfo_ = entriesInfo_;
         }
       }
 
@@ -852,9 +918,14 @@ public final class Grpc {
           bitField0_ |= 0x00000001;
           onChanged();
         }
-        if (!other.getMessage().isEmpty()) {
-          message_ = other.message_;
+        if (!other.getRoleInfo().isEmpty()) {
+          roleInfo_ = other.roleInfo_;
           bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        if (!other.getEntriesInfo().isEmpty()) {
+          entriesInfo_ = other.entriesInfo_;
+          bitField0_ |= 0x00000004;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -889,10 +960,15 @@ public final class Grpc {
                 break;
               } // case 10
               case 18: {
-                message_ = input.readStringRequireUtf8();
+                roleInfo_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
+              case 26: {
+                entriesInfo_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -982,74 +1058,146 @@ public final class Grpc {
         return this;
       }
 
-      private java.lang.Object message_ = "";
+      private java.lang.Object roleInfo_ = "";
       /**
-       * <code>string message = 2;</code>
-       * @return The message.
+       * <code>string roleInfo = 2;</code>
+       * @return The roleInfo.
        */
-      public java.lang.String getMessage() {
-        java.lang.Object ref = message_;
+      public java.lang.String getRoleInfo() {
+        java.lang.Object ref = roleInfo_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          message_ = s;
+          roleInfo_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string message = 2;</code>
-       * @return The bytes for message.
+       * <code>string roleInfo = 2;</code>
+       * @return The bytes for roleInfo.
        */
       public com.google.protobuf.ByteString
-          getMessageBytes() {
-        java.lang.Object ref = message_;
+          getRoleInfoBytes() {
+        java.lang.Object ref = roleInfo_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          message_ = b;
+          roleInfo_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string message = 2;</code>
-       * @param value The message to set.
+       * <code>string roleInfo = 2;</code>
+       * @param value The roleInfo to set.
        * @return This builder for chaining.
        */
-      public Builder setMessage(
+      public Builder setRoleInfo(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
-        message_ = value;
+        roleInfo_ = value;
         bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
       /**
-       * <code>string message = 2;</code>
+       * <code>string roleInfo = 2;</code>
        * @return This builder for chaining.
        */
-      public Builder clearMessage() {
-        message_ = getDefaultInstance().getMessage();
+      public Builder clearRoleInfo() {
+        roleInfo_ = getDefaultInstance().getRoleInfo();
         bitField0_ = (bitField0_ & ~0x00000002);
         onChanged();
         return this;
       }
       /**
-       * <code>string message = 2;</code>
-       * @param value The bytes for message to set.
+       * <code>string roleInfo = 2;</code>
+       * @param value The bytes for roleInfo to set.
        * @return This builder for chaining.
        */
-      public Builder setMessageBytes(
+      public Builder setRoleInfoBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
-        message_ = value;
+        roleInfo_ = value;
         bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object entriesInfo_ = "";
+      /**
+       * <code>string entriesInfo = 3;</code>
+       * @return The entriesInfo.
+       */
+      public java.lang.String getEntriesInfo() {
+        java.lang.Object ref = entriesInfo_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          entriesInfo_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string entriesInfo = 3;</code>
+       * @return The bytes for entriesInfo.
+       */
+      public com.google.protobuf.ByteString
+          getEntriesInfoBytes() {
+        java.lang.Object ref = entriesInfo_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          entriesInfo_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string entriesInfo = 3;</code>
+       * @param value The entriesInfo to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEntriesInfo(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        entriesInfo_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string entriesInfo = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEntriesInfo() {
+        entriesInfo_ = getDefaultInstance().getEntriesInfo();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string entriesInfo = 3;</code>
+       * @param value The bytes for entriesInfo to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEntriesInfoBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        entriesInfo_ = value;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -6279,33 +6427,34 @@ public final class Grpc {
   static {
     java.lang.String[] descriptorData = {
       "\n\ngrpc.proto\022\023top.fengye.rpc.grpc\032\016bizPa" +
-      "ram.proto\"\007\n\005Empty\"6\n\023queryStatusRespons" +
-      "e\022\016\n\006nodeId\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\"3\n\020sh" +
-      "utDownResponse\022\016\n\006nodeId\030\001 \001(\t\022\017\n\007messag" +
-      "e\030\002 \001(\t\"0\n\020ApplyVoteRequest\022\016\n\006nodeId\030\001 " +
-      "\001(\t\022\014\n\004term\030\002 \001(\005\"A\n\021ApplyVoteResponse\022\016" +
-      "\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\005\022\016\n\006agreed\030\003" +
-      " \001(\010\"\215\001\n\024AppendEntriesRequest\022\016\n\006nodeId\030" +
-      "\001 \001(\t\022\014\n\004term\030\002 \001(\005\022\023\n\013preLogIndex\030\003 \001(\005" +
-      "\022\022\n\npreLogTerm\030\004 \001(\005\022.\n\007entries\030\005 \003(\0132\035." +
-      "top.fengye.rpc.grpc.LogEntry\"F\n\025AppendEn" +
-      "triesResponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 " +
-      "\001(\005\022\017\n\007success\030\003 \001(\010\"?\n\016CommandRequest\022-" +
-      "\n\007command\030\001 \001(\0132\034.top.fengye.rpc.grpc.Co" +
-      "mmand\"J\n\017CommandResponse\022\020\n\010redirect\030\001 \001" +
-      "(\010\022\024\n\014redirectPort\030\002 \001(\005\022\017\n\007success\030\003 \001(" +
-      "\0102\312\003\n\004Raft\022S\n\013queryStatus\022\032.top.fengye.r" +
-      "pc.grpc.Empty\032(.top.fengye.rpc.grpc.quer" +
-      "yStatusResponse\022M\n\010shutDown\022\032.top.fengye" +
-      ".rpc.grpc.Empty\032%.top.fengye.rpc.grpc.sh" +
-      "utDownResponse\022Z\n\tapplyVote\022%.top.fengye" +
-      ".rpc.grpc.ApplyVoteRequest\032&.top.fengye." +
-      "rpc.grpc.ApplyVoteResponse\022f\n\rappendEntr" +
-      "ies\022).top.fengye.rpc.grpc.AppendEntriesR" +
-      "equest\032*.top.fengye.rpc.grpc.AppendEntri" +
-      "esResponse\022Z\n\rhandleRequest\022#.top.fengye" +
-      ".rpc.grpc.CommandRequest\032$.top.fengye.rp" +
-      "c.grpc.CommandResponseb\006proto3"
+      "ram.proto\"\007\n\005Empty\"L\n\023queryStatusRespons" +
+      "e\022\016\n\006nodeId\030\001 \001(\t\022\020\n\010roleInfo\030\002 \001(\t\022\023\n\013e" +
+      "ntriesInfo\030\003 \001(\t\"3\n\020shutDownResponse\022\016\n\006" +
+      "nodeId\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\"0\n\020ApplyVo" +
+      "teRequest\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\005\"" +
+      "A\n\021ApplyVoteResponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004" +
+      "term\030\002 \001(\005\022\016\n\006agreed\030\003 \001(\010\"\215\001\n\024AppendEnt" +
+      "riesRequest\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(" +
+      "\005\022\023\n\013preLogIndex\030\003 \001(\005\022\022\n\npreLogTerm\030\004 \001" +
+      "(\005\022.\n\007entries\030\005 \003(\0132\035.top.fengye.rpc.grp" +
+      "c.LogEntry\"F\n\025AppendEntriesResponse\022\016\n\006n" +
+      "odeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\005\022\017\n\007success\030\003 \001" +
+      "(\010\"?\n\016CommandRequest\022-\n\007command\030\001 \001(\0132\034." +
+      "top.fengye.rpc.grpc.Command\"J\n\017CommandRe" +
+      "sponse\022\020\n\010redirect\030\001 \001(\010\022\024\n\014redirectPort" +
+      "\030\002 \001(\005\022\017\n\007success\030\003 \001(\0102\312\003\n\004Raft\022S\n\013quer" +
+      "yStatus\022\032.top.fengye.rpc.grpc.Empty\032(.to" +
+      "p.fengye.rpc.grpc.queryStatusResponse\022M\n" +
+      "\010shutDown\022\032.top.fengye.rpc.grpc.Empty\032%." +
+      "top.fengye.rpc.grpc.shutDownResponse\022Z\n\t" +
+      "applyVote\022%.top.fengye.rpc.grpc.ApplyVot" +
+      "eRequest\032&.top.fengye.rpc.grpc.ApplyVote" +
+      "Response\022f\n\rappendEntries\022).top.fengye.r" +
+      "pc.grpc.AppendEntriesRequest\032*.top.fengy" +
+      "e.rpc.grpc.AppendEntriesResponse\022Z\n\rhand" +
+      "leRequest\022#.top.fengye.rpc.grpc.CommandR" +
+      "equest\032$.top.fengye.rpc.grpc.CommandResp" +
+      "onseb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -6323,7 +6472,7 @@ public final class Grpc {
     internal_static_top_fengye_rpc_grpc_queryStatusResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_fengye_rpc_grpc_queryStatusResponse_descriptor,
-        new java.lang.String[] { "NodeId", "Message", });
+        new java.lang.String[] { "NodeId", "RoleInfo", "EntriesInfo", });
     internal_static_top_fengye_rpc_grpc_shutDownResponse_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_top_fengye_rpc_grpc_shutDownResponse_fieldAccessorTable = new

@@ -26,7 +26,18 @@ public class RaftStateMachine {
         this.raftNode = raftNode;
     }
 
-    public void apply(Command command){
+    public void apply(Command command) {
+        switch (command.getCommandType()){
+            case PUT: doPut(command);
+            case GET: doGet(command);
+        }
+    }
+
+    public void doGet(Command command) {
+
+    }
+
+    public void doPut(Command command) {
 
     }
 }

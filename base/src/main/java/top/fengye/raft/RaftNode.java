@@ -162,11 +162,11 @@ public class RaftNode extends AbstractVerticle implements Serializable {
 
 
     public boolean processAppendEntriesRequest(Grpc.AppendEntriesRequest request) {
-        // 如果没有附带 entriesList 则说明只是心跳请求，直接返回
-        if (CollectionUtils.isEmpty(request.getEntriesList())) {
-            return true;
-        }
         if (raftLog.checkPre(request.getPreLogIndex(), request.getPreLogTerm())) {
+            // 如果没有附带 entriesList 则说明只是心跳请求，直接返回
+            if (CollectionUtils.isEmpty(request.getEntriesList())) {
+                return true;
+            }
             List<RaftLog.Entry> entries = request.getEntriesList().stream().map(RaftLog.Entry::parse).collect(Collectors.toList());
             raftLog.append(entries);
             log.info("{} received append entries from {}, data:{}", this.nodeId, request.getNodeId(), JSONObject.toJSONString(entries));

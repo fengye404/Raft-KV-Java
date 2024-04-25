@@ -26,30 +26,33 @@ public class TestClientVerticle extends AbstractVerticle {
     private VertxRaftGrpcClient vertxRaftGrpcClient;
 
     @Override
-    public void start(){
+    public void start() {
         try {
-            vertx.setPeriodic(1000,id->{
+            vertx.setPeriodic(2000, id -> {
                 log.info("=================================");
                 grpcClient = GrpcClient.client(vertx);
                 socketAddress = SocketAddress.inetSocketAddress(8080, "localhost");
                 vertxRaftGrpcClient = new VertxRaftGrpcClient(grpcClient, socketAddress);
                 vertxRaftGrpcClient.queryStatus(Grpc.Empty.newBuilder().build())
-                        .onSuccess(res->{
-                            log.info("{},{}",res.getNodeId(),res.getMessage());
+                        .onSuccess(res -> {
+                            log.info("{},{}", res.getNodeId(), res.getRoleInfo());
+                            log.info("{}", res.getEntriesInfo());
                         });
                 grpcClient = GrpcClient.client(vertx);
                 socketAddress = SocketAddress.inetSocketAddress(8081, "localhost");
                 vertxRaftGrpcClient = new VertxRaftGrpcClient(grpcClient, socketAddress);
                 vertxRaftGrpcClient.queryStatus(Grpc.Empty.newBuilder().build())
-                        .onSuccess(res->{
-                            log.info("{},{}",res.getNodeId(),res.getMessage());
+                        .onSuccess(res -> {
+                            log.info("{},{}", res.getNodeId(), res.getRoleInfo());
+                            log.info("{}", res.getEntriesInfo());
                         });
                 grpcClient = GrpcClient.client(vertx);
                 socketAddress = SocketAddress.inetSocketAddress(8082, "localhost");
                 vertxRaftGrpcClient = new VertxRaftGrpcClient(grpcClient, socketAddress);
                 vertxRaftGrpcClient.queryStatus(Grpc.Empty.newBuilder().build())
-                        .onSuccess(res->{
-                            log.info("{},{}",res.getNodeId(),res.getMessage());
+                        .onSuccess(res -> {
+                            log.info("{},{}", res.getNodeId(), res.getRoleInfo());
+                            log.info("{}", res.getEntriesInfo());
                         });
                 log.info("=================================");
             });
