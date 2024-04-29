@@ -27,6 +27,8 @@ message shutDownResponse{
 message ApplyVoteRequest{
   string nodeId = 1;
   int32 term = 2;
+  int32 lastLogIndex = 3;
+  int32 lastLogTerm = 4;
 }
 message ApplyVoteResponse {
   string nodeId = 1;
@@ -40,7 +42,8 @@ message AppendEntriesRequest {
   int32 term = 2;
   int32 preLogIndex = 3;
   int32 preLogTerm = 4;
-  repeated LogEntry entries = 5;
+  int32 leaderCommit = 5;
+  repeated LogEntry entries = 6;
 }
 message AppendEntriesResponse {
   string nodeId = 1;

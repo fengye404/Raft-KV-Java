@@ -15,7 +15,7 @@ import top.fengye.rpc.grpc.VertxRaftGrpcClient;
  * @date: 2024/4/23 上午12:27
  * @description: Utils
  */
-public class CommandUtils {
+public class RpcUtils {
 
     private SocketAddress socketAddress;
 

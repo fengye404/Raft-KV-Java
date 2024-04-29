@@ -1,24 +1,14 @@
-import com.google.protobuf.ByteString;
-import com.google.protobuf.InvalidProtocolBufferException;
-import io.vertx.core.DeploymentOptions;
-import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.grpc.client.GrpcClient;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
-import top.fengye.biz.Command;
 import top.fengye.raft.RaftNode;
 import top.fengye.rpc.RpcAddress;
-import top.fengye.rpc.grpc.BizParam;
-import top.fengye.rpc.grpc.Grpc;
 import top.fengye.rpc.grpc.VertxRaftGrpcClient;
-import top.fengye.util.CommandUtils;
+import top.fengye.util.RpcUtils;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -38,7 +28,7 @@ public class RaftTest {
 
     private VertxOptions vertxOptions;
 
-    private CommandUtils commandUtils;
+    private RpcUtils rpcUtils;
 
     {
         raftNode1 = new RaftNode(new RpcAddress("localhost", 8080));
@@ -60,7 +50,7 @@ public class RaftTest {
                 .setEventLoopPoolSize(1)
                 .setWorkerPoolSize(1)
                 .setInternalBlockingPoolSize(1);
-        commandUtils = new CommandUtils();
+        rpcUtils = new RpcUtils();
     }
 
     @Test
@@ -101,7 +91,7 @@ public class RaftTest {
 
     @Test
     public void testCommand() {
-        commandUtils.put(raftNode2.getRpcAddress(), "hello", "raft")
+        rpcUtils.put(raftNode2.getRpcAddress(), "hello", "raft")
                 .onSuccess(res -> {
                     log.info("=== {} ===", res);
                 });
