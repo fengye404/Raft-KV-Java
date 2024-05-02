@@ -33,7 +33,7 @@ public class RaftLog {
     /**
      * apply 事件回调队列，用于当某个 entry 被 apply 时，回调使用
      */
-    private PriorityQueue<Pair<Integer, Promise<Grpc.CommandResponse>>> applyEventQueue = new PriorityQueue<>(Comparator.comparing(Pair::getLeft));
+    private PriorityQueue<Pair<Integer, Runnable>> applyEventQueue = new PriorityQueue<>(Comparator.comparing(Pair::getLeft));
 
     {
         // 保留 index 为 0 的 log，以便 index 为 1 的 entry 取pre
@@ -45,10 +45,10 @@ public class RaftLog {
         this.raftNode = raftNode;
     }
 
-    public Entry append(Command command, Promise<Grpc.CommandResponse> callback) {
+    public Entry append(Command command, Runnable runnable) {
         Entry entry = new Entry(getNextLogIndex(), raftNode.getCurrentTerm(), command);
         entries.add(entry);
-        applyEventQueue.add(Pair.of(entry.index, callback));
+        applyEventQueue.add(Pair.of(entry.index, runnable));
         return entry;
     }
 
@@ -76,23 +76,24 @@ public class RaftLog {
         }
         // 执行回调
         while (!applyEventQueue.isEmpty() && lastAppliedIndex >= applyEventQueue.peek().getLeft()) {
-            Pair<Integer, Promise<Grpc.CommandResponse>> poll = applyEventQueue.poll();
+            Pair<Integer, Runnable> poll = applyEventQueue.poll();
             if (null != poll) {
-                poll.getRight().complete(
-                        Grpc.CommandResponse.newBuilder()
-                                .setSuccess(true)
-                                .build()
-                );
+                poll.getRight().run();
             }
         }
     }
 
     /**
      * 由于初始化的时候添加了一个空的 entry，所以需要 -1
+     *
      * @return
      */
     public int getCurrentLogIndex() {
         return entries.size() - 1;
+    }
+
+    public int getCurrentLogTerm() {
+        return getTermByIndex(getCurrentLogIndex());
     }
 
     public int getNextLogIndex() {
@@ -123,7 +124,6 @@ public class RaftLog {
         int newCommitIndex = mooreVoteCommitIndex();
         if (newCommitIndex > commitIndex) {
             commitIndex = newCommitIndex;
-            // TODO 改为一致性读
             apply(newCommitIndex);
         }
     }

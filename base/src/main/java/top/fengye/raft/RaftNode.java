@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import top.fengye.biz.Command;
 import top.fengye.rpc.RpcAddress;
 import top.fengye.rpc.RpcProxy;
@@ -20,6 +21,8 @@ import top.fengye.rpc.grpc.GrpcProxyImpl;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
@@ -129,6 +132,8 @@ public class RaftNode extends AbstractVerticle implements Serializable {
                             .newBuilder()
                             .setNodeId(nodeId)
                             .setTerm(currentTerm)
+                            .setLastLogIndex(raftLog.getCurrentLogIndex())
+                            .setLastLogIndex(raftLog.getCurrentLogTerm())
                             .build()
             ).onSuccess(res -> {
                 // 如果自己的 term 小于一个 peer 的 term，说明选期已经落后，直接变为 follower，以减少不必要的选举
@@ -177,18 +182,74 @@ public class RaftNode extends AbstractVerticle implements Serializable {
 
     /**
      * leader raft 节点处理来自客户端的请求
+     * 分为两种情况：只读操作和写操作
+     * Raft 的目标是为了确保写操作的一致性，因此写操作都需要走完整的 Raft 流程，即 appendLog、appendEntriesRPC
+     * 对于写操作，正常流程如下：
      * 1. 先将请求写入自己的日志
      * 2. 向其余节点广播 appendEntries
-     * 3. 如果有过半节点收到 appendEntries 并成功返回，leader 则将其标记为 commit 请求并相应客户端
+     * 3. 如果有过半节点收到 appendEntries 并成功返回，leader 则将其标记为 commit 请求并响应客户端
      * <p>
-     * 如果有节点返回 false，则说明其日志和 leader 有出入，对其进行日志恢复
+     * <p>
+     * 对于只读操作，可以不走上述流程，只读 Leader 的状态机。但是这里有两个点：
+     * 1. 需要确定当前处理只读请求的节点的 Leader 身份
+     * 2. 记录读取请求到达时的 commitIndex，需要保证这个 index 的 log 被 apply
      *
      * @param command
      */
     public void processCommandRequest(Command command, Promise<Grpc.CommandResponse> promise) {
-        raftLog.append(command, promise);
+        switch (command.getCommandType()) {
+            case DEL:
+            case PUT:
+                writeLog(command, promise);
+                break;
+            case GET:
+                readIndex(command, promise);
+                break;
+        }
+    }
+
+    /**
+     * 线性一致读
+     * 1. 记录当前的 commitIndex
+     * 2. 发起一轮心跳，如果有过半的响应，则能确认自己的 Leader 身份
+     * 3. 等待 readIndex 记录的 Log 被 apply 后，执行 read 请求
+     */
+    public void readIndex(Command command, Promise<Grpc.CommandResponse> promise) {
+        int readIndex = raftLog.getCommitIndex();
+        List<Future<Grpc.AppendEntriesResponse>> futures = broadcastAppendEntries();
+        AtomicInteger count = new AtomicInteger(futures.size() / 2);
+        Promise<Object> confirmLeader = Promise.promise();
+        futures.forEach(res -> {
+            if (count.decrementAndGet() == 0) {
+                confirmLeader.tryComplete();
+            }
+        });
+        confirmLeader.future()
+                .onSuccess(res -> {
+                            if (raftLog.getLastAppliedIndex() >= readIndex) {
+                                promise.complete(raftStateMachine.doGet(command));
+                            } else {
+                                raftLog.getApplyEventQueue().add(Pair.of(readIndex, () ->
+                                        promise.complete(raftStateMachine.doGet(command))
+                                ));
+                            }
+                        }
+                );
+    }
+
+    /**
+     * 处理写请求
+     */
+    public void writeLog(Command command, Promise<Grpc.CommandResponse> promise) {
+        raftLog.append(command, () -> promise.complete(
+                        Grpc.CommandResponse.newBuilder()
+                                .setSuccess(true)
+                                .build()
+                )
+        );
         broadcastAppendEntries();
     }
+
 
     /**
      * 给所有其他节点发送 appendEntries RPC

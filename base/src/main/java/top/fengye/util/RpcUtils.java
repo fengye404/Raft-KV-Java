@@ -5,6 +5,7 @@ import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.grpc.client.GrpcClient;
+import top.fengye.biz.Command;
 import top.fengye.rpc.RpcAddress;
 import top.fengye.rpc.grpc.BizParam;
 import top.fengye.rpc.grpc.Grpc;
@@ -28,6 +29,16 @@ public class RpcUtils {
     {
         vertx = Vertx.vertx();
         grpcClient = GrpcClient.client(vertx);
+    }
+
+    public Future<Grpc.CommandResponse> doRequest(RpcAddress address, Command command){
+        socketAddress = SocketAddress.inetSocketAddress(address.getPort(), address.getHost());
+        vertxRaftGrpcClient = new VertxRaftGrpcClient(grpcClient, socketAddress);
+        return vertxRaftGrpcClient.handleRequest(
+                Grpc.CommandRequest.newBuilder()
+                        .setCommand(command.antiParse())
+                        .build()
+        );
     }
 
     public Future<Grpc.CommandResponse> put(RpcAddress address, String key, String value) {

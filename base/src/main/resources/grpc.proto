@@ -57,6 +57,8 @@ message CommandRequest {
 }
 message CommandResponse {
   bool redirect = 1;
-  int32 redirectPort = 2;
-  bool success = 3;
+  string redirectHost = 2;
+  int32 redirectPort = 3;
+  bool success = 4;
+  string result = 5;
 }

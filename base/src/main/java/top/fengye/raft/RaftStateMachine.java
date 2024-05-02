@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import top.fengye.biz.Command;
 import top.fengye.biz.Key;
 import top.fengye.biz.Value;
+import top.fengye.rpc.grpc.Grpc;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,17 +28,31 @@ public class RaftStateMachine {
     }
 
     public void apply(Command command) {
-        switch (command.getCommandType()){
-            case PUT: doPut(command);
-            case GET: doGet(command);
+        switch (command.getCommandType()) {
+            case PUT:
+                doPut(command);
+            case DEL:
+                doDel(command);
         }
     }
 
-    public void doGet(Command command) {
-
+    public Grpc.CommandResponse doGet(Command command) {
+        Key key = command.getKey();
+        Value value = db.get(key);
+        if (value != null) {
+            return Grpc.CommandResponse.newBuilder().setSuccess(true).setResult(new String(value.getData())).build();
+        } else {
+            return Grpc.CommandResponse.newBuilder().setSuccess(false).build();
+        }
     }
 
     public void doPut(Command command) {
+        Key key = command.getKey();
+        Value value = command.getValue();
+        db.put(key, value);
+    }
 
+    public void doDel(Command command) {
+        db.remove(command.getKey());
     }
 }

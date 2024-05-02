@@ -5974,16 +5974,40 @@ public final class Grpc {
     boolean getRedirect();
 
     /**
-     * <code>int32 redirectPort = 2;</code>
+     * <code>string redirectHost = 2;</code>
+     * @return The redirectHost.
+     */
+    java.lang.String getRedirectHost();
+    /**
+     * <code>string redirectHost = 2;</code>
+     * @return The bytes for redirectHost.
+     */
+    com.google.protobuf.ByteString
+        getRedirectHostBytes();
+
+    /**
+     * <code>int32 redirectPort = 3;</code>
      * @return The redirectPort.
      */
     int getRedirectPort();
 
     /**
-     * <code>bool success = 3;</code>
+     * <code>bool success = 4;</code>
      * @return The success.
      */
     boolean getSuccess();
+
+    /**
+     * <code>string result = 5;</code>
+     * @return The result.
+     */
+    java.lang.String getResult();
+    /**
+     * <code>string result = 5;</code>
+     * @return The bytes for result.
+     */
+    com.google.protobuf.ByteString
+        getResultBytes();
   }
   /**
    * Protobuf type {@code top.fengye.rpc.grpc.CommandResponse}
@@ -5998,6 +6022,8 @@ public final class Grpc {
       super(builder);
     }
     private CommandResponse() {
+      redirectHost_ = "";
+      result_ = "";
     }
 
     @java.lang.Override
@@ -6036,10 +6062,49 @@ public final class Grpc {
       return redirect_;
     }
 
-    public static final int REDIRECTPORT_FIELD_NUMBER = 2;
+    public static final int REDIRECTHOST_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object redirectHost_ = "";
+    /**
+     * <code>string redirectHost = 2;</code>
+     * @return The redirectHost.
+     */
+    @java.lang.Override
+    public java.lang.String getRedirectHost() {
+      java.lang.Object ref = redirectHost_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        redirectHost_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string redirectHost = 2;</code>
+     * @return The bytes for redirectHost.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getRedirectHostBytes() {
+      java.lang.Object ref = redirectHost_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        redirectHost_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int REDIRECTPORT_FIELD_NUMBER = 3;
     private int redirectPort_ = 0;
     /**
-     * <code>int32 redirectPort = 2;</code>
+     * <code>int32 redirectPort = 3;</code>
      * @return The redirectPort.
      */
     @java.lang.Override
@@ -6047,15 +6112,54 @@ public final class Grpc {
       return redirectPort_;
     }
 
-    public static final int SUCCESS_FIELD_NUMBER = 3;
+    public static final int SUCCESS_FIELD_NUMBER = 4;
     private boolean success_ = false;
     /**
-     * <code>bool success = 3;</code>
+     * <code>bool success = 4;</code>
      * @return The success.
      */
     @java.lang.Override
     public boolean getSuccess() {
       return success_;
+    }
+
+    public static final int RESULT_FIELD_NUMBER = 5;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object result_ = "";
+    /**
+     * <code>string result = 5;</code>
+     * @return The result.
+     */
+    @java.lang.Override
+    public java.lang.String getResult() {
+      java.lang.Object ref = result_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        result_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string result = 5;</code>
+     * @return The bytes for result.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getResultBytes() {
+      java.lang.Object ref = result_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        result_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -6075,11 +6179,17 @@ public final class Grpc {
       if (redirect_ != false) {
         output.writeBool(1, redirect_);
       }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(redirectHost_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, redirectHost_);
+      }
       if (redirectPort_ != 0) {
-        output.writeInt32(2, redirectPort_);
+        output.writeInt32(3, redirectPort_);
       }
       if (success_ != false) {
-        output.writeBool(3, success_);
+        output.writeBool(4, success_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(result_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, result_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -6094,13 +6204,19 @@ public final class Grpc {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, redirect_);
       }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(redirectHost_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, redirectHost_);
+      }
       if (redirectPort_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, redirectPort_);
+          .computeInt32Size(3, redirectPort_);
       }
       if (success_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(3, success_);
+          .computeBoolSize(4, success_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(result_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, result_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -6119,10 +6235,14 @@ public final class Grpc {
 
       if (getRedirect()
           != other.getRedirect()) return false;
+      if (!getRedirectHost()
+          .equals(other.getRedirectHost())) return false;
       if (getRedirectPort()
           != other.getRedirectPort()) return false;
       if (getSuccess()
           != other.getSuccess()) return false;
+      if (!getResult()
+          .equals(other.getResult())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -6137,11 +6257,15 @@ public final class Grpc {
       hash = (37 * hash) + REDIRECT_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getRedirect());
+      hash = (37 * hash) + REDIRECTHOST_FIELD_NUMBER;
+      hash = (53 * hash) + getRedirectHost().hashCode();
       hash = (37 * hash) + REDIRECTPORT_FIELD_NUMBER;
       hash = (53 * hash) + getRedirectPort();
       hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getSuccess());
+      hash = (37 * hash) + RESULT_FIELD_NUMBER;
+      hash = (53 * hash) + getResult().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -6272,8 +6396,10 @@ public final class Grpc {
         super.clear();
         bitField0_ = 0;
         redirect_ = false;
+        redirectHost_ = "";
         redirectPort_ = 0;
         success_ = false;
+        result_ = "";
         return this;
       }
 
@@ -6311,10 +6437,16 @@ public final class Grpc {
           result.redirect_ = redirect_;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.redirectPort_ = redirectPort_;
+          result.redirectHost_ = redirectHost_;
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.redirectPort_ = redirectPort_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
           result.success_ = success_;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.result_ = result_;
         }
       }
 
@@ -6365,11 +6497,21 @@ public final class Grpc {
         if (other.getRedirect() != false) {
           setRedirect(other.getRedirect());
         }
+        if (!other.getRedirectHost().isEmpty()) {
+          redirectHost_ = other.redirectHost_;
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
         if (other.getRedirectPort() != 0) {
           setRedirectPort(other.getRedirectPort());
         }
         if (other.getSuccess() != false) {
           setSuccess(other.getSuccess());
+        }
+        if (!other.getResult().isEmpty()) {
+          result_ = other.result_;
+          bitField0_ |= 0x00000010;
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -6402,16 +6544,26 @@ public final class Grpc {
                 bitField0_ |= 0x00000001;
                 break;
               } // case 8
-              case 16: {
-                redirectPort_ = input.readInt32();
+              case 18: {
+                redirectHost_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000002;
                 break;
-              } // case 16
+              } // case 18
               case 24: {
-                success_ = input.readBool();
+                redirectPort_ = input.readInt32();
                 bitField0_ |= 0x00000004;
                 break;
               } // case 24
+              case 32: {
+                success_ = input.readBool();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 32
+              case 42: {
+                result_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 42
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -6461,9 +6613,81 @@ public final class Grpc {
         return this;
       }
 
+      private java.lang.Object redirectHost_ = "";
+      /**
+       * <code>string redirectHost = 2;</code>
+       * @return The redirectHost.
+       */
+      public java.lang.String getRedirectHost() {
+        java.lang.Object ref = redirectHost_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          redirectHost_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string redirectHost = 2;</code>
+       * @return The bytes for redirectHost.
+       */
+      public com.google.protobuf.ByteString
+          getRedirectHostBytes() {
+        java.lang.Object ref = redirectHost_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          redirectHost_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string redirectHost = 2;</code>
+       * @param value The redirectHost to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRedirectHost(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        redirectHost_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string redirectHost = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRedirectHost() {
+        redirectHost_ = getDefaultInstance().getRedirectHost();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string redirectHost = 2;</code>
+       * @param value The bytes for redirectHost to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRedirectHostBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        redirectHost_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
       private int redirectPort_ ;
       /**
-       * <code>int32 redirectPort = 2;</code>
+       * <code>int32 redirectPort = 3;</code>
        * @return The redirectPort.
        */
       @java.lang.Override
@@ -6471,23 +6695,23 @@ public final class Grpc {
         return redirectPort_;
       }
       /**
-       * <code>int32 redirectPort = 2;</code>
+       * <code>int32 redirectPort = 3;</code>
        * @param value The redirectPort to set.
        * @return This builder for chaining.
        */
       public Builder setRedirectPort(int value) {
         
         redirectPort_ = value;
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 redirectPort = 2;</code>
+       * <code>int32 redirectPort = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearRedirectPort() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         redirectPort_ = 0;
         onChanged();
         return this;
@@ -6495,7 +6719,7 @@ public final class Grpc {
 
       private boolean success_ ;
       /**
-       * <code>bool success = 3;</code>
+       * <code>bool success = 4;</code>
        * @return The success.
        */
       @java.lang.Override
@@ -6503,24 +6727,96 @@ public final class Grpc {
         return success_;
       }
       /**
-       * <code>bool success = 3;</code>
+       * <code>bool success = 4;</code>
        * @param value The success to set.
        * @return This builder for chaining.
        */
       public Builder setSuccess(boolean value) {
         
         success_ = value;
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
       /**
-       * <code>bool success = 3;</code>
+       * <code>bool success = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearSuccess() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         success_ = false;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object result_ = "";
+      /**
+       * <code>string result = 5;</code>
+       * @return The result.
+       */
+      public java.lang.String getResult() {
+        java.lang.Object ref = result_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          result_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string result = 5;</code>
+       * @return The bytes for result.
+       */
+      public com.google.protobuf.ByteString
+          getResultBytes() {
+        java.lang.Object ref = result_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          result_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string result = 5;</code>
+       * @param value The result to set.
+       * @return This builder for chaining.
+       */
+      public Builder setResult(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        result_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string result = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearResult() {
+        result_ = getDefaultInstance().getResult();
+        bitField0_ = (bitField0_ & ~0x00000010);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string result = 5;</code>
+       * @param value The bytes for result to set.
+       * @return This builder for chaining.
+       */
+      public Builder setResultBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        result_ = value;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -6658,20 +6954,21 @@ public final class Grpc {
       "ppendEntriesResponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004" +
       "term\030\002 \001(\005\022\017\n\007success\030\003 \001(\010\"?\n\016CommandRe" +
       "quest\022-\n\007command\030\001 \001(\0132\034.top.fengye.rpc." +
-      "grpc.Command\"J\n\017CommandResponse\022\020\n\010redir" +
-      "ect\030\001 \001(\010\022\024\n\014redirectPort\030\002 \001(\005\022\017\n\007succe" +
-      "ss\030\003 \001(\0102\312\003\n\004Raft\022S\n\013queryStatus\022\032.top.f" +
-      "engye.rpc.grpc.Empty\032(.top.fengye.rpc.gr" +
-      "pc.queryStatusResponse\022M\n\010shutDown\022\032.top" +
-      ".fengye.rpc.grpc.Empty\032%.top.fengye.rpc." +
-      "grpc.shutDownResponse\022Z\n\tapplyVote\022%.top" +
-      ".fengye.rpc.grpc.ApplyVoteRequest\032&.top." +
-      "fengye.rpc.grpc.ApplyVoteResponse\022f\n\rapp" +
-      "endEntries\022).top.fengye.rpc.grpc.AppendE" +
-      "ntriesRequest\032*.top.fengye.rpc.grpc.Appe" +
-      "ndEntriesResponse\022Z\n\rhandleRequest\022#.top" +
-      ".fengye.rpc.grpc.CommandRequest\032$.top.fe" +
-      "ngye.rpc.grpc.CommandResponseb\006proto3"
+      "grpc.Command\"p\n\017CommandResponse\022\020\n\010redir" +
+      "ect\030\001 \001(\010\022\024\n\014redirectHost\030\002 \001(\t\022\024\n\014redir" +
+      "ectPort\030\003 \001(\005\022\017\n\007success\030\004 \001(\010\022\016\n\006result" +
+      "\030\005 \001(\t2\312\003\n\004Raft\022S\n\013queryStatus\022\032.top.fen" +
+      "gye.rpc.grpc.Empty\032(.top.fengye.rpc.grpc" +
+      ".queryStatusResponse\022M\n\010shutDown\022\032.top.f" +
+      "engye.rpc.grpc.Empty\032%.top.fengye.rpc.gr" +
+      "pc.shutDownResponse\022Z\n\tapplyVote\022%.top.f" +
+      "engye.rpc.grpc.ApplyVoteRequest\032&.top.fe" +
+      "ngye.rpc.grpc.ApplyVoteResponse\022f\n\rappen" +
+      "dEntries\022).top.fengye.rpc.grpc.AppendEnt" +
+      "riesRequest\032*.top.fengye.rpc.grpc.Append" +
+      "EntriesResponse\022Z\n\rhandleRequest\022#.top.f" +
+      "engye.rpc.grpc.CommandRequest\032$.top.feng" +
+      "ye.rpc.grpc.CommandResponseb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -6731,7 +7028,7 @@ public final class Grpc {
     internal_static_top_fengye_rpc_grpc_CommandResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_fengye_rpc_grpc_CommandResponse_descriptor,
-        new java.lang.String[] { "Redirect", "RedirectPort", "Success", });
+        new java.lang.String[] { "Redirect", "RedirectHost", "RedirectPort", "Success", "Result", });
     top.fengye.rpc.grpc.BizParam.getDescriptor();
   }
 

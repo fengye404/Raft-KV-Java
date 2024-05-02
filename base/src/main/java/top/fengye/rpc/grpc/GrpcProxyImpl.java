@@ -67,9 +67,15 @@ public class GrpcProxyImpl implements RpcProxy {
                     raftNode.setVotedFor(requestNodeId);
                     raftNode.setCurrentTerm(requestTerm);
                 } else if (requestTerm == raftNode.getCurrentTerm() && raftNode.getVotedFor() == null) {
-                    // TODO 添加 log 相关选举约束逻辑
-                    agreed = true;
-                    raftNode.setVotedFor(requestNodeId);
+                    // 选举限制：
+                    // 节点只能向满足下面条件之一的候选人投出票：
+                    //  候选人最后一条Log条目的任期号大于本地最后一条Log条目的任期号；
+                    //  或者，候选人最后一条Log条目的任期号等于本地最后一条Log条目的任期号，且候选人的Log记录长度大于等于本地Log记录的长度
+                    if (request.getLastLogTerm() > raftNode.getRaftLog().getCurrentLogIndex() ||
+                            request.getLastLogTerm() == raftNode.getRaftLog().getCurrentLogTerm() && request.getLastLogIndex() >= raftNode.getRaftLog().getCurrentLogIndex()) {
+                        agreed = true;
+                        raftNode.setVotedFor(requestNodeId);
+                    }
                 }
                 response.complete(
                         Grpc.ApplyVoteResponse.newBuilder()
@@ -130,10 +136,12 @@ public class GrpcProxyImpl implements RpcProxy {
                     // 如果当前节点存储了 Leader 信息，则直接返回
                     // 这里不用担心 Leader 信息落后等问题，因为心跳会及时纠正，即便 client 被重定向到一个错误的 Leader，
                     // 由于过半提交规则的限制，client 的请求也不会被处理，此时 client 会收到一个错误的返回
-                    if (StringUtil.isNullOrEmpty(leaderId)) {
+                    if (!StringUtil.isNullOrEmpty(leaderId)) {
                         response.complete(
                                 Grpc.CommandResponse.newBuilder()
+                                        .setSuccess(false)
                                         .setRedirect(true)
+                                        .setRedirectHost(raftNode.getPeers().get(leaderId).getRpcAddress().getHost())
                                         .setRedirectPort(raftNode.getPeers().get(leaderId).getRpcAddress().getPort())
                                         .build()
                         );

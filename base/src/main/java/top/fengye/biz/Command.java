@@ -26,7 +26,7 @@ public class Command {
         this.commandType = CommandType.parse(command.getType());
     }
 
-    public static Command parse(BizParam.Command command){
+    public static Command parse(BizParam.Command command) {
         Command res = new Command();
         res.key = new Key(command.getKey());
         res.value = new Value(command.getValue());
@@ -34,7 +34,7 @@ public class Command {
         return res;
     }
 
-    public BizParam.Command antiParse(){
+    public BizParam.Command antiParse() {
         return BizParam.Command.newBuilder()
                 .setType(BizParam.CommandType.valueOf(this.commandType.name()))
                 .setKey(BizParam.Key.newBuilder().setData(ByteString.copyFrom(this.key.getData())))
@@ -52,6 +52,17 @@ public class Command {
                 if (value.name().equals(commandType.name())) {
                     return value;
                 }
+            }
+            return null;
+        }
+
+        public static CommandType ofValue(String value) {
+            if ("get".equals(value)) {
+                return CommandType.GET;
+            } else if ("put".equals(value)) {
+                return CommandType.PUT;
+            } else if ("del".equals(value)) {
+                return CommandType.DEL;
             }
             return null;
         }
