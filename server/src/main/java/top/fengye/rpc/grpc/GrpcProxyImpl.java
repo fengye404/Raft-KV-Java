@@ -105,11 +105,13 @@ public class GrpcProxyImpl implements RpcProxy {
             public void queryStatus(Grpc.Empty empty, Promise<Grpc.queryStatusResponse> response) {
                 StringBuilder sb = new StringBuilder();
                 raftNode.getRaftLog().getEntries().forEach(s -> sb.append(JSONObject.toJSONString(s)).append("\n"));
+                sb.deleteCharAt(sb.length() - 1);
                 response.complete(
                         Grpc.queryStatusResponse.newBuilder()
                                 .setNodeId(raftNode.getNodeId())
-                                .setRoleInfo(raftNode.getRole().name() + ":" + raftNode.getCurrentTerm())
+                                .setRoleInfo(raftNode.getRole().name() + ":" + raftNode.getCurrentTerm() + ":" + raftNode.getRaftLog().getCommitIndex())
                                 .setEntriesInfo(sb.toString())
+                                .setStateMachineInfo(raftNode.getRaftStateMachine().getDb().toString())
                                 .build()
                 );
             }

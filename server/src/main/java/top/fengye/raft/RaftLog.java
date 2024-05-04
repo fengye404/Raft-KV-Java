@@ -1,15 +1,19 @@
 package top.fengye.raft;
 
+import io.netty.buffer.ByteBuf;
 import io.vertx.core.Promise;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.apache.commons.lang3.tuple.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import top.fengye.biz.Command;
 import top.fengye.rpc.grpc.BizParam;
 import top.fengye.rpc.grpc.Grpc;
 
+import java.nio.ByteBuffer;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -24,6 +28,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class RaftLog {
 
+    private static final Logger log = LoggerFactory.getLogger(RaftLog.class);
     private RaftNode raftNode;
     private List<Entry> entries = new ArrayList<>();
     // 当前已经被 commit 的 index，即被过半接收的日志的 index
@@ -45,15 +50,29 @@ public class RaftLog {
         this.raftNode = raftNode;
     }
 
+    /**
+     * 用于处理从 client 处接收到的 command
+     *
+     * @param command
+     * @param runnable
+     * @return
+     */
     public Entry append(Command command, Runnable runnable) {
         Entry entry = new Entry(getNextLogIndex(), raftNode.getCurrentTerm(), command);
         entries.add(entry);
         applyEventQueue.add(Pair.of(entry.index, runnable));
+        raftNode.getRaftFile().write(List.of(entry));
         return entry;
     }
 
+    /**
+     * 用于处理从 leader 处接收到的 entries
+     *
+     * @param entries
+     */
     public void append(List<Entry> entries) {
         this.entries.addAll(entries);
+        raftNode.getRaftFile().write(entries);
     }
 
     public List<Entry> slice(int startIndex) {
@@ -191,6 +210,28 @@ public class RaftLog {
                     .setTerm(term)
                     .setCommand(command.antiParse())
                     .build();
+        }
+
+        /**
+         * 将 logEntry 转化为二进制
+         * | index | term | commandSize | command |
+         *
+         * @return
+         */
+        public ByteBuffer toByteBuffer() {
+            ByteBuffer commandByteBuffer = command.toByteBuffer();
+            ByteBuffer allocate = ByteBuffer.allocate(4 + 4 + 4 + commandByteBuffer.array().length);
+            return allocate.putInt(index)
+                    .putInt(term)
+                    .putInt(commandByteBuffer.array().length)
+                    .put(commandByteBuffer.array()).flip();
+        }
+
+        public Entry(ByteBuf byteBuf){
+            index = byteBuf.readInt();
+            term = byteBuf.readInt();
+            int commandSize = byteBuf.readInt();
+            command = new Command(byteBuf.readBytes(commandSize));
         }
     }
 }

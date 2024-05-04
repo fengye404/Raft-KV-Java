@@ -44,7 +44,7 @@ public class RaftStateMachine {
         if (value != null) {
             return Grpc.CommandResponse.newBuilder().setSuccess(true).setResult(new String(value.getData())).build();
         } else {
-            return Grpc.CommandResponse.newBuilder().setSuccess(true).setResult("no value").build();
+            return Grpc.CommandResponse.newBuilder().setSuccess(true).setResult("empty").build();
         }
     }
 

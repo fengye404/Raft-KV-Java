@@ -1,10 +1,15 @@
 package top.fengye.biz;
 
 import com.google.protobuf.ByteString;
+import io.netty.buffer.ByteBuf;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.checkerframework.checker.units.qual.A;
 import top.fengye.rpc.grpc.BizParam;
+
+import java.nio.ByteBuffer;
 
 /**
  * @author: FengYe
@@ -42,10 +47,41 @@ public class Command {
                 .build();
     }
 
+    /**
+     * 将 command 转化为二进制
+     * | commandType | keySize | key | valueSize | value |
+     *
+     * @return
+     */
+    public ByteBuffer toByteBuffer() {
+        ByteBuffer allocate = ByteBuffer.allocate(4 + 4 + key.getData().length + 4 + value.getData().length);
+        return allocate.putInt(commandType.getCode())
+                .putInt(key.getData().length)
+                .put(key.getData())
+                .putInt(value.getData().length)
+                .put(value.getData());
+    }
+
+    public Command(ByteBuf byteBuf) {
+        commandType = CommandType.ofValue(byteBuf.readInt());
+        int keySize = byteBuf.readInt();
+        byte[] keyBytes = new byte[keySize];
+        byteBuf.readBytes(keyBytes);
+        key = new Key(keyBytes);
+        int valueSize = byteBuf.readInt();
+        byte[] valueBytes = new byte[valueSize];
+        byteBuf.readBytes(valueBytes);
+        value = new Value(valueBytes);
+    }
+
+    @Getter
+    @AllArgsConstructor
     public enum CommandType {
-        GET,
-        PUT,
-        DEL;
+        GET(1),
+        PUT(2),
+        DEL(3);
+
+        private int code;
 
         public static CommandType parse(BizParam.CommandType commandType) {
             for (CommandType value : CommandType.values()) {
@@ -62,6 +98,17 @@ public class Command {
             } else if ("put".equals(value)) {
                 return CommandType.PUT;
             } else if ("del".equals(value)) {
+                return CommandType.DEL;
+            }
+            return null;
+        }
+
+        public static CommandType ofValue(int value) {
+            if (value == 1) {
+                return CommandType.GET;
+            } else if (value == 2) {
+                return CommandType.PUT;
+            } else if (value == 3) {
                 return CommandType.DEL;
             }
             return null;

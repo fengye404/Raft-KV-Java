@@ -453,6 +453,18 @@ public final class Grpc {
      */
     com.google.protobuf.ByteString
         getEntriesInfoBytes();
+
+    /**
+     * <code>string stateMachineInfo = 4;</code>
+     * @return The stateMachineInfo.
+     */
+    java.lang.String getStateMachineInfo();
+    /**
+     * <code>string stateMachineInfo = 4;</code>
+     * @return The bytes for stateMachineInfo.
+     */
+    com.google.protobuf.ByteString
+        getStateMachineInfoBytes();
   }
   /**
    * Protobuf type {@code top.fengye.rpc.grpc.queryStatusResponse}
@@ -470,6 +482,7 @@ public final class Grpc {
       nodeId_ = "";
       roleInfo_ = "";
       entriesInfo_ = "";
+      stateMachineInfo_ = "";
     }
 
     @java.lang.Override
@@ -614,6 +627,45 @@ public final class Grpc {
       }
     }
 
+    public static final int STATEMACHINEINFO_FIELD_NUMBER = 4;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object stateMachineInfo_ = "";
+    /**
+     * <code>string stateMachineInfo = 4;</code>
+     * @return The stateMachineInfo.
+     */
+    @java.lang.Override
+    public java.lang.String getStateMachineInfo() {
+      java.lang.Object ref = stateMachineInfo_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        stateMachineInfo_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string stateMachineInfo = 4;</code>
+     * @return The bytes for stateMachineInfo.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getStateMachineInfoBytes() {
+      java.lang.Object ref = stateMachineInfo_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        stateMachineInfo_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -637,6 +689,9 @@ public final class Grpc {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(entriesInfo_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, entriesInfo_);
       }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(stateMachineInfo_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, stateMachineInfo_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -654,6 +709,9 @@ public final class Grpc {
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(entriesInfo_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, entriesInfo_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(stateMachineInfo_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, stateMachineInfo_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -676,6 +734,8 @@ public final class Grpc {
           .equals(other.getRoleInfo())) return false;
       if (!getEntriesInfo()
           .equals(other.getEntriesInfo())) return false;
+      if (!getStateMachineInfo()
+          .equals(other.getStateMachineInfo())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -693,6 +753,8 @@ public final class Grpc {
       hash = (53 * hash) + getRoleInfo().hashCode();
       hash = (37 * hash) + ENTRIESINFO_FIELD_NUMBER;
       hash = (53 * hash) + getEntriesInfo().hashCode();
+      hash = (37 * hash) + STATEMACHINEINFO_FIELD_NUMBER;
+      hash = (53 * hash) + getStateMachineInfo().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -825,6 +887,7 @@ public final class Grpc {
         nodeId_ = "";
         roleInfo_ = "";
         entriesInfo_ = "";
+        stateMachineInfo_ = "";
         return this;
       }
 
@@ -866,6 +929,9 @@ public final class Grpc {
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
           result.entriesInfo_ = entriesInfo_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.stateMachineInfo_ = stateMachineInfo_;
         }
       }
 
@@ -928,6 +994,11 @@ public final class Grpc {
           bitField0_ |= 0x00000004;
           onChanged();
         }
+        if (!other.getStateMachineInfo().isEmpty()) {
+          stateMachineInfo_ = other.stateMachineInfo_;
+          bitField0_ |= 0x00000008;
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -969,6 +1040,11 @@ public final class Grpc {
                 bitField0_ |= 0x00000004;
                 break;
               } // case 26
+              case 34: {
+                stateMachineInfo_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1198,6 +1274,78 @@ public final class Grpc {
         checkByteStringIsUtf8(value);
         entriesInfo_ = value;
         bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object stateMachineInfo_ = "";
+      /**
+       * <code>string stateMachineInfo = 4;</code>
+       * @return The stateMachineInfo.
+       */
+      public java.lang.String getStateMachineInfo() {
+        java.lang.Object ref = stateMachineInfo_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          stateMachineInfo_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string stateMachineInfo = 4;</code>
+       * @return The bytes for stateMachineInfo.
+       */
+      public com.google.protobuf.ByteString
+          getStateMachineInfoBytes() {
+        java.lang.Object ref = stateMachineInfo_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          stateMachineInfo_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string stateMachineInfo = 4;</code>
+       * @param value The stateMachineInfo to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStateMachineInfo(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        stateMachineInfo_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string stateMachineInfo = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStateMachineInfo() {
+        stateMachineInfo_ = getDefaultInstance().getStateMachineInfo();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string stateMachineInfo = 4;</code>
+       * @param value The bytes for stateMachineInfo to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStateMachineInfoBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        stateMachineInfo_ = value;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -6939,36 +7087,37 @@ public final class Grpc {
   static {
     java.lang.String[] descriptorData = {
       "\n\ngrpc.proto\022\023top.fengye.rpc.grpc\032\016bizPa" +
-      "ram.proto\"\007\n\005Empty\"L\n\023queryStatusRespons" +
+      "ram.proto\"\007\n\005Empty\"f\n\023queryStatusRespons" +
       "e\022\016\n\006nodeId\030\001 \001(\t\022\020\n\010roleInfo\030\002 \001(\t\022\023\n\013e" +
-      "ntriesInfo\030\003 \001(\t\"3\n\020shutDownResponse\022\016\n\006" +
-      "nodeId\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\"[\n\020ApplyVo" +
-      "teRequest\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\005\022" +
-      "\024\n\014lastLogIndex\030\003 \001(\005\022\023\n\013lastLogTerm\030\004 \001" +
-      "(\005\"A\n\021ApplyVoteResponse\022\016\n\006nodeId\030\001 \001(\t\022" +
-      "\014\n\004term\030\002 \001(\005\022\016\n\006agreed\030\003 \001(\010\"\243\001\n\024Append" +
-      "EntriesRequest\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002" +
-      " \001(\005\022\023\n\013preLogIndex\030\003 \001(\005\022\022\n\npreLogTerm\030" +
-      "\004 \001(\005\022\024\n\014leaderCommit\030\005 \001(\005\022.\n\007entries\030\006" +
-      " \003(\0132\035.top.fengye.rpc.grpc.LogEntry\"F\n\025A" +
-      "ppendEntriesResponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004" +
-      "term\030\002 \001(\005\022\017\n\007success\030\003 \001(\010\"?\n\016CommandRe" +
-      "quest\022-\n\007command\030\001 \001(\0132\034.top.fengye.rpc." +
-      "grpc.Command\"p\n\017CommandResponse\022\020\n\010redir" +
-      "ect\030\001 \001(\010\022\024\n\014redirectHost\030\002 \001(\t\022\024\n\014redir" +
-      "ectPort\030\003 \001(\005\022\017\n\007success\030\004 \001(\010\022\016\n\006result" +
-      "\030\005 \001(\t2\312\003\n\004Raft\022S\n\013queryStatus\022\032.top.fen" +
-      "gye.rpc.grpc.Empty\032(.top.fengye.rpc.grpc" +
-      ".queryStatusResponse\022M\n\010shutDown\022\032.top.f" +
-      "engye.rpc.grpc.Empty\032%.top.fengye.rpc.gr" +
-      "pc.shutDownResponse\022Z\n\tapplyVote\022%.top.f" +
-      "engye.rpc.grpc.ApplyVoteRequest\032&.top.fe" +
-      "ngye.rpc.grpc.ApplyVoteResponse\022f\n\rappen" +
-      "dEntries\022).top.fengye.rpc.grpc.AppendEnt" +
-      "riesRequest\032*.top.fengye.rpc.grpc.Append" +
-      "EntriesResponse\022Z\n\rhandleRequest\022#.top.f" +
-      "engye.rpc.grpc.CommandRequest\032$.top.feng" +
-      "ye.rpc.grpc.CommandResponseb\006proto3"
+      "ntriesInfo\030\003 \001(\t\022\030\n\020stateMachineInfo\030\004 \001" +
+      "(\t\"3\n\020shutDownResponse\022\016\n\006nodeId\030\001 \001(\t\022\017" +
+      "\n\007message\030\002 \001(\t\"[\n\020ApplyVoteRequest\022\016\n\006n" +
+      "odeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\005\022\024\n\014lastLogInde" +
+      "x\030\003 \001(\005\022\023\n\013lastLogTerm\030\004 \001(\005\"A\n\021ApplyVot" +
+      "eResponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\005\022" +
+      "\016\n\006agreed\030\003 \001(\010\"\243\001\n\024AppendEntriesRequest" +
+      "\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\005\022\023\n\013preLog" +
+      "Index\030\003 \001(\005\022\022\n\npreLogTerm\030\004 \001(\005\022\024\n\014leade" +
+      "rCommit\030\005 \001(\005\022.\n\007entries\030\006 \003(\0132\035.top.fen" +
+      "gye.rpc.grpc.LogEntry\"F\n\025AppendEntriesRe" +
+      "sponse\022\016\n\006nodeId\030\001 \001(\t\022\014\n\004term\030\002 \001(\005\022\017\n\007" +
+      "success\030\003 \001(\010\"?\n\016CommandRequest\022-\n\007comma" +
+      "nd\030\001 \001(\0132\034.top.fengye.rpc.grpc.Command\"p" +
+      "\n\017CommandResponse\022\020\n\010redirect\030\001 \001(\010\022\024\n\014r" +
+      "edirectHost\030\002 \001(\t\022\024\n\014redirectPort\030\003 \001(\005\022" +
+      "\017\n\007success\030\004 \001(\010\022\016\n\006result\030\005 \001(\t2\312\003\n\004Raf" +
+      "t\022S\n\013queryStatus\022\032.top.fengye.rpc.grpc.E" +
+      "mpty\032(.top.fengye.rpc.grpc.queryStatusRe" +
+      "sponse\022M\n\010shutDown\022\032.top.fengye.rpc.grpc" +
+      ".Empty\032%.top.fengye.rpc.grpc.shutDownRes" +
+      "ponse\022Z\n\tapplyVote\022%.top.fengye.rpc.grpc" +
+      ".ApplyVoteRequest\032&.top.fengye.rpc.grpc." +
+      "ApplyVoteResponse\022f\n\rappendEntries\022).top" +
+      ".fengye.rpc.grpc.AppendEntriesRequest\032*." +
+      "top.fengye.rpc.grpc.AppendEntriesRespons" +
+      "e\022Z\n\rhandleRequest\022#.top.fengye.rpc.grpc" +
+      ".CommandRequest\032$.top.fengye.rpc.grpc.Co" +
+      "mmandResponseb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -6986,7 +7135,7 @@ public final class Grpc {
     internal_static_top_fengye_rpc_grpc_queryStatusResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_fengye_rpc_grpc_queryStatusResponse_descriptor,
-        new java.lang.String[] { "NodeId", "RoleInfo", "EntriesInfo", });
+        new java.lang.String[] { "NodeId", "RoleInfo", "EntriesInfo", "StateMachineInfo", });
     internal_static_top_fengye_rpc_grpc_shutDownResponse_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_top_fengye_rpc_grpc_shutDownResponse_fieldAccessorTable = new

@@ -17,6 +17,7 @@ message queryStatusResponse{
   string nodeId = 1;
   string roleInfo = 2;
   string entriesInfo = 3;
+  string stateMachineInfo = 4;
 }
 message shutDownResponse{
   string nodeId = 1;

@@ -42,6 +42,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
     private String leaderId;
     private RaftLog raftLog;
     private RaftStateMachine raftStateMachine;
+    private RaftFile raftFile;
     private int currentTerm;
     private String votedFor;
     private RoleEnum role;
@@ -76,8 +77,6 @@ public class RaftNode extends AbstractVerticle implements Serializable {
 
     public RaftNode(RpcAddress rpcAddress) {
         this.nodeId = UUID.randomUUID().toString();
-        this.raftLog = new RaftLog(this);
-        this.raftStateMachine = new RaftStateMachine(this);
         this.lastHeartBeat = System.currentTimeMillis();
         this.currentTerm = 0;
         this.votedFor = null;
@@ -85,14 +84,19 @@ public class RaftNode extends AbstractVerticle implements Serializable {
         this.peers = new HashMap<>();
         this.nextLogIndexMap = new HashMap<>();
         this.rpcAddress = rpcAddress;
+        this.raftLog = new RaftLog(this);
+        this.raftStateMachine = new RaftStateMachine(this);
         resetElectionTimeout();
     }
 
     @Override
     public void start() throws Exception {
         this.rpcProxy = new GrpcProxyImpl(this);
+        this.raftFile = new RaftFile(this);
         startElectionTimer();
         startHeatBeatTimer();
+        // todo 日志持久化恢复相关逻辑
+        raftFile.recover();
         super.start();
     }
 
@@ -168,7 +172,10 @@ public class RaftNode extends AbstractVerticle implements Serializable {
 
     public boolean processAppendEntriesRequest(Grpc.AppendEntriesRequest request) {
         if (raftLog.checkPre(request.getPreLogIndex(), request.getPreLogTerm())) {
-            // 如果没有附带 entriesList 则说明只是心跳请求，直接返回
+            // leader 将 commitIndex 同步给 followers
+            raftLog.setCommitIndex(request.getLeaderCommit());
+            raftLog.apply(request.getLeaderCommit());
+            // 如果没有附带 entriesList 则说明只是心跳请求
             if (CollectionUtils.isEmpty(request.getEntriesList())) {
                 return true;
             }
@@ -274,7 +281,8 @@ public class RaftNode extends AbstractVerticle implements Serializable {
                 .setNodeId(nodeId)
                 .setTerm(currentTerm)
                 .setPreLogIndex(peerPreIndex)
-                .setPreLogTerm(raftLog.getTermByIndex(peerPreIndex));
+                .setPreLogTerm(raftLog.getTermByIndex(peerPreIndex))
+                .setLeaderCommit(raftLog.getCommitIndex());
         if (peerNextIndex <= myCurrentIndex) {
             // 如果目标的 log 落后自己，则说明需要给其复制日志，截取 [peerNextIndex,myNextIndex)
             // 否则不用附带 entries 字段，目标收到后会将其视作心跳
