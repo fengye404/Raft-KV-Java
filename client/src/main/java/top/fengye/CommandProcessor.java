@@ -46,7 +46,8 @@ public enum CommandProcessor {
                 .addArgument(new Argument()
                         .setIndex(2)
                         .setDescription("value")
-                        .setArgName("value"));
+                        .setArgName("value")
+                        .setRequired(false));
 
 
         servers.add(new RpcAddress("localhost", 8080));
@@ -55,17 +56,17 @@ public enum CommandProcessor {
     }
 
     public String processRequest(List<String> request) {
-        String result = null;
+        StringBuilder result = new StringBuilder();
         CommandLine parse = parser.parse(request);
         Command command = new Command();
         command.setCommandType(Command.CommandType.ofValue(parse.getArgumentValue("type")));
         command.setKey(Key.ofString(parse.getArgumentValue("key")));
-        command.setValue(Value.ofString(parse.getArgumentValue("value")));
+        command.setValue(Value.ofString(Optional.ofNullable(parse.<String>getArgumentValue("value")).orElse("")));
         rpcRequest(randomServer(), command, result);
-        return result;
+        return result.toString();
     }
 
-    public void rpcRequest(RpcAddress server, Command command, String result) {
+    public void rpcRequest(RpcAddress server, Command command, StringBuilder result) {
         try {
             Grpc.CommandResponse res = block(rpcUtils.doRequest(server, command)).get();
             if (!res.getSuccess()) {
@@ -75,7 +76,7 @@ public enum CommandProcessor {
                     rpcRequest(randomServer(), command, result);
                 }
             } else {
-                result = res.getResult();
+                result.append(res.getResult());
             }
         } catch (Exception e) {
             e.printStackTrace();

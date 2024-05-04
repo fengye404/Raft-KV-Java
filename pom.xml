@@ -9,9 +9,8 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>base</module>
-        <module>client</module>
         <module>server</module>
+        <module>client</module>
     </modules>
 
     <properties>

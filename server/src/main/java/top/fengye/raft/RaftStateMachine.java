@@ -31,8 +31,10 @@ public class RaftStateMachine {
         switch (command.getCommandType()) {
             case PUT:
                 doPut(command);
+                break;
             case DEL:
                 doDel(command);
+                break;
         }
     }
 
@@ -42,7 +44,7 @@ public class RaftStateMachine {
         if (value != null) {
             return Grpc.CommandResponse.newBuilder().setSuccess(true).setResult(new String(value.getData())).build();
         } else {
-            return Grpc.CommandResponse.newBuilder().setSuccess(false).build();
+            return Grpc.CommandResponse.newBuilder().setSuccess(true).setResult("no value").build();
         }
     }
 

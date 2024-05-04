@@ -21,7 +21,7 @@
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>top.fengye</groupId>
-            <artifactId>base</artifactId>
+            <artifactId>server</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

@@ -244,6 +244,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
         raftLog.append(command, () -> promise.complete(
                         Grpc.CommandResponse.newBuilder()
                                 .setSuccess(true)
+                                .setResult("ok")
                                 .build()
                 )
         );
