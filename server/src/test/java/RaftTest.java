@@ -11,7 +11,10 @@ import top.fengye.util.RpcUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author: FengYe
@@ -24,23 +27,23 @@ public class RaftTest {
     private RaftNode raftNode1;
     private RaftNode raftNode2;
     private RaftNode raftNode3;
-    private Map<String, RaftNode> peers;
+    private Map<String, RaftNode.BaseInfo> peers;
 
     private VertxOptions vertxOptions;
 
     private RpcUtils rpcUtils;
 
+    private static final ReentrantLock LOCK = new ReentrantLock();
+    private static final Condition STOP = LOCK.newCondition();
+
     {
-        raftNode1 = new RaftNode(new RpcAddress("localhost", 8080));
-        raftNode2 = new RaftNode(new RpcAddress("localhost", 8081));
-        raftNode3 = new RaftNode(new RpcAddress("localhost", 8082));
-        raftNode1.setNodeId("node1");
-        raftNode2.setNodeId("node2");
-        raftNode3.setNodeId("node3");
+        raftNode1 = new RaftNode("node1", new RpcAddress("localhost", 8080));
+        raftNode2 = new RaftNode("node2", new RpcAddress("localhost", 8081));
+        raftNode3 = new RaftNode("node3", new RpcAddress("localhost", 8082));
         peers = new HashMap<>();
-        peers.put(raftNode1.getNodeId(), raftNode1);
-        peers.put(raftNode2.getNodeId(), raftNode2);
-        peers.put(raftNode3.getNodeId(), raftNode3);
+        peers.put(raftNode1.getNodeId(), new RaftNode.BaseInfo(raftNode1.getNodeId(), raftNode1.getRpcAddress()));
+        peers.put(raftNode2.getNodeId(), new RaftNode.BaseInfo(raftNode1.getNodeId(), raftNode2.getRpcAddress()));
+        peers.put(raftNode3.getNodeId(), new RaftNode.BaseInfo(raftNode1.getNodeId(), raftNode3.getRpcAddress()));
         raftNode1.loadPeers(peers);
         raftNode2.loadPeers(peers);
         raftNode3.loadPeers(peers);
@@ -62,24 +65,39 @@ public class RaftTest {
     }
 
     @Test
-    public void deploy1() {
+    public void deploy1_new() {
         Vertx vertx1 = Vertx.vertx(vertxOptions);
-        vertx1.deployVerticle(raftNode1);
-        while (true) ;
+        addHook();
+        try {
+            vertx1.deployVerticle(raftNode1);
+            LOCK.lock();
+            STOP.await();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            LOCK.unlock();
+        }
     }
 
     @Test
     public void deploy2() {
         Vertx vertx2 = Vertx.vertx(vertxOptions);
         vertx2.deployVerticle(raftNode2);
-        while (true) ;
+        while (true);
     }
 
     @Test
     public void deploy3() {
         Vertx vertx3 = Vertx.vertx(vertxOptions);
         vertx3.deployVerticle(raftNode3);
-        while (true) ;
+        while (true);
+    }
+
+    public static void addHook() {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            LOCK.lock();
+            STOP.signal();
+        }));
     }
 
 
@@ -97,4 +115,5 @@ public class RaftTest {
                 });
         while (true) ;
     }
+
 }

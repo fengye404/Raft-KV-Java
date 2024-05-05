@@ -38,6 +38,7 @@ public class TestClientVerticle extends AbstractVerticle {
                             log.info("{},{}", res.getNodeId(), res.getRoleInfo());
                             log.info("{}", res.getEntriesInfo());
                             log.info("{}", res.getStateMachineInfo());
+                            log.info("\n");
                         });
                 grpcClient = GrpcClient.client(vertx);
                 socketAddress = SocketAddress.inetSocketAddress(8081, "localhost");
@@ -47,6 +48,7 @@ public class TestClientVerticle extends AbstractVerticle {
                             log.info("{},{}", res.getNodeId(), res.getRoleInfo());
                             log.info("{}", res.getEntriesInfo());
                             log.info("{}", res.getStateMachineInfo());
+                            log.info("\n");
                         });
                 grpcClient = GrpcClient.client(vertx);
                 socketAddress = SocketAddress.inetSocketAddress(8082, "localhost");
@@ -56,6 +58,7 @@ public class TestClientVerticle extends AbstractVerticle {
                             log.info("{},{}", res.getNodeId(), res.getRoleInfo());
                             log.info("{}", res.getEntriesInfo());
                             log.info("{}", res.getStateMachineInfo());
+                            log.info("\n");
                         });
                 log.info("=================================");
             });

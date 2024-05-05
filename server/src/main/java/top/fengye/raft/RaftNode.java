@@ -1,15 +1,10 @@
 package top.fengye.raft;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Context;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
-import io.vertx.core.impl.ContextInternal;
-import io.vertx.core.json.Json;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -21,11 +16,8 @@ import top.fengye.rpc.grpc.GrpcProxyImpl;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -46,12 +38,13 @@ public class RaftNode extends AbstractVerticle implements Serializable {
     private int currentTerm;
     private String votedFor;
     private RoleEnum role;
-    private Map<String, RaftNode> peers;
+    private Map<String, BaseInfo> peers;
     private Map<String, Integer> nextLogIndexMap;
     private Map<String, Integer> matchLogIndexMap;
     private RpcAddress rpcAddress;
     private RpcProxy rpcProxy;
     private Long heartBeatPeriodicId;
+    private boolean recover = true;
     /**
      * 最后一次心跳时间，用于选举计时器计算
      */
@@ -75,8 +68,8 @@ public class RaftNode extends AbstractVerticle implements Serializable {
 
     private final Random random = new Random();
 
-    public RaftNode(RpcAddress rpcAddress) {
-        this.nodeId = UUID.randomUUID().toString();
+    public RaftNode(String nodeId, RpcAddress rpcAddress) {
+        this.nodeId = Optional.ofNullable(nodeId).orElse(UUID.randomUUID().toString());
         this.lastHeartBeat = System.currentTimeMillis();
         this.currentTerm = 0;
         this.votedFor = null;
@@ -95,8 +88,9 @@ public class RaftNode extends AbstractVerticle implements Serializable {
         this.raftFile = new RaftFile(this);
         startElectionTimer();
         startHeatBeatTimer();
-        // todo 日志持久化恢复相关逻辑
-        raftFile.recover();
+        if (recover) {
+            raftFile.recoverState();
+        }
         super.start();
     }
 
@@ -130,7 +124,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
         AtomicBoolean completeStatus = new AtomicBoolean(false);
 
         // 给所有其他节点发送投票信息
-        for (RaftNode node : peers.values()) {
+        for (RaftNode.BaseInfo node : peers.values()) {
             rpcProxy.applyVote(node.getRpcAddress(),
                     Grpc.ApplyVoteRequest
                             .newBuilder()
@@ -266,13 +260,13 @@ public class RaftNode extends AbstractVerticle implements Serializable {
      */
     public List<Future<Grpc.AppendEntriesResponse>> broadcastAppendEntries() {
         List<Future<Grpc.AppendEntriesResponse>> res = new ArrayList<>();
-        for (RaftNode node : peers.values()) {
+        for (RaftNode.BaseInfo node : peers.values()) {
             res.add(this.appendEntries(node));
         }
         return res;
     }
 
-    public Future<Grpc.AppendEntriesResponse> appendEntries(RaftNode peer) {
+    public Future<Grpc.AppendEntriesResponse> appendEntries(RaftNode.BaseInfo peer) {
         String peerId = peer.getNodeId();
         int myCurrentIndex = raftLog.getCurrentLogIndex();
         int peerNextIndex = nextLogIndexMap.get(peerId);
@@ -317,6 +311,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
         this.role = RoleEnum.Follower;
         this.votedFor = null;
         this.lastHeartBeat = System.currentTimeMillis();
+        raftFile.write(this);
     }
 
     public void becomeCandidate() {
@@ -326,6 +321,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
         this.currentTerm++;
         this.lastHeartBeat = System.currentTimeMillis();
         log.info("{} becomeCandidate, term:{}", nodeId, currentTerm);
+        raftFile.write(this);
     }
 
     public void becomeLeader() {
@@ -339,8 +335,18 @@ public class RaftNode extends AbstractVerticle implements Serializable {
         this.leaderId = this.nodeId;
         this.nextLogIndexMap.replaceAll((key, value) -> raftLog.getCurrentLogIndex() + 1);
         this.lastHeartBeat = System.currentTimeMillis();
+        raftFile.write(this);
     }
 
+    public void setCurrentTerm(int currentTerm) {
+        this.currentTerm = currentTerm;
+        raftFile.write(this);
+    }
+
+    public void setVotedFor(String votedFor) {
+        this.votedFor = votedFor;
+        raftFile.write(this);
+    }
 
     /**
      * 重设选举过期时间
@@ -356,7 +362,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
      *
      * @param map 所有节点
      */
-    public void loadPeers(Map<String, RaftNode> map) {
+    public void loadPeers(Map<String, RaftNode.BaseInfo> map) {
         peers = map.entrySet().stream()
                 .filter(entry -> !entry.getValue().getNodeId().equals(this.nodeId))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
@@ -364,5 +370,13 @@ public class RaftNode extends AbstractVerticle implements Serializable {
                 .collect(Collectors.toMap(Map.Entry::getKey, v -> raftLog.getNextLogIndex()));
         matchLogIndexMap = peers.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, v -> 0));
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class BaseInfo {
+        public String nodeId;
+        public RpcAddress rpcAddress;
     }
 }

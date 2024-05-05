@@ -89,6 +89,9 @@ public class RaftLog {
         // 调用 stateMachine 执行 apply
         int lastApplied = lastAppliedIndex;
         for (int i = lastApplied + 1; i <= endIndex; i++) {
+            if (i >= entries.size()) {
+                break;
+            }
             Entry entry = entries.get(i);
             raftNode.getRaftStateMachine().apply(entry.command);
             lastAppliedIndex++;
@@ -227,7 +230,7 @@ public class RaftLog {
                     .put(commandByteBuffer.array()).flip();
         }
 
-        public Entry(ByteBuf byteBuf){
+        public Entry(ByteBuf byteBuf) {
             index = byteBuf.readInt();
             term = byteBuf.readInt();
             int commandSize = byteBuf.readInt();

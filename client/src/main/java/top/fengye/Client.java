@@ -24,6 +24,8 @@ import java.util.Collections;
 public class Client {
     public static void main(String[] args) {
         try {
+            System.setProperty("logback.configurationFile", "resources/logback.xml");
+
             Terminal terminal = TerminalBuilder.terminal();
             LineReader lineReader = LineReaderBuilder.builder()
                     .terminal(terminal)

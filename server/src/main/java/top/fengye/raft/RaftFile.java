@@ -10,6 +10,7 @@ import java.nio.channels.FileChannel;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -24,7 +25,7 @@ public class RaftFile {
     private String logFileName;
     private String nodeFileName;
     private FileChannel logFile;
-    private FileChannel nodeInfo;
+    private FileChannel nodeFile;
     private Executor executor;
 
 
@@ -38,10 +39,10 @@ public class RaftFile {
                     StandardOpenOption.APPEND,
                     StandardOpenOption.CREATE,
                     StandardOpenOption.SYNC);
-            nodeInfo = FileChannel.open(Path.of(nodeFileName),
-                    StandardOpenOption.APPEND,
+            nodeFile = FileChannel.open(Path.of(nodeFileName),
                     StandardOpenOption.CREATE,
-                    StandardOpenOption.SYNC);
+                    StandardOpenOption.WRITE,
+                    StandardOpenOption.READ);
         } catch (IOException e) {
             log.error(e.getMessage());
         }
@@ -51,17 +52,30 @@ public class RaftFile {
         });
     }
 
-    public void recover() {
-        try {
-            FileChannel readFileChannel = FileChannel.open(Path.of(logFileName), StandardOpenOption.READ);
-            ByteBuf byteBuf = VertxByteBufAllocator.POOLED_ALLOCATOR.buffer();
-            byteBuf.writeBytes(readFileChannel, 0L, (int) readFileChannel.size());
-            while (byteBuf.readableBytes() > 0) {
-                raftNode.getRaftLog().getEntries().add(new RaftLog.Entry(byteBuf));
+    public void recoverState() {
+        executor.execute(() -> {
+            try {
+                FileChannel logFile = FileChannel.open(Path.of(logFileName), StandardOpenOption.READ);
+                ByteBuf logBuf = VertxByteBufAllocator.POOLED_ALLOCATOR.buffer();
+                logBuf.writeBytes(logFile, 0L, (int) logFile.size());
+                while (logBuf.readableBytes() > 0) {
+                    raftNode.getRaftLog().getEntries().add(new RaftLog.Entry(logBuf));
+                }
+
+                FileChannel nodeFile = FileChannel.open(Path.of(nodeFileName), StandardOpenOption.READ);
+                ByteBuf nodeBuf = VertxByteBufAllocator.POOLED_ALLOCATOR.buffer();
+                nodeBuf.writeBytes(nodeFile, 0L, (int) nodeFile.size());
+                while (nodeBuf.readableBytes() > 0) {
+                    raftNode.setCurrentTerm(nodeBuf.readInt());
+                    int votedForSize = nodeBuf.readInt();
+                    byte[] votedFor = new byte[votedForSize];
+                    nodeBuf.readBytes(votedFor);
+                    raftNode.setVotedFor(new String(votedFor));
+                }
+            } catch (IOException e) {
+                log.error(e.getMessage());
             }
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
+        });
     }
 
     public void write(List<RaftLog.Entry> entries) {
@@ -78,11 +92,17 @@ public class RaftFile {
 
     public void write(RaftNode raftNode) {
         executor.execute(() -> {
-            byte[] bytes = raftNode.getVotedFor().getBytes();
+            byte[] bytes = Optional.ofNullable(raftNode.getVotedFor()).map(String::getBytes).orElse(new byte[]{});
             ByteBuffer allocate = ByteBuffer.allocate(4 + 4 + bytes.length);
             allocate.putInt(raftNode.getCurrentTerm())
                     .putInt(bytes.length)
-                    .put(bytes);
+                    .put(bytes)
+                    .flip();
+            try {
+                nodeFile.write(allocate);
+            } catch (IOException e) {
+                log.error(e.getMessage());
+            }
         });
     }
 
@@ -93,7 +113,7 @@ public class RaftFile {
         executor.execute(() -> {
             try {
                 logFile.force(true);
-                nodeInfo.force(true);
+                nodeFile.force(true);
             } catch (IOException e) {
                 log.error(e.getMessage());
             }
