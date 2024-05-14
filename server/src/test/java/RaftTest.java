@@ -42,8 +42,8 @@ public class RaftTest {
         raftNode3 = new RaftNode("node3", new RpcAddress("localhost", 8082));
         peers = new HashMap<>();
         peers.put(raftNode1.getNodeId(), new RaftNode.BaseInfo(raftNode1.getNodeId(), raftNode1.getRpcAddress()));
-        peers.put(raftNode2.getNodeId(), new RaftNode.BaseInfo(raftNode1.getNodeId(), raftNode2.getRpcAddress()));
-        peers.put(raftNode3.getNodeId(), new RaftNode.BaseInfo(raftNode1.getNodeId(), raftNode3.getRpcAddress()));
+        peers.put(raftNode2.getNodeId(), new RaftNode.BaseInfo(raftNode2.getNodeId(), raftNode2.getRpcAddress()));
+        peers.put(raftNode3.getNodeId(), new RaftNode.BaseInfo(raftNode3.getNodeId(), raftNode3.getRpcAddress()));
         raftNode1.loadPeers(peers);
         raftNode2.loadPeers(peers);
         raftNode3.loadPeers(peers);
@@ -65,18 +65,10 @@ public class RaftTest {
     }
 
     @Test
-    public void deploy1_new() {
+    public void deploy1() {
         Vertx vertx1 = Vertx.vertx(vertxOptions);
-        addHook();
-        try {
-            vertx1.deployVerticle(raftNode1);
-            LOCK.lock();
-            STOP.await();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            LOCK.unlock();
-        }
+        vertx1.deployVerticle(raftNode1);
+        while (true);
     }
 
     @Test

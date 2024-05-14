@@ -21,6 +21,7 @@ enum CommandType {
   GET = 0;
   PUT = 1;
   DEL = 2;
+  NOOP = -1;
 }
 
 message LogEntry {

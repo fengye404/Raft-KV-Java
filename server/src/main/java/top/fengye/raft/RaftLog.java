@@ -99,7 +99,7 @@ public class RaftLog {
         // 执行回调
         while (!applyEventQueue.isEmpty() && lastAppliedIndex >= applyEventQueue.peek().getLeft()) {
             Pair<Integer, Runnable> poll = applyEventQueue.poll();
-            if (null != poll) {
+            if (null != poll && null != poll.getRight()) {
                 poll.getRight().run();
             }
         }

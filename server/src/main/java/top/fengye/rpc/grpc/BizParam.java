@@ -31,6 +31,10 @@ public final class BizParam {
      * <code>DEL = 2;</code>
      */
     DEL(2),
+    /**
+     * <code>NOOP = -1;</code>
+     */
+    NOOP(-1),
     UNRECOGNIZED(-1),
     ;
 
@@ -46,6 +50,10 @@ public final class BizParam {
      * <code>DEL = 2;</code>
      */
     public static final int DEL_VALUE = 2;
+    /**
+     * <code>NOOP = -1;</code>
+     */
+    public static final int NOOP_VALUE = -1;
 
 
     public final int getNumber() {
@@ -75,6 +83,7 @@ public final class BizParam {
         case 0: return GET;
         case 1: return PUT;
         case 2: return DEL;
+        case -1: return NOOP;
         default: return null;
       }
     }
@@ -2778,9 +2787,9 @@ public final class BizParam {
       "ngye.rpc.grpc.Value\"\023\n\003Key\022\014\n\004data\030\001 \001(\014" +
       "\"\025\n\005Value\022\014\n\004data\030\001 \001(\014\"V\n\010LogEntry\022\r\n\005i" +
       "ndex\030\001 \001(\005\022\014\n\004term\030\002 \001(\005\022-\n\007command\030\003 \001(" +
-      "\0132\034.top.fengye.rpc.grpc.Command*(\n\013Comma" +
-      "ndType\022\007\n\003GET\020\000\022\007\n\003PUT\020\001\022\007\n\003DEL\020\002b\006proto" +
-      "3"
+      "\0132\034.top.fengye.rpc.grpc.Command*;\n\013Comma" +
+      "ndType\022\007\n\003GET\020\000\022\007\n\003PUT\020\001\022\007\n\003DEL\020\002\022\021\n\004NOO" +
+      "P\020\377\377\377\377\377\377\377\377\377\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

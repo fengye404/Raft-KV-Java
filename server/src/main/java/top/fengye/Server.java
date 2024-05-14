@@ -35,7 +35,6 @@ public class Server {
     private static final Condition CONDITION = LOCK.newCondition();
 
     public static void main(String[] args) {
-        System.setProperty("logback.configurationFile", "resources/logback.xml");
         CommandLine cliConfig = parseCliConfig(args);
         JSONObject config = parseNodeConfig(cliConfig.hasOption("config") ? cliConfig.getOptionValue("config") : "config.json");
 

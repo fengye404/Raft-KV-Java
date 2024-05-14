@@ -22,6 +22,12 @@ public class Value {
         return res;
     }
 
+    public static Value noop() {
+        Value res = new Value();
+        res.data = new byte[]{};
+        return res;
+    }
+
     public Value(BizParam.Value value) {
         this.data = value.getData().toByteArray();
     }

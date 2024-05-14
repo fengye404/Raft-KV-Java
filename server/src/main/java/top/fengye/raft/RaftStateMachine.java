@@ -28,6 +28,9 @@ public class RaftStateMachine {
     }
 
     public void apply(Command command) {
+        if (null == command) {
+            return;
+        }
         switch (command.getCommandType()) {
             case PUT:
                 doPut(command);

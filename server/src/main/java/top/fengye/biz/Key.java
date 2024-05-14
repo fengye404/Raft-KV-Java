@@ -23,6 +23,12 @@ public class Key {
         return res;
     }
 
+    public static Key noop() {
+        Key res = new Key();
+        res.data = new byte[]{};
+        return res;
+    }
+
     public Key(BizParam.Key key) {
         this.data = key.getData().toByteArray();
     }

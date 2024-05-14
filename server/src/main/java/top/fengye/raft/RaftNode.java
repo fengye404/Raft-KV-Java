@@ -335,6 +335,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
         this.leaderId = this.nodeId;
         this.nextLogIndexMap.replaceAll((key, value) -> raftLog.getCurrentLogIndex() + 1);
         this.lastHeartBeat = System.currentTimeMillis();
+        raftLog.append(Command.noop(), null);
         raftFile.write(this);
     }
 

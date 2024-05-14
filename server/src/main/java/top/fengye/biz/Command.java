@@ -39,6 +39,14 @@ public class Command {
         return res;
     }
 
+    public static Command noop() {
+        Command res = new Command();
+        res.key = Key.noop();
+        res.value = Value.noop();
+        res.commandType = CommandType.NOOP;
+        return res;
+    }
+
     public BizParam.Command antiParse() {
         return BizParam.Command.newBuilder()
                 .setType(BizParam.CommandType.valueOf(this.commandType.name()))
@@ -77,6 +85,7 @@ public class Command {
     @Getter
     @AllArgsConstructor
     public enum CommandType {
+        NOOP(-1),
         GET(1),
         PUT(2),
         DEL(3);
@@ -104,7 +113,9 @@ public class Command {
         }
 
         public static CommandType ofValue(int value) {
-            if (value == 1) {
+            if (value == -1) {
+                return CommandType.NOOP;
+            } else if (value == 1) {
                 return CommandType.GET;
             } else if (value == 2) {
                 return CommandType.PUT;
