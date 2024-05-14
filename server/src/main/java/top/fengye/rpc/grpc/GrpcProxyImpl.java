@@ -54,6 +54,7 @@ public class GrpcProxyImpl implements RpcProxy {
         VertxRaftGrpcServer.RaftApi stub = new VertxRaftGrpcServer.RaftApi() {
             @Override
             public void applyVote(Grpc.ApplyVoteRequest request, Promise<Grpc.ApplyVoteResponse> response) {
+                log.info("nodeId:{} receive applyVote RPC form {}", raftNode.getNodeId(), request.getNodeId());
                 raftNode.setLastHeartBeat(System.currentTimeMillis());
                 String requestNodeId = request.getNodeId();
                 int requestTerm = request.getTerm();
@@ -77,13 +78,13 @@ public class GrpcProxyImpl implements RpcProxy {
                         raftNode.setVotedFor(requestNodeId);
                     }
                 }
-                response.complete(
-                        Grpc.ApplyVoteResponse.newBuilder()
-                                .setAgreed(agreed)
-                                .setTerm(raftNode.getCurrentTerm())
-                                .setNodeId(raftNode.getNodeId())
-                                .build()
-                );
+                Grpc.ApplyVoteResponse result = Grpc.ApplyVoteResponse.newBuilder()
+                        .setAgreed(agreed)
+                        .setTerm(raftNode.getCurrentTerm())
+                        .setNodeId(raftNode.getNodeId())
+                        .build();
+                response.complete(result);
+                log.info("nodeId:{} complete applyVote RPC form {}, result is:{}", raftNode.getNodeId(), request.getNodeId(), JSONObject.toJSONString(result));
             }
 
             @Override

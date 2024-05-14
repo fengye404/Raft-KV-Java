@@ -56,15 +56,15 @@ public class RaftNode extends AbstractVerticle implements Serializable {
     /**
      * 心跳间隔
      */
-    private static final int HEARTBEAT_INTERVAL = 1000;
+    private static final int HEARTBEAT_INTERVAL = 2000;
     /**
      * 最小选举超时
      */
-    private static final int MIN_ELECTION_TIMEOUT = 1500;
+    private static final int MIN_ELECTION_TIMEOUT = 3000;
     /**
      * 最大选举超时
      */
-    private static final int MAX_ELECTION_TIMEOUT = 3000;
+    private static final int MAX_ELECTION_TIMEOUT = 6000;
 
     private final Random random = new Random();
 
@@ -116,6 +116,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
     }
 
     public void startElection() {
+        log.info("nodeId:{} start election! term is {}", nodeId, currentTerm);
         becomeCandidate();
 
         // peers 中不包含自己，过半数量直接取 peers.size() / 2，因为自己默认已经给自己投票了
@@ -198,6 +199,7 @@ public class RaftNode extends AbstractVerticle implements Serializable {
      * @param command
      */
     public void processCommandRequest(Command command, Promise<Grpc.CommandResponse> promise) {
+        log.info("nodeId:{} receive command:{}", nodeId, JSONObject.toJSONString(command));
         switch (command.getCommandType()) {
             case DEL:
             case PUT:
@@ -315,12 +317,12 @@ public class RaftNode extends AbstractVerticle implements Serializable {
     }
 
     public void becomeCandidate() {
+        log.info("{} becomeCandidate, term:{}", nodeId, currentTerm);
         this.role = RoleEnum.Candidate;
         this.leaderId = this.nodeId;
         this.votedFor = this.nodeId;
         this.currentTerm++;
         this.lastHeartBeat = System.currentTimeMillis();
-        log.info("{} becomeCandidate, term:{}", nodeId, currentTerm);
         raftFile.write(this);
     }
 

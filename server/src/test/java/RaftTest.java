@@ -85,6 +85,17 @@ public class RaftTest {
         while (true);
     }
 
+    @Test
+    public void deployAll() {
+        Vertx vertx1 = Vertx.vertx(vertxOptions);
+        vertx1.deployVerticle(raftNode1);
+        Vertx vertx2 = Vertx.vertx(vertxOptions);
+        vertx2.deployVerticle(raftNode2);
+        Vertx vertx3 = Vertx.vertx(vertxOptions);
+        vertx3.deployVerticle(raftNode3);
+        while (true);
+    }
+
     public static void addHook() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             LOCK.lock();

@@ -79,7 +79,7 @@ public enum CommandProcessor {
                 result.append(res.getResult());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            result.append("目标节点宕机，请重试");
         }
     }
 
