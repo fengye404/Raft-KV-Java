@@ -57,12 +57,4 @@ public class Client {
             e.printStackTrace();
         }
     }
-
-    private static String processRequest(String input) {
-        String res = "";
-        input = input.strip();
-
-
-        return res;
-    }
 }
